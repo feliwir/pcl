@@ -279,7 +279,7 @@ OrganizedSegmentationDemo::cloud_cb (const CloudConstPtr& cloud)
   ne.setInputCloud (cloud);
   ne.compute (*normal_cloud);
   float* distance_map = ne.getDistanceMap ();
-  std::shared_ptr<pcl::EdgeAwarePlaneComparator<PointT,pcl::Normal> > eapc = boost::dynamic_pointer_cast<pcl::EdgeAwarePlaneComparator<PointT,pcl::Normal> >(edge_aware_comparator_);
+  std::shared_ptr<pcl::EdgeAwarePlaneComparator<PointT,pcl::Normal> > eapc = std::dynamic_pointer_cast<pcl::EdgeAwarePlaneComparator<PointT,pcl::Normal> >(edge_aware_comparator_);
   eapc->setDistanceMap (distance_map);
   eapc->setDistanceThreshold (0.01f, false);
 

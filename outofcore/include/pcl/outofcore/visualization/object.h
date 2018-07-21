@@ -16,6 +16,7 @@
 //#include <boost/date_time.hpp>
 //#include <boost/filesystem.hpp>
 #include <thread>
+#include <mutex>
 
 //Forward Declaration
 class Scene;

@@ -4,6 +4,7 @@
 #define PCL_OUTOFCORE_MONITOR_QUEUE_IMPL_H_
 
 #include <queue>
+#include <condition_variable>
 
 template<typename DataT>
 class MonitorQueue : boost::noncopyable
@@ -12,7 +13,7 @@ public:
   void
   push (const DataT& newData)
   {
-    std::lock_guard<std::mutex> lock (monitor_mutex_);
+    std::unique_lock<std::mutex> lock (monitor_mutex_);
     queue_.push (newData);
     item_available_.notify_one ();
   }
@@ -20,7 +21,7 @@ public:
   DataT
   pop ()
   {
-    std::lock_guard<std::mutex> lock (monitor_mutex_);
+    std::unique_lock<std::mutex> lock (monitor_mutex_);
 
     if (queue_.empty ())
     {

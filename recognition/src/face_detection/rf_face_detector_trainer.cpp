@@ -61,7 +61,7 @@ void pcl::RFFaceDetectorTrainer::trainWithDataProvider()
 
   std::shared_ptr < pcl::DecisionTreeTrainerDataProvider<face_detection::FeatureType, std::vector<face_detection::TrainingExample>, float, int, NodeType>
       > cast_dtdp;
-  cast_dtdp = boost::dynamic_pointer_cast
+  cast_dtdp = std::dynamic_pointer_cast
       < pcl::DecisionTreeTrainerDataProvider<face_detection::FeatureType, std::vector<face_detection::TrainingExample>, float, int, NodeType> > (dtdp);
   dft.setDecisionTreeDataProvider (cast_dtdp);
 
@@ -196,7 +196,11 @@ void pcl::RFFaceDetectorTrainer::faceVotesClustering()
         uncertainty.push_back (std::make_pair (votes_indices[i][j], uncertainties_[votes_indices[i][j]]));
       }
 
-      std::sort (uncertainty.begin (), uncertainty.end (), std::bind (&std::pair<int, float>::second, std::placeholders::_1) < std::bind (&std::pair<int, float>::second, std::placeholders::_2));
+      std::sort (uncertainty.begin (), uncertainty.end (), 
+      [](const std::pair<int, int> & a, const std::pair<int, int> & b) -> bool
+      { 
+          return a.first < b.second; 
+      });
 
       Eigen::Vector3f rot;
       rot.setZero ();

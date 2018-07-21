@@ -146,8 +146,7 @@ class SimpleHDLViewer
       //cloud_viewer_->registerKeyboardCallback (&SimpleHDLViewer::keyboard_callback, *this);
 
       //std::function<void(const CloudConstPtr&, float, float)> cloud_cb = std::bind(&SimpleHDLViewer::cloud_callback, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3);
-      std::function<void (const CloudConstPtr&)> cloud_cb = std::bind (
-          &SimpleHDLViewer::cloud_callback, this, std::placeholders::_1);
+      std::function<void (const CloudConstPtr&)> cloud_cb = [&] (const CloudConstPtr& ptr) { cloud_callback(ptr); };
       boost::signals2::connection cloud_connection = grabber_.registerCallback (
           cloud_cb);
 

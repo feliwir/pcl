@@ -49,7 +49,6 @@
 #include <pcl/surface/eigen.h>
 #include <pcl/surface/processing.h>
 #include <map>
-#include 
 
 namespace pcl
 {

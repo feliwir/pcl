@@ -62,9 +62,9 @@ OutofcoreCloud::pcdReaderThread ()
   while (true)
   {
     //{
-      //std::lock_guard<std::mutex> lock (pcd_queue_mutex);
-      //pcd_queue_mutex.wait (lock);
-      pcd_queue_ready.wait(pcd_queue_mutex);
+      std::unique_lock<std::mutex> lock (pcd_queue_mutex);
+      pcd_queue_ready.wait (lock);
+      //pcd_queue_ready.wait(pcd_queue_mutex);
     //}
     //pcd_queue_ready
 

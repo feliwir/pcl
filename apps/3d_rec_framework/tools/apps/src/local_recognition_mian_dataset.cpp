@@ -464,7 +464,7 @@ main (int argc, char ** argv)
     estimator->setSupportRadius (0.04f);
 
     std::shared_ptr<pcl::rec_3d_framework::LocalEstimator<pcl::PointXYZ, pcl::Histogram<352> > > cast_estimator;
-    cast_estimator = boost::dynamic_pointer_cast<pcl::rec_3d_framework::LocalEstimator<pcl::PointXYZ, pcl::Histogram<352> > > (estimator);
+    cast_estimator = std::dynamic_pointer_cast<pcl::rec_3d_framework::LocalEstimator<pcl::PointXYZ, pcl::Histogram<352> > > (estimator);
 
     pcl::rec_3d_framework::LocalRecognitionPipeline<flann::L1, pcl::PointXYZ, pcl::Histogram<352> > local;
     local.setDataSource (cast_source);
@@ -496,7 +496,7 @@ main (int argc, char ** argv)
     estimator->setSupportRadius (desc_radius);
 
     std::shared_ptr<pcl::rec_3d_framework::LocalEstimator<pcl::PointXYZ, pcl::Histogram<352> > > cast_estimator;
-    cast_estimator = boost::dynamic_pointer_cast<pcl::rec_3d_framework::LocalEstimator<pcl::PointXYZ, pcl::Histogram<352> > > (estimator);
+    cast_estimator = std::dynamic_pointer_cast<pcl::rec_3d_framework::LocalEstimator<pcl::PointXYZ, pcl::Histogram<352> > > (estimator);
 
     pcl::rec_3d_framework::LocalRecognitionPipeline<flann::L1, pcl::PointXYZ, pcl::Histogram<352> > local;
     local.setDataSource (cast_source);
@@ -528,7 +528,7 @@ main (int argc, char ** argv)
     estimator->setSupportRadius (0.04f);
 
     std::shared_ptr<pcl::rec_3d_framework::LocalEstimator<pcl::PointXYZ, pcl::FPFHSignature33> > cast_estimator;
-    cast_estimator = boost::dynamic_pointer_cast<pcl::rec_3d_framework::LocalEstimator<pcl::PointXYZ, pcl::FPFHSignature33> > (estimator);
+    cast_estimator = std::dynamic_pointer_cast<pcl::rec_3d_framework::LocalEstimator<pcl::PointXYZ, pcl::FPFHSignature33> > (estimator);
 
     pcl::rec_3d_framework::LocalRecognitionPipeline<flann::L1, pcl::PointXYZ, pcl::FPFHSignature33> local;
     local.setDataSource (cast_source);
