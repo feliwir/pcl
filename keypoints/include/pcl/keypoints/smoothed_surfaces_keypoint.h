@@ -55,8 +55,8 @@ namespace pcl
   class SmoothedSurfacesKeypoint : public Keypoint <PointT, PointT>
   {
     public:
-      typedef boost::shared_ptr<SmoothedSurfacesKeypoint<PointT, PointNT> > Ptr;
-      typedef boost::shared_ptr<const SmoothedSurfacesKeypoint<PointT, PointNT> > ConstPtr;
+      typedef std::shared_ptr<SmoothedSurfacesKeypoint<PointT, PointNT> > Ptr;
+      typedef std::shared_ptr<const SmoothedSurfacesKeypoint<PointT, PointNT> > ConstPtr;
 
       using PCLBase<PointT>::input_;
       using Keypoint<PointT, PointT>::name_;

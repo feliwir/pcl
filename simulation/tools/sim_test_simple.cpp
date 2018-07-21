@@ -19,7 +19,7 @@
 #include <Eigen/Dense>
 #include <cmath>
 #include <iostream>
-#include <boost/shared_ptr.hpp>
+#include <memory>
 #ifdef _WIN32
 # define WIN32_LEAN_AND_MEAN
 # include <windows.h>
@@ -70,7 +70,7 @@
 
 // Pop-up viewer
 #include <pcl/visualization/cloud_viewer.h>
-#include <boost/thread/thread.hpp>
+#include <thread>
 
 using namespace Eigen;
 using namespace pcl;
@@ -281,12 +281,12 @@ void display_depth_image(const float* depth_buffer)
 }
 */
 
-boost::shared_ptr<pcl::visualization::PCLVisualizer> simpleVis (pcl::PointCloud<pcl::PointXYZRGB>::ConstPtr cloud)
+std::shared_ptr<pcl::visualization::PCLVisualizer> simpleVis (pcl::PointCloud<pcl::PointXYZRGB>::ConstPtr cloud)
 {
   // --------------------------------------------
   // -----Open 3D viewer and add point cloud-----
   // --------------------------------------------
-  boost::shared_ptr<pcl::visualization::PCLVisualizer> viewer (new pcl::visualization::PCLVisualizer ("3D Viewer"));
+  std::shared_ptr<pcl::visualization::PCLVisualizer> viewer (new pcl::visualization::PCLVisualizer ("3D Viewer"));
   viewer->setBackgroundColor (0, 0, 0);
   pcl::visualization::PointCloudColorHandlerRGBField<pcl::PointXYZRGB> rgb(cloud);
   viewer->addPointCloud<pcl::PointXYZRGB> (cloud, rgb, "sample cloud");
@@ -408,12 +408,12 @@ void display ()
 //     viewer.showCloud (pc_out);
 
 
-  boost::shared_ptr<pcl::visualization::PCLVisualizer> viewer;
+  std::shared_ptr<pcl::visualization::PCLVisualizer> viewer;
   viewer = simpleVis(pc_out);
   while (!viewer->wasStopped ())
   {
     viewer->spinOnce (100);
-    boost::this_thread::sleep (boost::posix_time::microseconds (100000));
+    std::this_thread::sleep_for (std::chrono::microseconds (100000));
   }    
   
   // doesn't work:

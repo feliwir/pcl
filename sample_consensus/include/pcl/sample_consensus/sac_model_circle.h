@@ -71,7 +71,7 @@ namespace pcl
       typedef typename SampleConsensusModel<PointT>::PointCloudPtr PointCloudPtr;
       typedef typename SampleConsensusModel<PointT>::PointCloudConstPtr PointCloudConstPtr;
 
-      typedef boost::shared_ptr<SampleConsensusModelCircle2D> Ptr;
+      typedef std::shared_ptr<SampleConsensusModelCircle2D> Ptr;
 
       /** \brief Constructor for base SampleConsensusModelCircle2D.
         * \param[in] cloud the input point cloud dataset

@@ -40,6 +40,7 @@
 #include <pcl/io/dinast_grabber.h>
 #include <pcl/visualization/cloud_viewer.h>
 
+
 template <typename PointType>
 class DinastProcessor
 {
@@ -70,8 +71,8 @@ class DinastProcessor
     run ()
     {
             
-      boost::function<void (const CloudConstPtr&)> f =
-        boost::bind (&DinastProcessor::cloud_cb_, this, _1);
+      std::function<void (const CloudConstPtr&)> f =
+        std::bind (&DinastProcessor::cloud_cb_, this, std::placeholders::_1);
       
       boost::signals2::connection c = interface.registerCallback (f);
 
@@ -79,7 +80,7 @@ class DinastProcessor
       
       while (!viewer.wasStopped())
       {
-        boost::this_thread::sleep (boost::posix_time::seconds (1));
+        std::this_thread::sleep_for (std::chrono::seconds (1));
       }
       
       interface.stop ();

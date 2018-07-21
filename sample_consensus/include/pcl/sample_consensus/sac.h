@@ -62,8 +62,8 @@ namespace pcl
       SampleConsensus () {};
 
     public:
-      typedef boost::shared_ptr<SampleConsensus> Ptr;
-      typedef boost::shared_ptr<const SampleConsensus> ConstPtr;
+      typedef std::shared_ptr<SampleConsensus> Ptr;
+      typedef std::shared_ptr<const SampleConsensus> ConstPtr;
 
       /** \brief Constructor for base SAC.
         * \param[in] model a Sample Consensus model
@@ -277,7 +277,7 @@ namespace pcl
         * \param[out] indices_subset the resultant output set of randomly selected indices
         */
       inline void
-      getRandomSamples (const boost::shared_ptr <std::vector<int> > &indices, 
+      getRandomSamples (const std::shared_ptr <std::vector<int> > &indices, 
                         size_t nr_samples, 
                         std::set<int> &indices_subset)
       {
@@ -334,7 +334,7 @@ namespace pcl
       boost::mt19937 rng_alg_;
 
       /** \brief Boost-based random number generator distribution. */
-      boost::shared_ptr<boost::uniform_01<boost::mt19937> > rng_;
+      std::shared_ptr<boost::uniform_01<boost::mt19937> > rng_;
 
       /** \brief Boost-based random number generator. */
       inline double

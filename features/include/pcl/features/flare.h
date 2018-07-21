@@ -85,8 +85,8 @@ namespace pcl
       typedef typename pcl::PointCloud<SignedDistanceT> PointCloudSignedDistance;
       typedef typename PointCloudSignedDistance::Ptr PointCloudSignedDistancePtr;
 
-      typedef boost::shared_ptr<FLARELocalReferenceFrameEstimation<PointInT, PointNT, PointOutT> > Ptr;
-      typedef boost::shared_ptr<const FLARELocalReferenceFrameEstimation<PointInT, PointNT, PointOutT> > ConstPtr;
+      typedef std::shared_ptr<FLARELocalReferenceFrameEstimation<PointInT, PointNT, PointOutT> > Ptr;
+      typedef std::shared_ptr<const FLARELocalReferenceFrameEstimation<PointInT, PointNT, PointOutT> > ConstPtr;
 
     public:
       /** \brief Constructor. */

@@ -42,8 +42,7 @@
 
 #include <sstream>
 #include <pcl/common/eigen.h>
-#include <pcl/point_cloud.h>
-#include <boost/function.hpp>
+#include <pcl/point_cloud.h> 
 
 namespace pcl
 {
@@ -109,7 +108,7 @@ namespace pcl
         */
      template <typename PointT> void
      convolveRows (const pcl::PointCloud<PointT> &input,
-                   boost::function <float (const PointT& p)> field_accessor,
+                   std::function <float (const PointT& p)> field_accessor,
                    const Eigen::VectorXf &kernel,
                    pcl::PointCloud<float> &output) const;
 
@@ -135,7 +134,7 @@ namespace pcl
         */
       template <typename PointT> void
       convolveCols (const pcl::PointCloud<PointT> &input,
-                    boost::function <float (const PointT& p)> field_accessor,
+                    std::function <float (const PointT& p)> field_accessor,
                     const Eigen::VectorXf &kernel,
                     pcl::PointCloud<float> &output) const;
 
@@ -171,7 +170,7 @@ namespace pcl
         */
       template <typename PointT> inline void
       convolve (const pcl::PointCloud<PointT> &input,
-                boost::function <float (const PointT& p)> field_accessor,
+                std::function <float (const PointT& p)> field_accessor,
                 const Eigen::VectorXf &horiz_kernel,
                 const Eigen::VectorXf &vert_kernel,
                 pcl::PointCloud<float> &output) const
@@ -217,7 +216,7 @@ namespace pcl
         */
       template <typename PointT> inline void
       computeGradients (const pcl::PointCloud<PointT> &input,
-                        boost::function <float (const PointT& p)> field_accessor,
+                        std::function <float (const PointT& p)> field_accessor,
                         const Eigen::VectorXf &gaussian_kernel,
                         const Eigen::VectorXf &gaussian_kernel_derivative,
                         pcl::PointCloud<float> &grad_x,
@@ -252,7 +251,7 @@ namespace pcl
         */
       template <typename PointT> inline void
       smooth (const pcl::PointCloud<PointT> &input,
-              boost::function <float (const PointT& p)> field_accessor,
+              std::function <float (const PointT& p)> field_accessor,
               const Eigen::VectorXf &gaussian_kernel,
               pcl::PointCloud<float> &output) const
       {

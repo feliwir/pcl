@@ -48,12 +48,12 @@ namespace pcl
     pcl::uint8_t is_dense;
 
   public:
-    typedef boost::shared_ptr< ::pcl::PCLPointCloud2> Ptr;
-    typedef boost::shared_ptr< ::pcl::PCLPointCloud2  const> ConstPtr;
+    typedef std::shared_ptr< ::pcl::PCLPointCloud2> Ptr;
+    typedef std::shared_ptr< ::pcl::PCLPointCloud2  const> ConstPtr;
   }; // struct PCLPointCloud2
 
-  typedef boost::shared_ptr< ::pcl::PCLPointCloud2> PCLPointCloud2Ptr;
-  typedef boost::shared_ptr< ::pcl::PCLPointCloud2 const> PCLPointCloud2ConstPtr;
+  typedef std::shared_ptr< ::pcl::PCLPointCloud2> PCLPointCloud2Ptr;
+  typedef std::shared_ptr< ::pcl::PCLPointCloud2 const> PCLPointCloud2ConstPtr;
 
   inline std::ostream& operator<<(std::ostream& s, const  ::pcl::PCLPointCloud2 &v)
   {

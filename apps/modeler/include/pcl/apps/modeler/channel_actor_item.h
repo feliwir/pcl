@@ -37,7 +37,7 @@
 #define PCL_MODELER_CHANNEL_ACTOR_ITEM_H_
 
 #include <vtkSmartPointer.h>
-#include <boost/shared_ptr.hpp>
+#include <memory>
 #include <pcl/common/eigen.h>
 #include <pcl/apps/modeler/qt.h>
 #include <pcl/apps/modeler/abstract_item.h>
@@ -58,7 +58,7 @@ namespace pcl
     {
       public:
         ChannelActorItem(QTreeWidgetItem* parent,
-                         const boost::shared_ptr<CloudMesh>& cloud_mesh,
+                         const std::shared_ptr<CloudMesh>& cloud_mesh,
                          const vtkSmartPointer<vtkRenderWindow>& render_window,
                          const vtkSmartPointer<vtkActor>& actor,
                          const std::string& channel_name);
@@ -89,7 +89,7 @@ namespace pcl
         virtual void
         prepareContextMenu(QMenu* menu) const;
 
-        boost::shared_ptr<CloudMesh>      cloud_mesh_;
+        std::shared_ptr<CloudMesh>      cloud_mesh_;
         vtkSmartPointer<vtkPolyData>      poly_data_;
         vtkSmartPointer<vtkRenderWindow>  render_window_;
         std::string                       color_scheme_;

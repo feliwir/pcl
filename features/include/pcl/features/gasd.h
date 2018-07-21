@@ -79,8 +79,8 @@ namespace pcl
     public:
       using typename Feature<PointInT, PointOutT>::PointCloudIn;
       using typename Feature<PointInT, PointOutT>::PointCloudOut;
-      typedef boost::shared_ptr<GASDEstimation<PointInT, PointOutT> > Ptr;
-      typedef boost::shared_ptr<const GASDEstimation<PointInT, PointOutT> > ConstPtr;
+      typedef std::shared_ptr<GASDEstimation<PointInT, PointOutT> > Ptr;
+      typedef std::shared_ptr<const GASDEstimation<PointInT, PointOutT> > ConstPtr;
 
       /** \brief Constructor.
        * \param[in] view_direction view direction
@@ -260,8 +260,8 @@ namespace pcl
   {
     public:
       using typename Feature<PointInT, PointOutT>::PointCloudOut;
-      typedef boost::shared_ptr<GASDColorEstimation<PointInT, PointOutT> > Ptr;
-      typedef boost::shared_ptr<const GASDColorEstimation<PointInT, PointOutT> > ConstPtr;
+      typedef std::shared_ptr<GASDColorEstimation<PointInT, PointOutT> > Ptr;
+      typedef std::shared_ptr<const GASDColorEstimation<PointInT, PointOutT> > ConstPtr;
 
       /** \brief Constructor.
        * \param[in] view_direction view direction

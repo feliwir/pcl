@@ -234,7 +234,7 @@ namespace pcl
     virtual ~ImageGrabber () throw () {}
     
     // Inherited from FileGrabber
-    const boost::shared_ptr< const pcl::PointCloud<PointT> >
+    const std::shared_ptr< const pcl::PointCloud<PointT> >
     operator[] (size_t idx) const;
 
     // Inherited from FileGrabber
@@ -246,7 +246,7 @@ namespace pcl
     publish (const pcl::PCLPointCloud2& blob,
              const Eigen::Vector4f& origin, 
              const Eigen::Quaternionf& orientation) const;
-    boost::signals2::signal<void (const boost::shared_ptr<const pcl::PointCloud<PointT> >&)>* signal_;
+    boost::signals2::signal<void (const std::shared_ptr<const pcl::PointCloud<PointT> >&)>* signal_;
   };
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -257,7 +257,7 @@ namespace pcl
                                       bool pclzf_mode)
     : ImageGrabberBase (dir, frames_per_second, repeat, pclzf_mode)
   {
-    signal_ = createSignal<void (const boost::shared_ptr<const pcl::PointCloud<PointT> >&)>();
+    signal_ = createSignal<void (const std::shared_ptr<const pcl::PointCloud<PointT> >&)>();
   }
   
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -268,7 +268,7 @@ namespace pcl
                                       bool repeat)
     : ImageGrabberBase (depth_dir, rgb_dir, frames_per_second, repeat)
   {
-    signal_ = createSignal<void (const boost::shared_ptr<const pcl::PointCloud<PointT> >&)>();
+    signal_ = createSignal<void (const std::shared_ptr<const pcl::PointCloud<PointT> >&)>();
   }
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -278,11 +278,11 @@ namespace pcl
                                       bool repeat)
     : ImageGrabberBase (depth_image_files, frames_per_second, repeat), signal_ ()
   {
-    signal_ = createSignal<void (const boost::shared_ptr<const pcl::PointCloud<PointT> >&)>();
+    signal_ = createSignal<void (const std::shared_ptr<const pcl::PointCloud<PointT> >&)>();
   }
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  template<typename PointT> const boost::shared_ptr< const pcl::PointCloud<PointT> >
+  template<typename PointT> const std::shared_ptr< const pcl::PointCloud<PointT> >
   ImageGrabber<PointT>::operator[] (size_t idx) const
   {
     pcl::PCLPointCloud2 blob;

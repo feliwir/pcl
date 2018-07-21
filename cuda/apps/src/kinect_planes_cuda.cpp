@@ -85,7 +85,7 @@ class MultiRansac
     void viz_cb (pcl::visualization::PCLVisualizer& viz)
     {
       static bool first_time = true;
-      boost::mutex::scoped_lock l(m_mutex);
+      std::lock_guard<std::mutex> l(m_mutex);
       if (new_cloud)
       {
         double psize = 1.0,opacity = 1.0,linesize =1.0;
@@ -114,8 +114,8 @@ class MultiRansac
     }
 
     template <template <typename> class Storage> void 
-    cloud_cb (const boost::shared_ptr<openni_wrapper::Image>& image,
-              const boost::shared_ptr<openni_wrapper::DepthImage>& depth_image, 
+    cloud_cb (const std::shared_ptr<openni_wrapper::Image>& image,
+              const std::shared_ptr<openni_wrapper::DepthImage>& depth_image, 
               float constant)
     {
       static unsigned count = 0;
@@ -144,7 +144,7 @@ class MultiRansac
       d2c.compute<Storage> (depth_image, image, constant, data, true, 2, smoothing_nr_iterations, smoothing_filter_size);
 
       // Compute normals
-      boost::shared_ptr<typename Storage<float4>::type> normals;
+      std::shared_ptr<typename Storage<float4>::type> normals;
       {
         ScopeTimeCPU time ("Normal Estimation");
         //normals = computeFastPointNormals<Storage> (data);
@@ -228,7 +228,7 @@ class MultiRansac
           //  {
           //    if (logo_cloud_)
           //    {
-          //      boost::shared_ptr<pcl::PointCloud<pcl::PointXYZRGB> > transformed_logo (new pcl::PointCloud<pcl::PointXYZRGB>);
+          //      std::shared_ptr<pcl::PointCloud<pcl::PointXYZRGB> > transformed_logo (new pcl::PointCloud<pcl::PointXYZRGB>);
           //      Eigen::Affine3f transformation;
 
           //      Eigen::Vector3f plane_normal (coeffs[i].x, coeffs[i].y, coeffs[i].z);
@@ -257,7 +257,7 @@ class MultiRansac
           //}
           //}
 
-          //boost::shared_ptr<pcl::PointCloud<pcl::PointXYZRGB> > dummy_cloud (new pcl::PointCloud<pcl::PointXYZRGB>);
+          //std::shared_ptr<pcl::PointCloud<pcl::PointXYZRGB> > dummy_cloud (new pcl::PointCloud<pcl::PointXYZRGB>);
           //for (unsigned int i = planes.size (); i < nr_planes_last_time; i++)
           //{
           //  std::stringstream ss;
@@ -277,9 +277,9 @@ class MultiRansac
     }
       if (use_viewer)
       {
-        boost::shared_ptr<typename Storage<float4>::type> normals = sac_model->getNormals ();
+        std::shared_ptr<typename Storage<float4>::type> normals = sac_model->getNormals ();
 
-        boost::mutex::scoped_lock l(m_mutex);
+        std::lock_guard<std::mutex> l(m_mutex);
         normal_cloud.reset (new pcl::PointCloud<pcl::PointXYZRGBNormal>);
         toPCL (*data, *normals, *normal_cloud);
         new_cloud = true;
@@ -301,18 +301,18 @@ class MultiRansac
       if (use_device)
       {
         std::cerr << "[RANSAC] Using GPU..." << std::endl;
-        boost::function<void (const boost::shared_ptr<openni_wrapper::Image>& image, const boost::shared_ptr<openni_wrapper::DepthImage>& depth_image, float)> f = boost::bind (&MultiRansac::cloud_cb<Device>, this, _1, _2, _3);
+        std::function<void (const std::shared_ptr<openni_wrapper::Image>& image, const std::shared_ptr<openni_wrapper::DepthImage>& depth_image, float)> f = std::bind (&MultiRansac::cloud_cb<Device>, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3);
         c = interface->registerCallback (f);
       }
       else
       {
         std::cerr << "[RANSAC] Using CPU..." << std::endl;
-        boost::function<void (const boost::shared_ptr<openni_wrapper::Image>& image, const boost::shared_ptr<openni_wrapper::DepthImage>& depth_image, float)> f = boost::bind (&MultiRansac::cloud_cb<Host>, this, _1, _2, _3);
+        std::function<void (const std::shared_ptr<openni_wrapper::Image>& image, const std::shared_ptr<openni_wrapper::DepthImage>& depth_image, float)> f = std::bind (&MultiRansac::cloud_cb<Host>, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3);
         c = interface->registerCallback (f);
       }
 
       if (use_viewer)
-        viewer.runOnVisualizationThread (boost::bind(&MultiRansac::viz_cb, this, _1), "viz_cb");
+        viewer.runOnVisualizationThread (std::bind(&MultiRansac::viz_cb, this, std::placeholders::_1), "viz_cb");
 
       interface->start ();
 
@@ -330,7 +330,7 @@ class MultiRansac
       //else
       //  std::cerr << "did not find file" << std::endl;
       //
-      //boost::function<void(const pcl::PointCloud<pcl::PointXYZRGB>::ConstPtr&) > f = boost::bind (&MultiRansac::logo_cb, this, _1);
+      //std::function<void(const pcl::PointCloud<pcl::PointXYZRGB>::ConstPtr&) > f = std::bind (&MultiRansac::logo_cb, this, std::placeholders::_1);
       //boost::signals2::connection c1 = filegrabber->registerCallback (f);
 
       //filegrabber->start ();
@@ -349,7 +349,7 @@ class MultiRansac
     DisparityToCloud d2c;
     pcl::visualization::CloudViewer viewer;
    
-    boost::mutex m_mutex;
+    std::mutex m_mutex;
     pcl::PointCloud<pcl::PointXYZRGBNormal>::Ptr normal_cloud;
     bool new_cloud;
     bool use_viewer;

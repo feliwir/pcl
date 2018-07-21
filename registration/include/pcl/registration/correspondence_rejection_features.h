@@ -64,8 +64,8 @@ namespace pcl
       using CorrespondenceRejector::getClassName;
 
       public:
-        typedef boost::shared_ptr<CorrespondenceRejectorFeatures> Ptr;
-        typedef boost::shared_ptr<const CorrespondenceRejectorFeatures> ConstPtr;
+        typedef std::shared_ptr<CorrespondenceRejectorFeatures> Ptr;
+        typedef std::shared_ptr<const CorrespondenceRejectorFeatures> ConstPtr;
 
         /** \brief Empty constructor. */
         CorrespondenceRejectorFeatures () : max_distance_ (std::numeric_limits<float>::max ()), features_map_ ()
@@ -161,7 +161,7 @@ namespace pcl
             virtual bool isCorrespondenceValid (int index) = 0;
         };
 
-        typedef boost::unordered_map<std::string, boost::shared_ptr<FeatureContainerInterface> > FeaturesMap;
+        typedef boost::unordered_map<std::string, std::shared_ptr<FeatureContainerInterface> > FeaturesMap;
 
         /** \brief An STL map containing features to use when performing the correspondence search.*/
         FeaturesMap features_map_;
@@ -177,7 +177,7 @@ namespace pcl
         {
           public:
             typedef typename pcl::PointCloud<FeatureT>::ConstPtr FeatureCloudConstPtr;
-            typedef boost::function<int (const pcl::PointCloud<FeatureT> &, int, std::vector<int> &, 
+            typedef std::function<int (const pcl::PointCloud<FeatureT> &, int, std::vector<int> &, 
                                           std::vector<float> &)> SearchMethod;
             
             typedef typename pcl::PointRepresentation<FeatureT>::ConstPtr PointRepresentationConstPtr;

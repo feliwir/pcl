@@ -60,7 +60,7 @@ namespace pcl
       {
       public:
         typedef PointXYZ PointType;
-        typedef boost::shared_ptr<ColorVolume> Ptr;
+        typedef std::shared_ptr<ColorVolume> Ptr;
 
         /** \brief Constructor
           * \param[in] tsdf tsdf volume to get parameters from

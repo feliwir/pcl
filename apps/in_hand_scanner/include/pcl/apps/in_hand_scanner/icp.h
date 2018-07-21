@@ -171,8 +171,8 @@ namespace pcl
         typedef CloudNormal::ConstPtr         CloudNormalConstPtr;
 
         typedef pcl::KdTree <PointNormal>        KdTree;
-        typedef boost::shared_ptr <KdTree>       KdTreePtr;
-        typedef boost::shared_ptr <const KdTree> KdTreeConstPtr;
+        typedef std::shared_ptr <KdTree>       KdTreePtr;
+        typedef std::shared_ptr <const KdTree> KdTreeConstPtr;
 
         /** \brief Selects the model points that are pointing towards to the camera (data coordinate system = camera coordinate system).
           * \param[in] mesh_model Input mesh.

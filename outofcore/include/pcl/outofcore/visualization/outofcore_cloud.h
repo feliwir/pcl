@@ -46,7 +46,7 @@ class OutofcoreCloud : public Object
     typedef pcl::outofcore::OutofcoreOctreeBaseNode<> OctreeDiskNode;
 //    typedef pcl::outofcore::OutofcoreBreadthFirstIterator<> OctreeBreadthFirstIterator;
 
-    typedef boost::shared_ptr<OctreeDisk> OctreeDiskPtr;
+    typedef std::shared_ptr<OctreeDisk> OctreeDiskPtr;
     typedef Eigen::aligned_allocator<PointT> AlignedPointT;
 
 
@@ -59,7 +59,7 @@ class OutofcoreCloud : public Object
 //    typedef std::map<std::string, vtkSmartPointer<vtkPolyData> >::iterator CloudDataCacheIterator;
 
 
-    static boost::shared_ptr<boost::thread> pcd_reader_thread;
+    static std::shared_ptr<std::thread> pcd_reader_thread;
     //static MonitorQueue<std::string> pcd_queue;
 
     struct PcdQueueItem
@@ -85,8 +85,8 @@ class OutofcoreCloud : public Object
 
     typedef std::priority_queue<PcdQueueItem> PcdQueue;
     static PcdQueue pcd_queue;
-    static boost::mutex pcd_queue_mutex;
-    static boost::condition pcd_queue_ready;
+    static std::mutex pcd_queue_mutex;
+    static std::condition_variable pcd_queue_ready;
 
     class CloudDataCacheItem : public LRUCacheItem< vtkSmartPointer<vtkPolyData> >
     {
@@ -112,10 +112,10 @@ class OutofcoreCloud : public Object
 
 
 //    static CloudDataCache cloud_data_map;
-//    static boost::mutex cloud_data_map_mutex;
+//    static std::mutex cloud_data_map_mutex;
     typedef LRUCache<std::string, CloudDataCacheItem> CloudDataCache;
     static CloudDataCache cloud_data_cache;
-    static boost::mutex cloud_data_cache_mutex;
+    static std::mutex cloud_data_cache_mutex;
 
     static void pcdReaderThread();
 

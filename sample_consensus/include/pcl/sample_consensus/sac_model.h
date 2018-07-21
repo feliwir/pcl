@@ -71,8 +71,8 @@ namespace pcl
       typedef typename pcl::PointCloud<PointT>::Ptr PointCloudPtr;
       typedef typename pcl::search::Search<PointT>::Ptr SearchPtr;
 
-      typedef boost::shared_ptr<SampleConsensusModel> Ptr;
-      typedef boost::shared_ptr<const SampleConsensusModel> ConstPtr;
+      typedef std::shared_ptr<SampleConsensusModel> Ptr;
+      typedef std::shared_ptr<const SampleConsensusModel> ConstPtr;
 
     protected:
       /** \brief Empty constructor for base SampleConsensusModel.
@@ -324,7 +324,7 @@ namespace pcl
         * \param[in] indices a pointer to the vector of indices that represents the input data.
         */
       inline void 
-      setIndices (const boost::shared_ptr <std::vector<int> > &indices) 
+      setIndices (const std::shared_ptr <std::vector<int> > &indices) 
       { 
         indices_ = indices; 
         shuffled_indices_ = *indices_;
@@ -341,7 +341,7 @@ namespace pcl
        }
 
       /** \brief Get a pointer to the vector of indices used. */
-      inline boost::shared_ptr <std::vector<int> > 
+      inline std::shared_ptr <std::vector<int> > 
       getIndices () const { return (indices_); }
 
       /** \brief Return an unique id for each type of model employed. */
@@ -537,7 +537,7 @@ namespace pcl
       PointCloudConstPtr input_;
 
       /** \brief A pointer to the vector of point indices to use. */
-      boost::shared_ptr <std::vector<int> > indices_;
+      std::shared_ptr <std::vector<int> > indices_;
 
       /** The maximum number of samples to try until we get a good one */
       static const unsigned int max_sample_checks_ = 1000;
@@ -560,10 +560,10 @@ namespace pcl
       boost::mt19937 rng_alg_;
 
       /** \brief Boost-based random number generator distribution. */
-      boost::shared_ptr<boost::uniform_int<> > rng_dist_;
+      std::shared_ptr<boost::uniform_int<> > rng_dist_;
 
       /** \brief Boost-based random number generator. */
-      boost::shared_ptr<boost::variate_generator< boost::mt19937&, boost::uniform_int<> > > rng_gen_;
+      std::shared_ptr<boost::variate_generator< boost::mt19937&, boost::uniform_int<> > > rng_gen_;
 
       /** \brief A vector holding the distances to the computed model. Used internally. */
       std::vector<double> error_sqr_dists_;
@@ -594,8 +594,8 @@ namespace pcl
       typedef typename pcl::PointCloud<PointNT>::ConstPtr PointCloudNConstPtr;
       typedef typename pcl::PointCloud<PointNT>::Ptr PointCloudNPtr;
 
-      typedef boost::shared_ptr<SampleConsensusModelFromNormals> Ptr;
-      typedef boost::shared_ptr<const SampleConsensusModelFromNormals> ConstPtr;
+      typedef std::shared_ptr<SampleConsensusModelFromNormals> Ptr;
+      typedef std::shared_ptr<const SampleConsensusModelFromNormals> ConstPtr;
 
       /** \brief Empty constructor for base SampleConsensusModelFromNormals. */
       SampleConsensusModelFromNormals () : normal_distance_weight_ (0.0), normals_ () {};

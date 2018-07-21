@@ -1,23 +1,5 @@
 ### ---[ PCL global CMake
-cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
-
-if(POLICY CMP0017)
-  # Do not include files in CMAKE_MODULE_PATH from files
-  # in CMake module directory. Fix MXE build
-  cmake_policy(SET CMP0017 NEW)
-endif()
-
-if(POLICY CMP0020 AND (WIN32 AND NOT MINGW))
-  cmake_policy(SET CMP0020 NEW) # Automatically link Qt executables to qtmain target on Windows
-endif()
-
-if(POLICY CMP0048)
-  cmake_policy(SET CMP0048 OLD) # do not use VERSION option in project() command
-endif()
-
-if(POLICY CMP0054)
-  cmake_policy(SET CMP0054 OLD) # Silent warnings about quoted variables
-endif()
+cmake_minimum_required(VERSION 3.1 FATAL_ERROR)
 
 set(CMAKE_CONFIGURATION_TYPES "Debug;Release" CACHE STRING "possible configurations" FORCE)
 
@@ -25,6 +7,9 @@ set(CMAKE_CONFIGURATION_TYPES "Debug;Release" CACHE STRING "possible configurati
 if("${CMAKE_BUILD_TYPE}" STREQUAL "")
   set(CMAKE_BUILD_TYPE RelWithDebInfo CACHE STRING "build type default to RelWithDebInfo, set to Release to improve performance" FORCE)
 endif("${CMAKE_BUILD_TYPE}" STREQUAL "")
+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED TRUE)
 
 project(PCL)
 string(TOLOWER ${PROJECT_NAME} PROJECT_NAME_LOWER)

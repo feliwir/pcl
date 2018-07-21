@@ -81,8 +81,8 @@ namespace pcl
         using KeypointExtractor<PointInT>::input_;
         using KeypointExtractor<PointInT>::radius_;
         float sampling_density_;
-        boost::shared_ptr<std::vector<std::vector<int> > > neighborhood_indices_;
-        boost::shared_ptr<std::vector<std::vector<float> > > neighborhood_dist_;
+        std::shared_ptr<std::vector<std::vector<int> > > neighborhood_indices_;
+        std::shared_ptr<std::vector<std::vector<float> > > neighborhood_dist_;
 
         void
         filterPlanar (PointInTPtr & input, PointInTPtr & keypoints_cloud)
@@ -378,16 +378,16 @@ namespace pcl
         typedef typename pcl::PointCloud<PointInT>::Ptr PointInTPtr;
         typedef typename pcl::PointCloud<FeatureT>::Ptr FeatureTPtr;
 
-        typename boost::shared_ptr<PreProcessorAndNormalEstimator<PointInT, pcl::Normal> > normal_estimator_;
-        //typename boost::shared_ptr<UniformSampling<PointInT> > keypoint_extractor_;
-        std::vector<typename boost::shared_ptr<KeypointExtractor<PointInT> > > keypoint_extractor_; //this should be a vector
+        typename std::shared_ptr<PreProcessorAndNormalEstimator<PointInT, pcl::Normal> > normal_estimator_;
+        //typename std::shared_ptr<UniformSampling<PointInT> > keypoint_extractor_;
+        std::vector<typename std::shared_ptr<KeypointExtractor<PointInT> > > keypoint_extractor_; //this should be a vector
         float support_radius_;
         //bool filter_planar_;
 
         bool adaptative_MLS_;
 
-        boost::shared_ptr<std::vector<std::vector<int> > > neighborhood_indices_;
-        boost::shared_ptr<std::vector<std::vector<float> > > neighborhood_dist_;
+        std::shared_ptr<std::vector<std::vector<int> > > neighborhood_indices_;
+        std::shared_ptr<std::vector<std::vector<float> > > neighborhood_dist_;
 
         //std::vector< std::vector<int> > neighborhood_indices_;
         //std::vector< std::vector<float> > neighborhood_dist_;
@@ -428,7 +428,7 @@ namespace pcl
         estimate (PointInTPtr & in, PointInTPtr & processed, PointInTPtr & keypoints, FeatureTPtr & signatures)=0;
 
         void
-        setNormalEstimator (boost::shared_ptr<PreProcessorAndNormalEstimator<PointInT, pcl::Normal> > & ne)
+        setNormalEstimator (std::shared_ptr<PreProcessorAndNormalEstimator<PointInT, pcl::Normal> > & ne)
         {
           normal_estimator_ = ne;
         }
@@ -437,13 +437,13 @@ namespace pcl
          * \brief Right now only uniformSampling keypoint extractor is allowed
          */
         void
-        addKeypointExtractor (boost::shared_ptr<KeypointExtractor<PointInT> > & ke)
+        addKeypointExtractor (std::shared_ptr<KeypointExtractor<PointInT> > & ke)
         {
           keypoint_extractor_.push_back (ke);
         }
 
         void
-        setKeypointExtractors (std::vector<typename boost::shared_ptr<KeypointExtractor<PointInT> > > & ke)
+        setKeypointExtractors (std::vector<typename std::shared_ptr<KeypointExtractor<PointInT> > > & ke)
         {
           keypoint_extractor_ = ke;
         }

@@ -53,8 +53,8 @@ namespace pcl
   class PCL_EXPORTS EarClipping : public MeshProcessing
   {
     public:
-      typedef boost::shared_ptr<EarClipping> Ptr;
-      typedef boost::shared_ptr<const EarClipping> ConstPtr;
+      typedef std::shared_ptr<EarClipping> Ptr;
+      typedef std::shared_ptr<const EarClipping> ConstPtr;
 
       using MeshProcessing::input_mesh_;
       using MeshProcessing::initCompute;

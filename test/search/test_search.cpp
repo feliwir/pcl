@@ -303,7 +303,7 @@ testKNNSearch (typename PointCloud<PointT>::ConstPtr point_cloud, vector<search:
       nan_mask [pIdx] = false;
   }
   
-  boost::shared_ptr<vector<int> > input_indices_;
+  std::shared_ptr<vector<int> > input_indices_;
   if (input_indices.size ())
     input_indices_.reset (new vector<int> (input_indices));
   
@@ -373,7 +373,7 @@ testRadiusSearch (typename PointCloud<PointT>::ConstPtr point_cloud, vector<sear
       nan_mask [pIdx] = false;
   }
   
-  boost::shared_ptr<vector<int> > input_indices_;
+  std::shared_ptr<vector<int> > input_indices_;
   if (input_indices.size ())
     input_indices_.reset (new vector<int> (input_indices));
   

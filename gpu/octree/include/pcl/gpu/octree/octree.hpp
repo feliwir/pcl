@@ -64,7 +64,7 @@ namespace pcl
             virtual ~Octree();
 
             /** \brief Types */
-            typedef boost::shared_ptr<Octree> Ptr;
+            typedef std::shared_ptr<Octree> Ptr;
 
             /** \brief Point typwe supported */
             typedef pcl::PointXYZ PointType;

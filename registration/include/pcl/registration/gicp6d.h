@@ -169,8 +169,8 @@ namespace pcl
           using PointRepresentation<PointXYZLAB>::trivial_;
 
         public:
-          typedef boost::shared_ptr<MyPointRepresentation> Ptr;
-          typedef boost::shared_ptr<const MyPointRepresentation> ConstPtr;
+          typedef std::shared_ptr<MyPointRepresentation> Ptr;
+          typedef std::shared_ptr<const MyPointRepresentation> ConstPtr;
 
           MyPointRepresentation ()
           {

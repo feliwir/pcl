@@ -61,8 +61,8 @@ namespace pcl
         typedef Eigen::Matrix<Scalar, Eigen::Dynamic, 1> VectorX;
         typedef Eigen::Matrix<Scalar, 4, 1> Vector4;
 
-        typedef boost::shared_ptr<WarpPointRigid<PointSourceT, PointTargetT, Scalar> > Ptr;
-        typedef boost::shared_ptr<const WarpPointRigid<PointSourceT, PointTargetT, Scalar> > ConstPtr;
+        typedef std::shared_ptr<WarpPointRigid<PointSourceT, PointTargetT, Scalar> > Ptr;
+        typedef std::shared_ptr<const WarpPointRigid<PointSourceT, PointTargetT, Scalar> > ConstPtr;
 
         /** \brief Constructor
           * \param[in] nr_dim the number of dimensions

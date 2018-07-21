@@ -75,8 +75,8 @@ class DeviceVolume
 {
 public:
 
-  typedef boost::shared_ptr<DeviceVolume>       Ptr;
-  typedef boost::shared_ptr<const DeviceVolume> ConstPtr;
+  typedef std::shared_ptr<DeviceVolume>       Ptr;
+  typedef std::shared_ptr<const DeviceVolume> ConstPtr;
 
   /** \brief Constructor
    * param[in] volume_size size of the volume in mm

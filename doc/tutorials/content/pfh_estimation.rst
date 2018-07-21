@@ -71,7 +71,7 @@ follows:
 
 where **d** is the Euclidean distance between the two points
 :math:`\boldsymbol{p}_s` and :math:`\boldsymbol{p}_t`,
-:math:`d={\|\boldsymbol{p}_t-\boldsymbol{p}_s\|}_2`.  The quadruplet
+:math:`d={\|\boldsymbol{p}_t-\boldsymbol{p}_s\|}std::placeholders::_2`.  The quadruplet
 :math:`\langle\alpha, \phi, \theta, d\rangle` is computed for each pair of two
 points in k-neighborhood, therefore reducing the 12 values (xyz and normal
 information) of the two points and their normals to 4. 

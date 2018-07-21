@@ -106,17 +106,17 @@ namespace pcl
 
         /** Visualization callable function, may be used for running things on the UI thread.
          */
-        typedef boost::function1<void, pcl::visualization::PCLVisualizer&> VizCallable;
+        typedef std::function<void(pcl::visualization::PCLVisualizer)> VizCallable;
 
         /** \brief Run a callbable object on the UI thread. Will persist until removed
-         * @param x Use boost::ref(x) for a function object that you would like to not copy
+         * @param x Use std::ref(x) for a function object that you would like to not copy
          * \param key The key for the callable -- use the same key to overwrite.
          */
         void
         runOnVisualizationThread (VizCallable x, const std::string& key = "callable");
 
         /** \brief Run a callbable object on the UI thread. This will run once and be removed
-         * @param x Use boost::ref(x) for a function object that you would like to not copy
+         * @param x Use std::ref(x) for a function object that you would like to not copy
          */
         void
         runOnVisualizationThreadOnce (VizCallable x);
@@ -135,7 +135,7 @@ namespace pcl
         inline boost::signals2::connection 
         registerKeyboardCallback (void (*callback) (const pcl::visualization::KeyboardEvent&, void*), void* cookie = NULL)
         {
-          return (registerKeyboardCallback (boost::bind (callback, _1, cookie)));
+          return (registerKeyboardCallback (std::bind (callback, std::placeholders::_1, cookie)));
         }
         
         /** \brief Register a callback function for keyboard events
@@ -147,7 +147,7 @@ namespace pcl
         template<typename T> inline boost::signals2::connection 
         registerKeyboardCallback (void (T::*callback) (const pcl::visualization::KeyboardEvent&, void*), T& instance, void* cookie = NULL)
         {
-          return (registerKeyboardCallback (boost::bind (callback,  boost::ref (instance), _1, cookie)));
+          return (registerKeyboardCallback (std::bind (callback,  std::ref (instance), std::placeholders::_1, cookie)));
         }
         
         /** \brief Register a callback function for mouse events
@@ -158,7 +158,7 @@ namespace pcl
         inline boost::signals2::connection 
         registerMouseCallback (void (*callback) (const pcl::visualization::MouseEvent&, void*), void* cookie = NULL)
         {
-          return (registerMouseCallback (boost::bind (callback, _1, cookie)));
+          return (registerMouseCallback (std::bind (callback, std::placeholders::_1, cookie)));
         }
         
         /** \brief Register a callback function for mouse events
@@ -170,7 +170,7 @@ namespace pcl
         template<typename T> inline boost::signals2::connection 
         registerMouseCallback (void (T::*callback) (const pcl::visualization::MouseEvent&, void*), T& instance, void* cookie = NULL)
         {
-          return (registerMouseCallback (boost::bind (callback, boost::ref (instance), _1, cookie)));
+          return (registerMouseCallback (std::bind (callback, std::ref (instance), std::placeholders::_1, cookie)));
         }
 
         
@@ -182,7 +182,7 @@ namespace pcl
         inline boost::signals2::connection 
         registerPointPickingCallback (void (*callback) (const pcl::visualization::PointPickingEvent&, void*), void* cookie = NULL)
         {
-          return (registerPointPickingCallback (boost::bind (callback, _1, cookie)));
+          return (registerPointPickingCallback (std::bind (callback, std::placeholders::_1, cookie)));
         }
         
         /** \brief Register a callback function for point picking events
@@ -194,7 +194,7 @@ namespace pcl
         template<typename T> inline boost::signals2::connection 
         registerPointPickingCallback (void (T::*callback) (const pcl::visualization::PointPickingEvent&, void*), T& instance, void* cookie = NULL)
         {
-          return (registerPointPickingCallback (boost::bind (callback, boost::ref (instance), _1, cookie)));
+          return (registerPointPickingCallback (std::bind (callback, std::ref (instance), std::placeholders::_1, cookie)));
         }
         
       private:
@@ -203,13 +203,13 @@ namespace pcl
 	boost::scoped_ptr<CloudViewer_impl> impl_;
         
         boost::signals2::connection 
-        registerMouseCallback (boost::function<void (const pcl::visualization::MouseEvent&)>);
+        registerMouseCallback (std::function<void (const pcl::visualization::MouseEvent&)>);
 
         boost::signals2::connection 
-        registerKeyboardCallback (boost::function<void (const pcl::visualization::KeyboardEvent&)>);
+        registerKeyboardCallback (std::function<void (const pcl::visualization::KeyboardEvent&)>);
 
         boost::signals2::connection 
-        registerPointPickingCallback (boost::function<void (const pcl::visualization::PointPickingEvent&)>);
+        registerPointPickingCallback (std::function<void (const pcl::visualization::PointPickingEvent&)>);
     };
   }
 }

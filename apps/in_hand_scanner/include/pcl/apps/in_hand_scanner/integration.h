@@ -165,8 +165,8 @@ namespace pcl
         typedef pcl::ihs::CloudIHSConstPtr CloudIHSConstPtr;
 
         typedef pcl::KdTree <PointXYZ>           KdTree;
-        typedef boost::shared_ptr <KdTree>       KdTreePtr;
-        typedef boost::shared_ptr <const KdTree> KdTreeConstPtr;
+        typedef std::shared_ptr <KdTree>       KdTreePtr;
+        typedef std::shared_ptr <const KdTree> KdTreeConstPtr;
 
         uint8_t
         trimRGB (const float val) const;

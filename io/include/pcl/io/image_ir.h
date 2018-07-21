@@ -52,8 +52,8 @@ namespace pcl
     class PCL_EXPORTS IRImage
     {
       public:
-        typedef boost::shared_ptr<IRImage> Ptr;
-        typedef boost::shared_ptr<const IRImage> ConstPtr;
+        typedef std::shared_ptr<IRImage> Ptr;
+        typedef std::shared_ptr<const IRImage> ConstPtr;
 
         typedef boost::chrono::high_resolution_clock Clock;
         typedef boost::chrono::high_resolution_clock::time_point Timestamp;

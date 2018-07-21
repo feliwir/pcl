@@ -54,7 +54,7 @@ namespace openni_wrapper
   {
   public:
 
-    ImageRGB24 (boost::shared_ptr<xn::ImageMetaData> image_meta_data) throw ();
+    ImageRGB24 (std::shared_ptr<xn::ImageMetaData> image_meta_data) throw ();
     virtual ~ImageRGB24 () throw ();
 
     inline virtual Encoding

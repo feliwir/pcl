@@ -28,7 +28,7 @@ typedef pcl::PointCloud<PointT> PointCloudT;
 typedef std::pair<pcl::PCLImage, pcl::PCLImage> PairOfImages;
 
 /** @brief CloudViewer pointer */
-boost::shared_ptr<pcl::visualization::CloudViewer> viewer_ptr;
+std::shared_ptr<pcl::visualization::CloudViewer> viewer_ptr;
 
 /** @brief Pair of Ensenso images */
 pcl::EnsensoGrabber::Ptr ensenso_ptr;
@@ -92,8 +92,8 @@ getOpenCVType (std::string type)
  * @warning Image type changes if a calibration pattern is discovered/lost;
  * check @c images->first.encoding */
 void
-grabberCallback (const boost::shared_ptr<PointCloudT>& cloud,
-                 const boost::shared_ptr<PairOfImages>& images)
+grabberCallback (const std::shared_ptr<PointCloudT>& cloud,
+                 const std::shared_ptr<PairOfImages>& images)
 {
   viewer_ptr->showCloud (cloud);
   unsigned char *l_image_array = reinterpret_cast<unsigned char *> (&images->first.data[0]);
@@ -126,9 +126,9 @@ main (void)
   //ensenso_ptr->initExtrinsicCalibration (5); // Disable projector if you want good looking images.
   // You won't be able to detect a calibration pattern with the projector enabled!
 
-  boost::function<void
-  (const boost::shared_ptr<PointCloudT>&,
-   const boost::shared_ptr<PairOfImages>&)> f = boost::bind (&grabberCallback, _1, _2);
+  std::function<void
+  (const std::shared_ptr<PointCloudT>&,
+   const std::shared_ptr<PairOfImages>&)> f = std::bind (&grabberCallback, std::placeholders::_1, std::placeholders::_2);
   ensenso_ptr->registerCallback (f);
 
   cv::namedWindow ("Ensenso images", cv::WINDOW_AUTOSIZE);
@@ -137,7 +137,7 @@ main (void)
   while (!viewer_ptr->wasStopped ())
   {
     PCL_INFO("FPS: %f\n", ensenso_ptr->getFramesPerSecond ());
-    boost::this_thread::sleep (boost::posix_time::milliseconds (500));
+    std::this_thread::sleep_for (std::chrono::milliseconds (500));
   }
 
   ensenso_ptr->stop ();

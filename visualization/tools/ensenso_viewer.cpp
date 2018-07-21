@@ -47,7 +47,7 @@ typedef pcl::visualization::CloudViewer CloudViewer;
 typedef pcl::PointCloud<pcl::PointXYZ> PointCloudXYZ;
 
 /** @brief CloudViewer pointer */
-boost::shared_ptr<CloudViewer> viewer_ptr;
+std::shared_ptr<CloudViewer> viewer_ptr;
 
 /** @brief PCL Ensenso object pointer */
 pcl::EnsensoGrabber::Ptr ensenso_ptr;
@@ -71,14 +71,14 @@ main (void)
   ensenso_ptr->openTcpPort ();
   ensenso_ptr->openDevice ();
 
-  boost::function<void
-  (const PointCloudXYZ::Ptr&)> f = boost::bind (&grabberCallback, _1);
+  std::function<void
+  (const PointCloudXYZ::Ptr&)> f = std::bind (&grabberCallback, std::placeholders::_1);
   ensenso_ptr->registerCallback (f);
   ensenso_ptr->start ();
 
   while (!viewer_ptr->wasStopped ())
   {
-    boost::this_thread::sleep (boost::posix_time::milliseconds (1000));
+    std::this_thread::sleep_for (std::chrono::milliseconds (1000));
     std::cout << "FPS: " << ensenso_ptr->getFramesPerSecond () << std::endl;
   }
 

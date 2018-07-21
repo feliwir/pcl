@@ -62,8 +62,8 @@ namespace pcl
     {
       public:
         typedef pcl::PointCloud<PointT> PointCloud;
-        typedef boost::shared_ptr<PointCloud> PointCloudPtr;
-        typedef boost::shared_ptr<const PointCloud> PointCloudConstPtr;
+        typedef std::shared_ptr<PointCloud> PointCloudPtr;
+        typedef std::shared_ptr<const PointCloud> PointCloudConstPtr;
 
         /** \brief Empty Constructor. */
         OrganizedPointCloudCompression ()

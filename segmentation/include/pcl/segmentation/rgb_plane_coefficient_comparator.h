@@ -62,8 +62,8 @@ namespace pcl
       typedef typename PointCloudN::Ptr PointCloudNPtr;
       typedef typename PointCloudN::ConstPtr PointCloudNConstPtr;
       
-      typedef boost::shared_ptr<RGBPlaneCoefficientComparator<PointT, PointNT> > Ptr;
-      typedef boost::shared_ptr<const RGBPlaneCoefficientComparator<PointT, PointNT> > ConstPtr;
+      typedef std::shared_ptr<RGBPlaneCoefficientComparator<PointT, PointNT> > Ptr;
+      typedef std::shared_ptr<const RGBPlaneCoefficientComparator<PointT, PointNT> > ConstPtr;
 
       using pcl::Comparator<PointT>::input_;
       using pcl::PlaneCoefficientComparator<PointT, PointNT>::normals_;
@@ -79,7 +79,7 @@ namespace pcl
       /** \brief Constructor for RGBPlaneCoefficientComparator.
         * \param[in] plane_coeff_d a reference to a vector of d coefficients of plane equations.  Must be the same size as the input cloud and input normals.  a, b, and c coefficients are in the input normals.
         */
-      RGBPlaneCoefficientComparator (boost::shared_ptr<std::vector<float> >& plane_coeff_d) 
+      RGBPlaneCoefficientComparator (std::shared_ptr<std::vector<float> >& plane_coeff_d) 
         : PlaneCoefficientComparator<PointT, PointNT> (plane_coeff_d), color_threshold_ (50.0f)
       {
       }

@@ -66,8 +66,8 @@ namespace pcl
       typedef typename PointCloudL::Ptr PointCloudLPtr;
       typedef typename PointCloudL::ConstPtr PointCloudLConstPtr;
 
-      typedef boost::shared_ptr<PlaneRefinementComparator<PointT, PointNT, PointLT> > Ptr;
-      typedef boost::shared_ptr<const PlaneRefinementComparator<PointT, PointNT, PointLT> > ConstPtr;
+      typedef std::shared_ptr<PlaneRefinementComparator<PointT, PointNT, PointLT> > Ptr;
+      typedef std::shared_ptr<const PlaneRefinementComparator<PointT, PointNT, PointLT> > ConstPtr;
 
       using pcl::PlaneCoefficientComparator<PointT, PointNT>::input_;
       using pcl::PlaneCoefficientComparator<PointT, PointNT>::normals_;
@@ -89,8 +89,8 @@ namespace pcl
         * \param[in] models
         * \param[in] refine_labels
         */
-      PlaneRefinementComparator (boost::shared_ptr<std::vector<pcl::ModelCoefficients> >& models,
-                                 boost::shared_ptr<std::vector<bool> >& refine_labels)
+      PlaneRefinementComparator (std::shared_ptr<std::vector<pcl::ModelCoefficients> >& models,
+                                 std::shared_ptr<std::vector<bool> >& refine_labels)
         : models_ (models)
         , labels_ ()
         , refine_labels_ (refine_labels)
@@ -109,7 +109,7 @@ namespace pcl
         * \param[in] models a vector of model coefficients produced by the initial segmentation step.
         */
       void
-      setModelCoefficients (boost::shared_ptr<std::vector<pcl::ModelCoefficients> >& models)
+      setModelCoefficients (std::shared_ptr<std::vector<pcl::ModelCoefficients> >& models)
       {
         models_ = models;
       }
@@ -120,14 +120,14 @@ namespace pcl
       void
       setModelCoefficients (std::vector<pcl::ModelCoefficients>& models)
       {
-        models_ = boost::make_shared<std::vector<pcl::ModelCoefficients> >(models);
+        models_ = std::make_shared<std::vector<pcl::ModelCoefficients> >(models);
       }
 
       /** \brief Set which labels should be refined.  This is a vector of bools 0-max_label, true if the label should be refined.
         * \param[in] refine_labels A vector of bools 0-max_label, true if the label should be refined.
         */
       void
-      setRefineLabels (boost::shared_ptr<std::vector<bool> >& refine_labels)
+      setRefineLabels (std::shared_ptr<std::vector<bool> >& refine_labels)
       {
         refine_labels_ = refine_labels;
       }
@@ -138,14 +138,14 @@ namespace pcl
       void
       setRefineLabels (std::vector<bool>& refine_labels)
       {
-        refine_labels_ = boost::make_shared<std::vector<bool> >(refine_labels);
+        refine_labels_ = std::make_shared<std::vector<bool> >(refine_labels);
       }
 
       /** \brief A mapping from label to index in the vector of models, allowing the model coefficients of a label to be accessed.
         * \param[in] label_to_model A vector of size max_label, with the index of each corresponding model in models
         */
       inline void
-      setLabelToModel (boost::shared_ptr<std::vector<int> >& label_to_model)
+      setLabelToModel (std::shared_ptr<std::vector<int> >& label_to_model)
       {
         label_to_model_ = label_to_model;
       }
@@ -156,11 +156,11 @@ namespace pcl
       inline void
       setLabelToModel (std::vector<int>& label_to_model)
       {
-        label_to_model_ = boost::make_shared<std::vector<int> >(label_to_model);
+        label_to_model_ = std::make_shared<std::vector<int> >(label_to_model);
       }
 
       /** \brief Get the vector of model coefficients to which we will compare. */
-      inline boost::shared_ptr<std::vector<pcl::ModelCoefficients> >
+      inline std::shared_ptr<std::vector<pcl::ModelCoefficients> >
       getModelCoefficients () const
       {
         return (models_);
@@ -211,10 +211,10 @@ namespace pcl
       }
 
     protected:
-      boost::shared_ptr<std::vector<pcl::ModelCoefficients> > models_;
+      std::shared_ptr<std::vector<pcl::ModelCoefficients> > models_;
       PointCloudLPtr labels_;
-      boost::shared_ptr<std::vector<bool> > refine_labels_;
-      boost::shared_ptr<std::vector<int> > label_to_model_;
+      std::shared_ptr<std::vector<bool> > refine_labels_;
+      std::shared_ptr<std::vector<int> > label_to_model_;
       bool depth_dependent_;
       using PlaneCoefficientComparator<PointT, PointNT>::z_axis_;
   };

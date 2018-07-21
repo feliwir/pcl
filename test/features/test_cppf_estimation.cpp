@@ -60,7 +60,7 @@ TEST (PCL, CPPFEstimation)
   NormalEstimation<PointXYZRGBA, Normal> normal_estimation;
   PointCloud<Normal>::Ptr normals (new PointCloud<Normal> ());
   normal_estimation.setInputCloud (cloud.makeShared ());
-  boost::shared_ptr<vector<int> > indicesptr (new vector<int> (indices));
+  std::shared_ptr<vector<int> > indicesptr (new vector<int> (indices));
   normal_estimation.setIndices (indicesptr);
   normal_estimation.setSearchMethod (tree);
   normal_estimation.setKSearch (10); // Use 10 nearest neighbors to estimate the normals

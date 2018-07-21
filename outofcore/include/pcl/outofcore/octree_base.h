@@ -63,6 +63,7 @@
 #include <pcl/filters/random_sample.h>
 
 #include <pcl/PCLPointCloud2.h>
+#include <shared_mutex>
 
 namespace pcl
 {
@@ -174,16 +175,16 @@ namespace pcl
         typedef OutofcoreDepthFirstIterator<PointT, ContainerT> DepthFirstIterator;
         typedef const OutofcoreDepthFirstIterator<PointT, ContainerT> DepthFirstConstIterator;
 
-        typedef boost::shared_ptr<OutofcoreOctreeBase<ContainerT, PointT> > Ptr;
-        typedef boost::shared_ptr<const OutofcoreOctreeBase<ContainerT, PointT> > ConstPtr;
+        typedef std::shared_ptr<OutofcoreOctreeBase<ContainerT, PointT> > Ptr;
+        typedef std::shared_ptr<const OutofcoreOctreeBase<ContainerT, PointT> > ConstPtr;
 
         typedef pcl::PointCloud<PointT> PointCloud;
 
-        typedef boost::shared_ptr<std::vector<int> > IndicesPtr;
-        typedef boost::shared_ptr<const std::vector<int> > IndicesConstPtr;
+        typedef std::shared_ptr<std::vector<int> > IndicesPtr;
+        typedef std::shared_ptr<const std::vector<int> > IndicesConstPtr;
 
-        typedef boost::shared_ptr<PointCloud> PointCloudPtr;
-        typedef boost::shared_ptr<const PointCloud> PointCloudConstPtr;
+        typedef std::shared_ptr<PointCloud> PointCloudPtr;
+        typedef std::shared_ptr<const PointCloud> PointCloudConstPtr;
 
         typedef std::vector<PointT, Eigen::aligned_allocator<PointT> > AlignedPointTVector;
 
@@ -381,7 +382,7 @@ namespace pcl
         inline virtual void
         queryBoundingBox (const Eigen::Vector3d &min, const Eigen::Vector3d &max, const int query_depth, std::list<std::string> &filenames) const
         {
-          boost::shared_lock < boost::shared_mutex > lock (read_write_mutex_);
+          std::shared_lock < std::shared_mutex > lock (read_write_mutex_);
           filenames.clear ();
           this->root_node_->queryBBIntersects (min, max, query_depth, filenames);
         }
@@ -633,9 +634,9 @@ namespace pcl
         OutofcoreNodeType* root_node_;
 
         /** \brief shared mutex for controlling read/write access to disk */
-        mutable boost::shared_mutex read_write_mutex_;
+        mutable std::shared_mutex read_write_mutex_;
 
-        boost::shared_ptr<OutofcoreOctreeBaseMetadata> metadata_;
+        std::shared_ptr<OutofcoreOctreeBaseMetadata> metadata_;
         
         /** \brief defined as ".octree" to append to treepath files
          *  \note this might change

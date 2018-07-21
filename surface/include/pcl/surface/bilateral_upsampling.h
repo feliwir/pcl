@@ -63,8 +63,8 @@ namespace pcl
   class BilateralUpsampling: public CloudSurfaceProcessing<PointInT, PointOutT>
   {
     public:
-      typedef boost::shared_ptr<BilateralUpsampling<PointInT, PointOutT> > Ptr;
-      typedef boost::shared_ptr<const BilateralUpsampling<PointInT, PointOutT> > ConstPtr;
+      typedef std::shared_ptr<BilateralUpsampling<PointInT, PointOutT> > Ptr;
+      typedef std::shared_ptr<const BilateralUpsampling<PointInT, PointOutT> > ConstPtr;
 
       using PCLBase<PointInT>::input_;
       using PCLBase<PointInT>::indices_;

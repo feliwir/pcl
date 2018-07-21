@@ -46,9 +46,9 @@ typedef pcl::PointXYZRGBA PointT;
 class OpenNIOrganizedEdgeDetection
 {
   private:
-    boost::shared_ptr<pcl::visualization::PCLVisualizer> viewer;
+    std::shared_ptr<pcl::visualization::PCLVisualizer> viewer;
     pcl::PointCloud<PointT> cloud_;
-    boost::mutex cloud_mutex;
+    std::mutex cloud_mutex;
 
   public:
     OpenNIOrganizedEdgeDetection ()
@@ -60,7 +60,7 @@ class OpenNIOrganizedEdgeDetection
     {
     }
 
-    boost::shared_ptr<pcl::visualization::PCLVisualizer>
+    std::shared_ptr<pcl::visualization::PCLVisualizer>
     initCloudViewer (pcl::PointCloud<PointT>::ConstPtr cloud)
     {
       viewer->setSize (640, 480);
@@ -143,7 +143,7 @@ class OpenNIOrganizedEdgeDetection
     {
       pcl::Grabber* interface = new pcl::OpenNIGrabber ();
 
-      boost::function<void(const pcl::PointCloud<PointT>::ConstPtr&)> f = boost::bind (&OpenNIOrganizedEdgeDetection::cloud_cb_, this, _1);
+      std::function<void(const pcl::PointCloud<PointT>::ConstPtr&)> f = std::bind (&OpenNIOrganizedEdgeDetection::cloud_cb_, this, std::placeholders::_1);
 
       // Make and initialize a cloud viewer
       pcl::PointCloud<PointT>::Ptr init_cloud_ptr (new pcl::PointCloud<PointT>);

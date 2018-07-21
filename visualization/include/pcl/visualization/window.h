@@ -94,7 +94,7 @@ namespace pcl
         registerKeyboardCallback (void (*callback) (const pcl::visualization::KeyboardEvent&, void*),
                                   void* cookie = NULL)
         {
-          return registerKeyboardCallback (boost::bind (callback, _1, cookie));
+          return registerKeyboardCallback (std::bind (callback, std::placeholders::_1, cookie));
         }
 
         /**
@@ -108,7 +108,7 @@ namespace pcl
         registerKeyboardCallback (void (T::*callback) (const pcl::visualization::KeyboardEvent&, void*),
                                   T& instance, void* cookie = NULL)
         {
-          return registerKeyboardCallback (boost::bind (callback,  boost::ref (instance), _1, cookie));
+          return registerKeyboardCallback (std::bind (callback,  std::ref (instance), std::placeholders::_1, cookie));
         }
 
         /**
@@ -121,7 +121,7 @@ namespace pcl
         registerMouseCallback (void (*callback) (const pcl::visualization::MouseEvent&, void*),
                                void* cookie = NULL)
         {
-          return registerMouseCallback (boost::bind (callback, _1, cookie));
+          return registerMouseCallback (std::bind (callback, std::placeholders::_1, cookie));
         }
 
         /**
@@ -135,7 +135,7 @@ namespace pcl
         registerMouseCallback (void (T::*callback) (const pcl::visualization::MouseEvent&, void*),
                                T& instance, void* cookie = NULL)
         {
-          return registerMouseCallback (boost::bind (callback, boost::ref (instance), _1, cookie));
+          return registerMouseCallback (std::bind (callback, std::ref (instance), std::placeholders::_1, cookie));
         }
 
       protected: // methods
@@ -150,15 +150,15 @@ namespace pcl
           */
          // param   the boost function that will be registered as a callback for a mouse event
         boost::signals2::connection
-        registerMouseCallback (boost::function<void (const pcl::visualization::MouseEvent&)> );
+        registerMouseCallback (std::function<void (const pcl::visualization::MouseEvent&)> );
 
         /**
-         * @brief   registering a callback boost::function for keyboard events
+         * @brief   registering a callback std::function for keyboard events
          * @return  connection object that allows to disconnect the callback function.
          */
          // param   the boost function that will be registered as a callback for a keyboard event
         boost::signals2::connection
-        registerKeyboardCallback (boost::function<void (const pcl::visualization::KeyboardEvent&)> );
+        registerKeyboardCallback (std::function<void (const pcl::visualization::KeyboardEvent&)> );
 
         void
         emitMouseEvent (unsigned long event_id);

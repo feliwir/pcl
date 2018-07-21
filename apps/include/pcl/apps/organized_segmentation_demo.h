@@ -40,7 +40,7 @@
 #include <pcl/apps/organized_segmentation_demo_qt.h>
 
 // Boost
-#include <boost/thread/thread.hpp>
+#include <thread>
 // PCL
 #include <pcl/point_cloud.h>
 #include <pcl/point_types.h>
@@ -105,7 +105,7 @@ class OrganizedSegmentationDemo : public QMainWindow
     void cloud_cb (const CloudConstPtr& cloud);
   
   protected:
-    boost::shared_ptr<pcl::visualization::PCLVisualizer> vis_;
+    std::shared_ptr<pcl::visualization::PCLVisualizer> vis_;
     pcl::Grabber& grabber_;
 
     QMutex mtx_;

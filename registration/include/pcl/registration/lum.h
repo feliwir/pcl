@@ -110,8 +110,8 @@ namespace pcl
     class LUM
     {
       public:
-        typedef boost::shared_ptr<LUM<PointT> > Ptr;
-        typedef boost::shared_ptr<const LUM<PointT> > ConstPtr;
+        typedef std::shared_ptr<LUM<PointT> > Ptr;
+        typedef std::shared_ptr<const LUM<PointT> > ConstPtr;
 
         typedef pcl::PointCloud<PointT> PointCloud;
         typedef typename PointCloud::Ptr PointCloudPtr;
@@ -132,7 +132,7 @@ namespace pcl
         };
 
         typedef boost::adjacency_list<boost::eigen_vecS, boost::eigen_vecS, boost::bidirectionalS, VertexProperties, EdgeProperties, boost::no_property, boost::eigen_listS> SLAMGraph;
-        typedef boost::shared_ptr<SLAMGraph> SLAMGraphPtr;
+        typedef std::shared_ptr<SLAMGraph> SLAMGraphPtr;
         typedef typename SLAMGraph::vertex_descriptor Vertex;
         typedef typename SLAMGraph::edge_descriptor Edge;
 

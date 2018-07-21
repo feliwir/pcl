@@ -54,8 +54,8 @@ namespace pcl
     public:
       // =====TYPEDEFS=====
       typedef RangeImage BaseClass;
-      typedef boost::shared_ptr<RangeImagePlanar> Ptr;
-      typedef boost::shared_ptr<const RangeImagePlanar> ConstPtr;
+      typedef std::shared_ptr<RangeImagePlanar> Ptr;
+      typedef std::shared_ptr<const RangeImagePlanar> ConstPtr;
       
       // =====CONSTRUCTOR & DESTRUCTOR=====
       /** Constructor */

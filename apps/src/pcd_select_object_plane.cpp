@@ -205,7 +205,7 @@ class ObjectSelection
           scene->points[points_above_plane->indices[i]].label = 1;
         euclidean_cluster_comparator->setLabels (scene);
 
-        boost::shared_ptr<std::set<uint32_t> > exclude_labels = boost::make_shared<std::set<uint32_t> > ();
+        std::shared_ptr<std::set<uint32_t> > exclude_labels = std::make_shared<std::set<uint32_t> > ();
         exclude_labels->insert (0);
         euclidean_cluster_comparator->setExcludeLabels (exclude_labels);
 
@@ -517,7 +517,7 @@ class ObjectSelection
           if (image_viewer_->wasStopped ())
             break;
         }
-        boost::this_thread::sleep (boost::posix_time::microseconds (100));
+        std::this_thread::sleep_for (std::chrono::microseconds (100));
       }
     }
     
@@ -610,8 +610,8 @@ class ObjectSelection
       }
     }
 
-    boost::shared_ptr<visualization::PCLVisualizer> cloud_viewer_;
-    boost::shared_ptr<visualization::ImageViewer> image_viewer_;
+    std::shared_ptr<visualization::PCLVisualizer> cloud_viewer_;
+    std::shared_ptr<visualization::ImageViewer> image_viewer_;
     
     typename PointCloud<PointT>::Ptr cloud_;
     typename search::Search<PointT>::Ptr search_;

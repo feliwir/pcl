@@ -56,8 +56,8 @@ namespace pcl
   class ConcaveHull : public MeshConstruction<PointInT>
   {
     protected:
-      typedef boost::shared_ptr<ConcaveHull<PointInT> > Ptr;
-      typedef boost::shared_ptr<const ConcaveHull<PointInT> > ConstPtr;
+      typedef std::shared_ptr<ConcaveHull<PointInT> > Ptr;
+      typedef std::shared_ptr<const ConcaveHull<PointInT> > ConstPtr;
 
       using PCLBase<PointInT>::input_;
       using PCLBase<PointInT>::indices_;

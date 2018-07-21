@@ -45,7 +45,7 @@
 #include <QTimer>
 
 // Boost
-#include <boost/thread/thread.hpp>
+#include <thread>
 #include <boost/filesystem.hpp>
 
 // PCL
@@ -104,7 +104,7 @@ class PCDVideoPlayer : public QMainWindow
     ~PCDVideoPlayer () {}
 
   protected:
-    boost::shared_ptr<pcl::visualization::PCLVisualizer> vis_;
+    std::shared_ptr<pcl::visualization::PCLVisualizer> vis_;
     pcl::PointCloud<pcl::PointXYZRGBA>::Ptr cloud_;
 
     QMutex mtx_;

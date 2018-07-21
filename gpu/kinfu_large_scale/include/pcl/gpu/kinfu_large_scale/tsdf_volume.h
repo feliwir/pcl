@@ -62,7 +62,7 @@ namespace pcl
       class PCL_EXPORTS TsdfVolume 
       {
       public:
-        typedef boost::shared_ptr<TsdfVolume> Ptr;
+        typedef std::shared_ptr<TsdfVolume> Ptr;
 
         /** \brief Supported Point Types */
         typedef PointXYZ PointType;
@@ -278,8 +278,8 @@ EIGEN_MAKE_ALIGNED_OPERATOR_NEW
         
         // The following member are resulting from the merge of TSDFVolume with TsdfVolume class.
         
-        typedef boost::shared_ptr<std::vector<float> > VolumePtr;
-        typedef boost::shared_ptr<std::vector<short> > WeightsPtr;
+        typedef std::shared_ptr<std::vector<float> > VolumePtr;
+        typedef std::shared_ptr<std::vector<short> > WeightsPtr;
         
         Header header_;
         VolumePtr volume_host_;

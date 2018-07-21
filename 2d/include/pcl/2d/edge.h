@@ -84,8 +84,8 @@ namespace pcl
                          pcl::PointCloud<pcl::PointXYZI> &maxima, float tLow);
 
     public:
-      typedef boost::shared_ptr<Edge> Ptr;
-      typedef boost::shared_ptr<const Edge> ConstPtr;
+      typedef std::shared_ptr<Edge> Ptr;
+      typedef std::shared_ptr<const Edge> ConstPtr;
 
       enum OUTPUT_TYPE
       {

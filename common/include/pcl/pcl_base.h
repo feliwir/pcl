@@ -45,7 +45,7 @@
 // Include PCL macros such as PCL_ERROR, etc
 #include <pcl/pcl_macros.h>
 
-#include <boost/shared_ptr.hpp>
+#include <memory>
 #include <Eigen/StdVector>
 #include <Eigen/Core>
 
@@ -57,8 +57,8 @@
 namespace pcl
 {
   // definitions used everywhere
-  typedef boost::shared_ptr <std::vector<int> > IndicesPtr;
-  typedef boost::shared_ptr <const std::vector<int> > IndicesConstPtr;
+  typedef std::shared_ptr <std::vector<int> > IndicesPtr;
+  typedef std::shared_ptr <const std::vector<int> > IndicesConstPtr;
 
   /////////////////////////////////////////////////////////////////////////////////////////
   /** \brief PCL base class. Implements methods that are used by most PCL algorithms. 
@@ -72,8 +72,8 @@ namespace pcl
       typedef typename PointCloud::Ptr PointCloudPtr;
       typedef typename PointCloud::ConstPtr PointCloudConstPtr;
 
-      typedef boost::shared_ptr<PointIndices> PointIndicesPtr;
-      typedef boost::shared_ptr<PointIndices const> PointIndicesConstPtr;
+      typedef std::shared_ptr<PointIndices> PointIndicesPtr;
+      typedef std::shared_ptr<PointIndices const> PointIndicesConstPtr;
 
       /** \brief Empty constructor. */
       PCLBase ();
@@ -185,11 +185,11 @@ namespace pcl
   {
     public:
       typedef pcl::PCLPointCloud2 PCLPointCloud2;
-      typedef boost::shared_ptr<PCLPointCloud2> PCLPointCloud2Ptr;
-      typedef boost::shared_ptr<PCLPointCloud2 const> PCLPointCloud2ConstPtr;
+      typedef std::shared_ptr<PCLPointCloud2> PCLPointCloud2Ptr;
+      typedef std::shared_ptr<PCLPointCloud2 const> PCLPointCloud2ConstPtr;
 
-      typedef boost::shared_ptr<PointIndices> PointIndicesPtr;
-      typedef boost::shared_ptr<PointIndices const> PointIndicesConstPtr;
+      typedef std::shared_ptr<PointIndices> PointIndicesPtr;
+      typedef std::shared_ptr<PointIndices const> PointIndicesConstPtr;
 
       /** \brief Empty constructor. */
       PCLBase ();

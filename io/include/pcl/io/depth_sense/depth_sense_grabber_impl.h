@@ -38,7 +38,7 @@
 #ifndef PCL_IO_DEPTH_SENSE_GRABBER_IMPL_H
 #define PCL_IO_DEPTH_SENSE_GRABBER_IMPL_H
 
-#include <boost/thread/mutex.hpp>
+#include <mutex>
 
 #include <DepthSense.hxx>
 
@@ -69,7 +69,7 @@ namespace pcl
         int confidence_threshold_;
         DepthSenseGrabber::TemporalFilteringType temporal_filtering_type_;
 
-        boost::shared_ptr<DepthSense::ProjectionHelper> projection_;
+        std::shared_ptr<DepthSense::ProjectionHelper> projection_;
 
         typedef DepthSenseGrabber::sig_cb_depth_sense_point_cloud sig_cb_depth_sense_point_cloud;
         typedef DepthSenseGrabber::sig_cb_depth_sense_point_cloud_rgba sig_cb_depth_sense_point_cloud_rgba;
@@ -88,12 +88,12 @@ namespace pcl
         bool need_xyzrgba_;
 
         EventFrequency frequency_;
-        mutable boost::mutex fps_mutex_;
+        mutable std::mutex fps_mutex_;
 
         /// Temporary buffer to store color data
         std::vector<uint8_t> color_data_;
 
-        boost::shared_ptr<pcl::io::Buffer<float> > depth_buffer_;
+        std::shared_ptr<pcl::io::Buffer<float> > depth_buffer_;
 
         static const int FRAMERATE = 30;
         static const int WIDTH = 320;

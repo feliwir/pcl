@@ -208,7 +208,7 @@ pcl::TrajkovicKeypoint2D<PointInT, PointOutT, IntensityT>::detectKeypoints (Poin
   // Non maximas suppression
   std::vector<int> indices = *indices_;
   std::sort (indices.begin (), indices.end (),
-             boost::bind (&TrajkovicKeypoint2D::greaterCornernessAtIndices, this, _1, _2));
+             std::bind (&TrajkovicKeypoint2D::greaterCornernessAtIndices, this, std::placeholders::_1, std::placeholders::_2));
 
   output.clear ();
   output.reserve (input_->size ());

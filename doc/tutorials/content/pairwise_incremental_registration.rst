@@ -92,7 +92,7 @@ We now arrive to the actual pair registration.
         // Note: adjust this based on the size of your datasets
         reg.setMaxCorrespondenceDistance (0.1);  
         // Set the point representation
-        reg.setPointRepresentation (boost::make_shared<const MyPointRepresentation> (point_representation));
+        reg.setPointRepresentation (std::make_shared<const MyPointRepresentation> (point_representation));
 
         reg.setInputCloud (points_with_normals_src);
         reg.setInputTarget (points_with_normals_tgt);

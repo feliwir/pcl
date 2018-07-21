@@ -47,7 +47,7 @@
 #include <Eigen/Geometry>
 #include <Eigen/StdVector>
 #include <pcl/io/boost.h>
-#include <boost/thread.hpp>
+#include <thread>
 #include <boost/lexical_cast.hpp> // TODO: Remove when setExtrinsicCalibration is fixed
 
 #include <pcl/io/grabber.h>
@@ -72,19 +72,19 @@ namespace pcl
 
     public:
       /** @cond */
-      typedef boost::shared_ptr<EnsensoGrabber> Ptr;
-      typedef boost::shared_ptr<const EnsensoGrabber> ConstPtr;
+      typedef std::shared_ptr<EnsensoGrabber> Ptr;
+      typedef std::shared_ptr<const EnsensoGrabber> ConstPtr;
 
       // Define callback signature typedefs
       typedef void
       (sig_cb_ensenso_point_cloud) (const pcl::PointCloud<pcl::PointXYZ>::Ptr &);
 
       typedef void
-      (sig_cb_ensenso_images) (const boost::shared_ptr<PairOfImages> &);
+      (sig_cb_ensenso_images) (const std::shared_ptr<PairOfImages> &);
 
       typedef void
       (sig_cb_ensenso_point_cloud_images) (const pcl::PointCloud<pcl::PointXYZ>::Ptr &,
-                                           const boost::shared_ptr<PairOfImages> &);
+                                           const std::shared_ptr<PairOfImages> &);
      /** @endcond */
 
       /** @brief Constructor */
@@ -429,7 +429,7 @@ namespace pcl
       /** @brief Reference to the NxLib tree root
        * @warning You must handle NxLib exceptions manually when playing with @ref root_ !
        * See ensensoExceptionHandling in ensenso_grabber.cpp */
-      boost::shared_ptr<const NxLibItem> root_;
+      std::shared_ptr<const NxLibItem> root_;
 
       /** @brief Reference to the camera tree
        *  @warning You must handle NxLib exceptions manually when playing with @ref camera_ ! */
@@ -437,7 +437,7 @@ namespace pcl
 
     protected:
       /** @brief Grabber thread */
-      boost::thread grabber_thread_;
+      std::thread grabber_thread_;
 
       /** @brief Boost point cloud signal */
       boost::signals2::signal<sig_cb_ensenso_point_cloud>* point_cloud_signal_;
@@ -461,7 +461,7 @@ namespace pcl
       pcl::EventFrequency frequency_;
 
       /** @brief Mutual exclusion for FPS computation */
-      mutable boost::mutex fps_mutex_;
+      mutable std::mutex fps_mutex_;
 
       /** @brief Convert an Ensenso time stamp into a PCL/ROS time stamp
        * @param[in] ensenso_stamp

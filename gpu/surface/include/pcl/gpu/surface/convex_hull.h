@@ -67,7 +67,7 @@ namespace pcl
 	private:
       
       struct Impl;
-      boost::shared_ptr<Impl> impl_;
+      std::shared_ptr<Impl> impl_;
 
       void
       reconstruct (const Cloud &points, DeviceArray2D<int>& vertexes);  

@@ -28,7 +28,7 @@ namespace pcl
         computeMeshResolution (PointInTPtr & input)
         {
           typedef typename pcl::KdTree<PointInT>::Ptr KdTreeInPtr;
-          KdTreeInPtr tree = boost::make_shared<pcl::KdTreeFLANN<PointInT> > (false);
+          KdTreeInPtr tree = std::make_shared<pcl::KdTreeFLANN<PointInT> > (false);
           tree->setInputCloud (input);
 
           std::vector<int> nn_indices (9);

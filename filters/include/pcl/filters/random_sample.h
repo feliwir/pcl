@@ -71,8 +71,8 @@ namespace pcl
 
     public:
 
-      typedef boost::shared_ptr< RandomSample<PointT> > Ptr;
-      typedef boost::shared_ptr< const RandomSample<PointT> > ConstPtr;
+      typedef std::shared_ptr< RandomSample<PointT> > Ptr;
+      typedef std::shared_ptr< const RandomSample<PointT> > ConstPtr;
 
       /** \brief Empty constructor. */
       RandomSample (bool extract_removed_indices = false) : 
@@ -163,8 +163,8 @@ namespace pcl
 
     public:
   
-      typedef boost::shared_ptr<RandomSample<pcl::PCLPointCloud2> > Ptr;
-      typedef boost::shared_ptr<const RandomSample<pcl::PCLPointCloud2> > ConstPtr;
+      typedef std::shared_ptr<RandomSample<pcl::PCLPointCloud2> > Ptr;
+      typedef std::shared_ptr<const RandomSample<pcl::PCLPointCloud2> > ConstPtr;
   
       /** \brief Empty constructor. */
       RandomSample () : sample_ (UINT_MAX), seed_ (static_cast<unsigned int> (time (NULL)))

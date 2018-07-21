@@ -21,7 +21,7 @@ namespace pcl
         typedef typename pcl::PointCloud<PointInT>::Ptr PointInTPtr;
         typedef typename pcl::PointCloud<FeatureT>::Ptr FeatureTPtr;
 
-        typename boost::shared_ptr<PreProcessorAndNormalEstimator<PointInT, pcl::Normal> > normal_estimator_;
+        typename std::shared_ptr<PreProcessorAndNormalEstimator<PointInT, pcl::Normal> > normal_estimator_;
 
         pcl::PointCloud<pcl::Normal>::Ptr normals_;
 
@@ -32,7 +32,7 @@ namespace pcl
 
         virtual bool computedNormals() = 0;
 
-        void setNormalEstimator(boost::shared_ptr<PreProcessorAndNormalEstimator<PointInT, pcl::Normal> > & ne) {
+        void setNormalEstimator(std::shared_ptr<PreProcessorAndNormalEstimator<PointInT, pcl::Normal> > & ne) {
           normal_estimator_ = ne;
         }
 

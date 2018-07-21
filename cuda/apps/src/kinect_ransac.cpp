@@ -46,7 +46,7 @@
 #include <pcl/io/pcd_grabber.h>
 #include <pcl/point_cloud.h>
 #include <pcl/point_types.h>
-#include <boost/shared_ptr.hpp>
+#include <memory>
 #include <pcl/visualization/cloud_viewer.h>
 #include <iostream>
 #include <pcl_cuda/sample_consensus/sac_model_1point_plane.h>
@@ -112,8 +112,8 @@ class SimpleKinectTool
     }
 
     template <template <typename> class Storage> void 
-    cloud_cb (const boost::shared_ptr<openni_wrapper::Image>& image,
-              const boost::shared_ptr<openni_wrapper::DepthImage>& depth_image, 
+    cloud_cb (const std::shared_ptr<openni_wrapper::Image>& image,
+              const std::shared_ptr<openni_wrapper::DepthImage>& depth_image, 
               float constant)
     {
       pcl::PointCloud<pcl::PointXYZRGB>::Ptr output (new pcl::PointCloud<pcl::PointXYZRGB>);
@@ -165,13 +165,13 @@ class SimpleKinectTool
       if (use_device)
       {
         std::cerr << "[RANSAC] Using GPU..." << std::endl;
-        boost::function<void (const pcl::PointCloud<pcl::PointXYZRGB>::ConstPtr&)> f = boost::bind (&SimpleKinectTool::file_cloud_cb<pcl_cuda::Device>, this, _1);
+        std::function<void (const pcl::PointCloud<pcl::PointXYZRGB>::ConstPtr&)> f = std::bind (&SimpleKinectTool::file_cloud_cb<pcl_cuda::Device>, this, std::placeholders::_1);
         filegrabber->registerCallback (f);
       }
       else
       {
         std::cerr << "[RANSAC] Using CPU..." << std::endl;
-        boost::function<void (const pcl::PointCloud<pcl::PointXYZRGB>::ConstPtr&)> f = boost::bind (&SimpleKinectTool::file_cloud_cb<pcl_cuda::Host>, this, _1);
+        std::function<void (const pcl::PointCloud<pcl::PointXYZRGB>::ConstPtr&)> f = std::bind (&SimpleKinectTool::file_cloud_cb<pcl_cuda::Host>, this, std::placeholders::_1);
         filegrabber->registerCallback (f);
       }
 
@@ -193,13 +193,13 @@ class SimpleKinectTool
       if (use_device)
       {
         std::cerr << "[RANSAC] Using GPU..." << std::endl;
-        boost::function<void (const boost::shared_ptr<openni_wrapper::Image>& image, const boost::shared_ptr<openni_wrapper::DepthImage>& depth_image, float)> f = boost::bind (&SimpleKinectTool::cloud_cb<pcl_cuda::Device>, this, _1, _2, _3);
+        std::function<void (const std::shared_ptr<openni_wrapper::Image>& image, const std::shared_ptr<openni_wrapper::DepthImage>& depth_image, float)> f = std::bind (&SimpleKinectTool::cloud_cb<pcl_cuda::Device>, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3);
         c = interface->registerCallback (f);
       }
       else
       {
         std::cerr << "[RANSAC] Using CPU..." << std::endl;
-        boost::function<void (const boost::shared_ptr<openni_wrapper::Image>& image, const boost::shared_ptr<openni_wrapper::DepthImage>& depth_image, float)> f = boost::bind (&SimpleKinectTool::cloud_cb<pcl_cuda::Host>, this, _1, _2, _3);
+        std::function<void (const std::shared_ptr<openni_wrapper::Image>& image, const std::shared_ptr<openni_wrapper::DepthImage>& depth_image, float)> f = std::bind (&SimpleKinectTool::cloud_cb<pcl_cuda::Host>, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3);
         c = interface->registerCallback (f);
       }
 
@@ -216,7 +216,7 @@ class SimpleKinectTool
 
     pcl_cuda::DisparityToCloud d2c;
     //pcl::visualization::CloudViewer viewer;
-    boost::mutex mutex_;
+    std::mutex mutex_;
     bool go_on;
 };
 

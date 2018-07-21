@@ -156,8 +156,8 @@ class SimpleOpenNIViewer
       pcl::Grabber* interface = new pcl::OpenNIGrabber();
 
       // make callback function from member function
-      boost::function<void (const pcl::PointCloud<pcl::PointXYZRGBA>::ConstPtr&)> f =
-        boost::bind (&SimpleOpenNIViewer::cloud_cb_, this, _1);
+      std::function<void (const pcl::PointCloud<pcl::PointXYZRGBA>::ConstPtr&)> f =
+        std::bind (&SimpleOpenNIViewer::cloud_cb_, this, std::placeholders::_1);
 
       // connect callback function for desired signal. In this case its a point cloud with color values
       boost::signals2::connection c = interface->registerCallback (f);
@@ -168,7 +168,7 @@ class SimpleOpenNIViewer
 
       while (!outputFile_.fail())
       {
-        boost::this_thread::sleep(boost::posix_time::seconds(1));
+        std::this_thread::sleep_for(std::chrono::seconds(1));
       }
 
       interface->stop ();
@@ -211,8 +211,8 @@ struct EventHelper
     pcl::Grabber* interface = new pcl::OpenNIGrabber ();
 
     // make callback function from member function
-    boost::function<void
-    (const pcl::PointCloud<pcl::PointXYZRGBA>::ConstPtr&)> f = boost::bind (&EventHelper::cloud_cb_, this, _1);
+    std::function<void
+    (const pcl::PointCloud<pcl::PointXYZRGBA>::ConstPtr&)> f = std::bind (&EventHelper::cloud_cb_, this, std::placeholders::_1);
 
     // connect callback function for desired signal. In this case its a point cloud with color values
     boost::signals2::connection c = interface->registerCallback (f);
@@ -222,7 +222,7 @@ struct EventHelper
 
     while (!outputFile_.fail ())
     {
-      boost::this_thread::sleep(boost::posix_time::seconds(1));
+      std::this_thread::sleep_for(std::chrono::seconds(1));
     }
 
     interface->stop ();
@@ -466,7 +466,7 @@ main (int argc, char **argv)
 
         std::cout << "Disconnected!" << std::endl;
 
-        boost::this_thread::sleep(boost::posix_time::seconds(3));
+        std::this_thread::sleep_for(std::chrono::seconds(3));
 
       }
       catch (std::exception& e)

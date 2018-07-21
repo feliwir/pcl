@@ -81,8 +81,8 @@ namespace pcl
       typedef typename FeatureCloud::Ptr FeatureCloudPtr;
       typedef typename FeatureCloud::ConstPtr FeatureCloudConstPtr;
 
-      typedef boost::shared_ptr<SampleConsensusInitialAlignment<PointSource, PointTarget, FeatureT> > Ptr;
-      typedef boost::shared_ptr<const SampleConsensusInitialAlignment<PointSource, PointTarget, FeatureT> > ConstPtr;
+      typedef std::shared_ptr<SampleConsensusInitialAlignment<PointSource, PointTarget, FeatureT> > Ptr;
+      typedef std::shared_ptr<const SampleConsensusInitialAlignment<PointSource, PointTarget, FeatureT> > ConstPtr;
 
 
       class ErrorFunctor
@@ -200,12 +200,12 @@ namespace pcl
        * \param[in] error_functor a shared pointer to a subclass of SampleConsensusInitialAlignment::ErrorFunctor
        */
       void
-      setErrorFunction (const boost::shared_ptr<ErrorFunctor> & error_functor) { error_functor_ = error_functor; }
+      setErrorFunction (const std::shared_ptr<ErrorFunctor> & error_functor) { error_functor_ = error_functor; }
 
       /** \brief Get a shared pointer to the ErrorFunctor that is to be minimized  
        * \return A shared pointer to a subclass of SampleConsensusInitialAlignment::ErrorFunctor
        */
-      boost::shared_ptr<ErrorFunctor>
+      std::shared_ptr<ErrorFunctor>
       getErrorFunction () { return (error_functor_); }
 
     protected:
@@ -270,7 +270,7 @@ namespace pcl
       FeatureKdTreePtr feature_tree_;               
 
       /** */
-      boost::shared_ptr<ErrorFunctor> error_functor_;
+      std::shared_ptr<ErrorFunctor> error_functor_;
     public:
       EIGEN_MAKE_ALIGNED_OPERATOR_NEW
   };

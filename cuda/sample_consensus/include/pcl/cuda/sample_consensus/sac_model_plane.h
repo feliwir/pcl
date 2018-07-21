@@ -97,7 +97,7 @@ namespace pcl
         typedef typename SampleConsensusModel<Storage>::Hypotheses Hypotheses;
         typedef typename SampleConsensusModel<Storage>::Samples Samples;
 
-        typedef boost::shared_ptr<SampleConsensusModelPlane> Ptr;
+        typedef std::shared_ptr<SampleConsensusModelPlane> Ptr;
 
         /** \brief Constructor for base SampleConsensusModelPlane.
           * \param cloud the input point cloud dataset

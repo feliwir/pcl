@@ -108,8 +108,8 @@ namespace cuda
 
       // compute using OpenNI images, Device output
       template <template <typename> class Storage> void
-      compute (const boost::shared_ptr<openni_wrapper::DepthImage>& depth_image,
-               const boost::shared_ptr<openni_wrapper::Image>& image,
+      compute (const std::shared_ptr<openni_wrapper::DepthImage>& depth_image,
+               const std::shared_ptr<openni_wrapper::Image>& image,
                float constant, 
                typename PointCloudAOS<Storage>::Ptr &output,
                bool downsample = false, int stride = 2, int smoothing_nr_iterations = 0, int smoothing_filter_size = 2);
@@ -124,8 +124,8 @@ namespace cuda
 
       // compute using OpenNI images, Host output
 /*      void
-      compute (const boost::shared_ptr<openni_wrapper::DepthImage>& depth_image,
-               const boost::shared_ptr<openni_wrapper::Image>& image,
+      compute (const std::shared_ptr<openni_wrapper::DepthImage>& depth_image,
+               const std::shared_ptr<openni_wrapper::Image>& image,
                float constant, 
                PointCloudAOS<Host>::Ptr &output);*/
       
@@ -141,12 +141,12 @@ namespace cuda
 //               PointCloudAOS<Host>::Ptr &output);
 
       void
-      compute (const boost::shared_ptr<openni_wrapper::DepthImage>& depth_image,
+      compute (const std::shared_ptr<openni_wrapper::DepthImage>& depth_image,
                 float constant,
                 PointCloudAOS<Device>::Ptr &output);
 
       void
-      compute (const boost::shared_ptr<openni_wrapper::DepthImage>& depth_image,
+      compute (const std::shared_ptr<openni_wrapper::DepthImage>& depth_image,
                 float constant,
                 PointCloudAOS<Host>::Ptr &output);
   };

@@ -739,7 +739,7 @@ namespace pcl
     }
 
     template< int Degree > template<typename PointNT> int
-    Octree<Degree>::setTree( boost::shared_ptr<const pcl::PointCloud<PointNT> > input_, int maxDepth , int minDepth ,
+    Octree<Degree>::setTree( std::shared_ptr<const pcl::PointCloud<PointNT> > input_, int maxDepth , int minDepth ,
                              int kernelDepth , Real samplesPerNode , Real scaleFactor , Point3D<Real>& center , Real& scale ,
                              int useConfidence , Real constraintWeight , bool adaptiveWeights )
     {

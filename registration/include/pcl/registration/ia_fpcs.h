@@ -78,8 +78,8 @@ namespace pcl
     {
     public:
       /** \cond */
-      typedef boost::shared_ptr <FPCSInitialAlignment <PointSource, PointTarget, NormalT, Scalar> > Ptr;
-      typedef boost::shared_ptr <const FPCSInitialAlignment <PointSource, PointTarget, NormalT, Scalar> > ConstPtr;
+      typedef std::shared_ptr <FPCSInitialAlignment <PointSource, PointTarget, NormalT, Scalar> > Ptr;
+      typedef std::shared_ptr <const FPCSInitialAlignment <PointSource, PointTarget, NormalT, Scalar> > ConstPtr;
 
       typedef pcl::search::KdTree<PointSource> KdTreeReciprocal;
       typedef typename KdTreeReciprocal::Ptr KdTreeReciprocalPtr;

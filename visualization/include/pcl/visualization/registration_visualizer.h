@@ -87,8 +87,8 @@ namespace pcl
 
         // Create the local callback function and bind it to the local function responsible for updating
         // the local buffers
-        update_visualizer_ = boost::bind (&RegistrationVisualizer<PointSource, PointTarget>::updateIntermediateCloud,
-                                          this, _1, _2, _3, _4);
+        update_visualizer_ = std::bind (&RegistrationVisualizer<PointSource, PointTarget>::updateIntermediateCloud,
+                                          this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4);
 
         // Register the local callback function to the registration algorithm callback function
         registration.registerVisualizationCallback (this->update_visualizer_);
@@ -165,16 +165,16 @@ namespace pcl
       }
 
       /** \brief The registration viewer. */
-      boost::shared_ptr<pcl::visualization::PCLVisualizer> viewer_;
+      std::shared_ptr<pcl::visualization::PCLVisualizer> viewer_;
 
       /** \brief The thread running the runDisplay() function. */
-      boost::thread viewer_thread_;
+      std::thread viewer_thread_;
 
       /** \brief The name of the registration method whose intermediate results are rendered. */
       std::string registration_method_name_;
 
       /** \brief Callback function linked to pcl::Registration::update_visualizer_ */
-      boost::function<void
+      std::function<void
       (const pcl::PointCloud<PointSource> &cloud_src, const std::vector<int> &indices_src, const pcl::PointCloud<
           PointTarget> &cloud_tgt, const std::vector<int> &indices_tgt)> update_visualizer_;
 
@@ -188,7 +188,7 @@ namespace pcl
       pcl::PointCloud<PointTarget> cloud_target_;
 
       /** \brief The mutex used for the synchronization of updating and rendering of the local buffers. */
-      boost::mutex visualizer_updating_mutex_;
+      std::mutex visualizer_updating_mutex_;
 
       /** \brief The local buffer for intermediate point cloud obtained during registration process. */
       pcl::PointCloud<PointSource> cloud_intermediate_;

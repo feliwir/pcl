@@ -42,7 +42,7 @@ namespace pcl
       virtual void
       computeCoherence (const PointCloudInConstPtr &cloud, const IndicesConstPtr &indices, float &w_j);
 
-      typename boost::shared_ptr<pcl::search::Octree<PointInT> > search_;
+      typename std::shared_ptr<pcl::search::Octree<PointInT> > search_;
     };
   }
 }

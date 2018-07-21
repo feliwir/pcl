@@ -52,7 +52,7 @@ namespace pcl
   namespace gpu
   {
     template <typename PointT> void
-    extractLabeledEuclideanClusters (const boost::shared_ptr<pcl::PointCloud<PointT> > &host_cloud_,
+    extractLabeledEuclideanClusters (const std::shared_ptr<pcl::PointCloud<PointT> > &host_cloud_,
                                      const pcl::gpu::Octree::Ptr                 &tree,
                                      float                                       tolerance,
                                      std::vector<PointIndices>                   &clusters,

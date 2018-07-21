@@ -44,7 +44,7 @@
 #include <cfloat>
 #include <algorithm>
 #include <boost/foreach.hpp>
-#include <boost/shared_ptr.hpp>
+#include <memory>
 #include <pcl/kdtree/kdtree_flann.h>
 
 namespace pcl
@@ -73,7 +73,7 @@ namespace pcl
 
       /** \brief Result is a list of class labels and scores */
       typedef std::pair<std::vector<std::string>, std::vector<float> > Result;
-      typedef boost::shared_ptr<Result> ResultPtr;
+      typedef std::shared_ptr<Result> ResultPtr;
 
       // TODO setIndices method, distance metrics and reset tree
 
@@ -226,11 +226,11 @@ namespace pcl
         * \param k_sqr_distances the resultant squared distances to the neighboring points
         * \return a square distance to each training class
         */
-      boost::shared_ptr<std::vector<float> > 
+      std::shared_ptr<std::vector<float> > 
       getSmallestSquaredDistances (std::vector<int> &k_indices, std::vector<float> &k_sqr_distances)
       {
         // Reserve space for distances
-        boost::shared_ptr<std::vector<float> > sqr_distances (new std::vector<float> (classes_.size (), FLT_MAX));
+        std::shared_ptr<std::vector<float> > sqr_distances (new std::vector<float> (classes_.size (), FLT_MAX));
 
         // Select square distance to each class
         for (std::vector<int>::const_iterator i = k_indices.begin (); i != k_indices.end (); ++i)
@@ -249,11 +249,11 @@ namespace pcl
       getLinearBestScores (std::vector<int> &k_indices, std::vector<float> &k_sqr_distances)
       {
         // Get smallest squared distances and transform them to a score for each class
-        boost::shared_ptr<std::vector<float> > sqr_distances = getSmallestSquaredDistances (k_indices, k_sqr_distances);
+        std::shared_ptr<std::vector<float> > sqr_distances = getSmallestSquaredDistances (k_indices, k_sqr_distances);
 
         // Transform distances to scores
         double sum_dist = 0;
-        boost::shared_ptr<std::pair<std::vector<std::string>, std::vector<float> > > result (new std::pair<std::vector<std::string>, std::vector<float> > ());
+        std::shared_ptr<std::pair<std::vector<std::string>, std::vector<float> > > result (new std::pair<std::vector<std::string>, std::vector<float> > ());
         result->first.reserve (classes_.size ());
         result->second.reserve (classes_.size ());
         for (std::vector<float>::const_iterator it = sqr_distances->begin (); it != sqr_distances->end (); ++it)
@@ -280,10 +280,10 @@ namespace pcl
       getGaussianBestScores (float gaussian_param, std::vector<int> &k_indices, std::vector<float> &k_sqr_distances)
       {
         // Get smallest squared distances and transform them to a score for each class
-        boost::shared_ptr<std::vector<float> > sqr_distances = getSmallestSquaredDistances (k_indices, k_sqr_distances);
+        std::shared_ptr<std::vector<float> > sqr_distances = getSmallestSquaredDistances (k_indices, k_sqr_distances);
 
         // Transform distances to scores
-        boost::shared_ptr<std::pair<std::vector<std::string>, std::vector<float> > > result (new std::pair<std::vector<std::string>, std::vector<float> > ());
+        std::shared_ptr<std::pair<std::vector<std::string>, std::vector<float> > > result (new std::pair<std::vector<std::string>, std::vector<float> > ());
         result->first.reserve (classes_.size ());
         result->second.reserve (classes_.size ());
         for (std::vector<float>::const_iterator it = sqr_distances->begin (); it != sqr_distances->end (); ++it)

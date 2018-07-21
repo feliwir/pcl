@@ -7,7 +7,7 @@
 
 #include <string>
 #include <vector>
-#include <boost/shared_ptr.hpp>
+#include <memory>
 #include <pcl/pcl_macros.h>
 #include <ostream>
 
@@ -28,12 +28,12 @@ namespace pcl
     /** \brief Coordinate frame ID */
     std::string frame_id;
 
-    typedef boost::shared_ptr<PCLHeader> Ptr;
-    typedef boost::shared_ptr<PCLHeader const> ConstPtr;
+    typedef std::shared_ptr<PCLHeader> Ptr;
+    typedef std::shared_ptr<PCLHeader const> ConstPtr;
   }; // struct PCLHeader
 
-  typedef boost::shared_ptr<PCLHeader> HeaderPtr;
-  typedef boost::shared_ptr<PCLHeader const> HeaderConstPtr;
+  typedef std::shared_ptr<PCLHeader> HeaderPtr;
+  typedef std::shared_ptr<PCLHeader const> HeaderConstPtr;
 
   inline std::ostream& operator << (std::ostream& out, const PCLHeader &h)
   {

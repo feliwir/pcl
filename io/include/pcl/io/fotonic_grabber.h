@@ -46,7 +46,7 @@
 #include <pcl/io/grabber.h>
 #include <pcl/common/synchronizer.h>
 
-#include <boost/thread.hpp>  
+#include <thread>  
 
 #include <fz_api.h>
 
@@ -76,10 +76,10 @@ namespace pcl
       } Mode;
 
       //define callback signature typedefs
-      typedef void (sig_cb_fotonic_point_cloud) (const boost::shared_ptr<const pcl::PointCloud<pcl::PointXYZ> >&);
-      typedef void (sig_cb_fotonic_point_cloud_rgb) (const boost::shared_ptr<const pcl::PointCloud<pcl::PointXYZRGB> >&);
-      typedef void (sig_cb_fotonic_point_cloud_rgba) (const boost::shared_ptr<const pcl::PointCloud<pcl::PointXYZRGBA> >&);
-      typedef void (sig_cb_fotonic_point_cloud_i) (const boost::shared_ptr<const pcl::PointCloud<pcl::PointXYZI> >&);
+      typedef void (sig_cb_fotonic_point_cloud) (const std::shared_ptr<const pcl::PointCloud<pcl::PointXYZ> >&);
+      typedef void (sig_cb_fotonic_point_cloud_rgb) (const std::shared_ptr<const pcl::PointCloud<pcl::PointXYZRGB> >&);
+      typedef void (sig_cb_fotonic_point_cloud_rgba) (const std::shared_ptr<const pcl::PointCloud<pcl::PointXYZRGBA> >&);
+      typedef void (sig_cb_fotonic_point_cloud_i) (const std::shared_ptr<const pcl::PointCloud<pcl::PointXYZI> >&);
 
     public:
       /** \brief Constructor
@@ -149,7 +149,7 @@ namespace pcl
 
       FZ_Device_Handle_t * fotonic_device_handle_;
 
-      boost::thread grabber_thread_;
+      std::thread grabber_thread_;
 
     public:
       EIGEN_MAKE_ALIGNED_OPERATOR_NEW

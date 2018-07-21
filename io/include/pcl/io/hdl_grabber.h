@@ -64,7 +64,7 @@ namespace pcl
        *         Represents 1 corrected packet from the HDL Velodyne
        */
       typedef void
-      (sig_cb_velodyne_hdl_scan_point_cloud_xyz) (const boost::shared_ptr<const pcl::PointCloud<pcl::PointXYZ> >&,
+      (sig_cb_velodyne_hdl_scan_point_cloud_xyz) (const std::shared_ptr<const pcl::PointCloud<pcl::PointXYZ> >&,
                                                   float,
                                                   float);
 
@@ -72,7 +72,7 @@ namespace pcl
        *         Represents 1 corrected packet from the HDL Velodyne.  Each laser has a different RGB
        */
       typedef void
-      (sig_cb_velodyne_hdl_scan_point_cloud_xyzrgba) (const boost::shared_ptr<const pcl::PointCloud<pcl::PointXYZRGBA> >&,
+      (sig_cb_velodyne_hdl_scan_point_cloud_xyzrgba) (const std::shared_ptr<const pcl::PointCloud<pcl::PointXYZRGBA> >&,
                                                       float,
                                                       float);
 
@@ -83,7 +83,7 @@ namespace pcl
        *         Represents 1 corrected packet from the HDL Velodyne with the returned intensity.
        */
       typedef void
-      (sig_cb_velodyne_hdl_scan_point_cloud_xyzi) (const boost::shared_ptr<const pcl::PointCloud<pcl::PointXYZI> >&,
+      (sig_cb_velodyne_hdl_scan_point_cloud_xyzi) (const std::shared_ptr<const pcl::PointCloud<pcl::PointXYZI> >&,
                                                    float startAngle,
                                                    float);
 
@@ -92,21 +92,21 @@ namespace pcl
        *         This signal is sent when the Velodyne passes angle "0"
        */
       typedef void
-      (sig_cb_velodyne_hdl_sweep_point_cloud_xyz) (const boost::shared_ptr<const pcl::PointCloud<pcl::PointXYZ> >&);
+      (sig_cb_velodyne_hdl_sweep_point_cloud_xyz) (const std::shared_ptr<const pcl::PointCloud<pcl::PointXYZ> >&);
 
       /** \brief Signal used for a 360 degree sweep
        *         Represents multiple corrected packets from the HDL Velodyne with the returned intensity
        *         This signal is sent when the Velodyne passes angle "0"
        */
       typedef void
-      (sig_cb_velodyne_hdl_sweep_point_cloud_xyzi) (const boost::shared_ptr<const pcl::PointCloud<pcl::PointXYZI> >&);
+      (sig_cb_velodyne_hdl_sweep_point_cloud_xyzi) (const std::shared_ptr<const pcl::PointCloud<pcl::PointXYZI> >&);
 
       /** \brief Signal used for a 360 degree sweep
        *         Represents multiple corrected packets from the HDL Velodyne
        *         This signal is sent when the Velodyne passes angle "0".  Each laser has a different RGB
        */
       typedef void
-      (sig_cb_velodyne_hdl_sweep_point_cloud_xyzrgba) (const boost::shared_ptr<const pcl::PointCloud<pcl::PointXYZRGBA> >&);
+      (sig_cb_velodyne_hdl_sweep_point_cloud_xyzrgba) (const std::shared_ptr<const pcl::PointCloud<pcl::PointXYZRGBA> >&);
 
       typedef PCL_DEPRECATED ("Use 'sig_cb_velodyne_hdl_sweep_point_cloud_xyzrgba' instead")
       sig_cb_velodyne_hdl_sweep_point_cloud_xyzrgba sig_cb_velodyne_hdl_sweep_point_cloud_xyzrgb;
@@ -261,9 +261,9 @@ namespace pcl
 
       HDLLaserCorrection laser_corrections_[HDL_MAX_NUM_LASERS];
       uint16_t last_azimuth_;
-      boost::shared_ptr<pcl::PointCloud<pcl::PointXYZ> > current_scan_xyz_, current_sweep_xyz_;
-      boost::shared_ptr<pcl::PointCloud<pcl::PointXYZI> > current_scan_xyzi_, current_sweep_xyzi_;
-      boost::shared_ptr<pcl::PointCloud<pcl::PointXYZRGBA> > current_scan_xyzrgba_, current_sweep_xyzrgba_;
+      std::shared_ptr<pcl::PointCloud<pcl::PointXYZ> > current_scan_xyz_, current_sweep_xyz_;
+      std::shared_ptr<pcl::PointCloud<pcl::PointXYZI> > current_scan_xyzi_, current_sweep_xyzi_;
+      std::shared_ptr<pcl::PointCloud<pcl::PointXYZRGBA> > current_scan_xyzrgba_, current_sweep_xyzrgba_;
       boost::signals2::signal<sig_cb_velodyne_hdl_sweep_point_cloud_xyz>* sweep_xyz_signal_;
       boost::signals2::signal<sig_cb_velodyne_hdl_sweep_point_cloud_xyzrgba>* sweep_xyzrgba_signal_;
       boost::signals2::signal<sig_cb_velodyne_hdl_sweep_point_cloud_xyzi>* sweep_xyzi_signal_;
@@ -294,8 +294,8 @@ namespace pcl
       boost::asio::io_service hdl_read_socket_service_;
       boost::asio::ip::udp::socket *hdl_read_socket_;
       std::string pcap_file_name_;
-      boost::thread *queue_consumer_thread_;
-      boost::thread *hdl_read_packet_thread_;
+      std::thread *queue_consumer_thread_;
+      std::thread *hdl_read_packet_thread_;
       bool terminate_read_packet_thread_;
       pcl::RGB laser_rgb_mapping_[HDL_MAX_NUM_LASERS];
       float min_distance_threshold_;

@@ -8,7 +8,7 @@
 #include <string>
 #include <vector>
 #include <ostream>
-#include <boost/shared_ptr.hpp>
+#include <memory>
 #include <pcl/pcl_macros.h>
 
 namespace pcl
@@ -34,12 +34,12 @@ namespace pcl
                            FLOAT64 = 8 };
 
   public:
-    typedef boost::shared_ptr< ::pcl::PCLPointField> Ptr;
-    typedef boost::shared_ptr< ::pcl::PCLPointField const> ConstPtr;
+    typedef std::shared_ptr< ::pcl::PCLPointField> Ptr;
+    typedef std::shared_ptr< ::pcl::PCLPointField const> ConstPtr;
   }; // struct PCLPointField
 
-  typedef boost::shared_ptr< ::pcl::PCLPointField> PCLPointFieldPtr;
-  typedef boost::shared_ptr< ::pcl::PCLPointField const> PCLPointFieldConstPtr;
+  typedef std::shared_ptr< ::pcl::PCLPointField> PCLPointFieldPtr;
+  typedef std::shared_ptr< ::pcl::PCLPointField const> PCLPointFieldConstPtr;
 
   inline std::ostream& operator<<(std::ostream& s, const  ::pcl::PCLPointField & v)
   {

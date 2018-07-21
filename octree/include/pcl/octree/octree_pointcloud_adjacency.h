@@ -84,16 +84,16 @@ namespace pcl
         typedef OctreeBase<LeafContainerT, BranchContainerT> OctreeBaseT;
 
         typedef OctreePointCloudAdjacency<PointT, LeafContainerT, BranchContainerT> OctreeAdjacencyT;
-        typedef boost::shared_ptr<OctreeAdjacencyT> Ptr;
-        typedef boost::shared_ptr<const OctreeAdjacencyT> ConstPtr;
+        typedef std::shared_ptr<OctreeAdjacencyT> Ptr;
+        typedef std::shared_ptr<const OctreeAdjacencyT> ConstPtr;
 
         typedef OctreePointCloud<PointT, LeafContainerT, BranchContainerT, OctreeBaseT> OctreePointCloudT;
         typedef typename OctreePointCloudT::LeafNode LeafNode;
         typedef typename OctreePointCloudT::BranchNode BranchNode;
 
         typedef pcl::PointCloud<PointT> PointCloud;
-        typedef boost::shared_ptr<PointCloud> PointCloudPtr;
-        typedef boost::shared_ptr<const PointCloud> PointCloudConstPtr;
+        typedef std::shared_ptr<PointCloud> PointCloudPtr;
+        typedef std::shared_ptr<const PointCloud> PointCloudConstPtr;
 
         // BGL graph
         typedef boost::adjacency_list<boost::setS, boost::setS, boost::undirectedS, PointT, float> VoxelAdjacencyList;
@@ -155,7 +155,7 @@ namespace pcl
           * \param[in] transform_func A boost:function pointer to the transform to be used. The transform must have one
           * parameter (a point) which it modifies in place. */
         void
-        setTransformFunction (boost::function<void (PointT &p)> transform_func)
+        setTransformFunction (std::function<void (PointT &p)> transform_func)
         {
           transform_func_ = transform_func;
         }
@@ -217,7 +217,7 @@ namespace pcl
         /// Local leaf pointer vector used to make iterating through leaves fast.
         LeafVectorT leaf_vector_;
 
-        boost::function<void (PointT &p)> transform_func_;
+        std::function<void (PointT &p)> transform_func_;
 
     };
 

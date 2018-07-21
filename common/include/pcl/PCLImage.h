@@ -30,12 +30,12 @@ namespace pcl
 
     std::vector<pcl::uint8_t> data;
 
-    typedef boost::shared_ptr< ::pcl::PCLImage> Ptr;
-    typedef boost::shared_ptr< ::pcl::PCLImage  const> ConstPtr;
+    typedef std::shared_ptr< ::pcl::PCLImage> Ptr;
+    typedef std::shared_ptr< ::pcl::PCLImage  const> ConstPtr;
   }; // struct PCLImage
 
-  typedef boost::shared_ptr< ::pcl::PCLImage> PCLImagePtr;
-  typedef boost::shared_ptr< ::pcl::PCLImage const> PCLImageConstPtr;
+  typedef std::shared_ptr< ::pcl::PCLImage> PCLImagePtr;
+  typedef std::shared_ptr< ::pcl::PCLImage const> PCLImageConstPtr;
 
   inline std::ostream& operator<<(std::ostream& s, const  ::pcl::PCLImage & v)
   {

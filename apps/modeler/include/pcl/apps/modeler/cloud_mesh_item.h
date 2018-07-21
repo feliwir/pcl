@@ -37,7 +37,7 @@
 #define PCL_MODELER_CLOUD_MESH_ITEM_H_
 
 #include <pcl/apps/modeler/qt.h>
-#include <boost/shared_ptr.hpp>
+#include <memory>
 #include <pcl/apps/modeler/abstract_item.h>
 #include <pcl/apps/modeler/cloud_mesh.h>
 
@@ -56,12 +56,12 @@ namespace pcl
         CloudMeshItem(QTreeWidgetItem* parent, const CloudMeshItem& cloud_mesh_item);
         ~CloudMeshItem();
 
-        inline boost::shared_ptr<CloudMesh>&
+        inline std::shared_ptr<CloudMesh>&
         getCloudMesh()
         {
           return cloud_mesh_;
         }
-        inline const boost::shared_ptr<CloudMesh>&
+        inline const std::shared_ptr<CloudMesh>&
         getCloudMesh() const
         {
           return cloud_mesh_;
@@ -97,7 +97,7 @@ namespace pcl
 
       private:
         std::string                           filename_;
-        boost::shared_ptr<CloudMesh>          cloud_mesh_;
+        std::shared_ptr<CloudMesh>          cloud_mesh_;
 
         DoubleParameter*                      translation_x_;
         DoubleParameter*                      translation_y_;

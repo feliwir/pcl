@@ -136,7 +136,7 @@ class OpenNIViewer
     cloud_callback (const CloudConstPtr& cloud)
     {
       FPS_CALC ("cloud callback");
-      boost::mutex::scoped_lock lock (cloud_mutex_);
+      std::lock_guard<std::mutex> lock (cloud_mutex_);
       cloud_ = cloud;
       // Compute Tomasi keypoints
       tracker_->setInputCloud (cloud_);
@@ -154,10 +154,10 @@ class OpenNIViewer
     }
 
     void
-    image_callback (const boost::shared_ptr<openni_wrapper::Image>& image)
+    image_callback (const std::shared_ptr<openni_wrapper::Image>& image)
     {
       FPS_CALC ("image callback");
-      boost::mutex::scoped_lock lock (image_mutex_);
+      std::lock_guard<std::mutex> lock (image_mutex_);
       image_ = image;
 
       if (image->getEncoding () != openni_wrapper::Image::RGB)
@@ -182,7 +182,7 @@ class OpenNIViewer
       {
         if ((event.getKeyCode () == 's') || (event.getKeyCode () == 'S'))
         {
-          boost::mutex::scoped_lock lock (cloud_mutex_);
+          std::lock_guard<std::mutex> lock (cloud_mutex_);
           frame.str ("frame-");
           frame << boost::posix_time::to_iso_string (boost::posix_time::microsec_clock::local_time ()) << ".pcd";
           writer.writeBinaryCompressed (frame.str (), *cloud_);
@@ -206,14 +206,14 @@ class OpenNIViewer
     void
     run ()
     {
-      boost::function<void (const CloudConstPtr&) > cloud_cb = boost::bind (&OpenNIViewer::cloud_callback, this, _1);
+      std::function<void (const CloudConstPtr&) > cloud_cb = std::bind (&OpenNIViewer::cloud_callback, this, std::placeholders::_1);
       boost::signals2::connection cloud_connection = grabber_.registerCallback (cloud_cb);
 
       boost::signals2::connection image_connection;
-      if (grabber_.providesCallback<void (const boost::shared_ptr<openni_wrapper::Image>&)>())
+      if (grabber_.providesCallback<void (const std::shared_ptr<openni_wrapper::Image>&)>())
       {
         image_viewer_.reset (new pcl::visualization::ImageViewer ("Pyramidal KLT Tracker"));
-        boost::function<void (const boost::shared_ptr<openni_wrapper::Image>&) > image_cb = boost::bind (&OpenNIViewer::image_callback, this, _1);
+        std::function<void (const std::shared_ptr<openni_wrapper::Image>&) > image_cb = std::bind (&OpenNIViewer::image_callback, this, std::placeholders::_1);
         image_connection = grabber_.registerCallback (image_cb);
       }
 
@@ -225,7 +225,7 @@ class OpenNIViewer
 
       while (!image_viewer_->wasStopped ())
       {
-        boost::shared_ptr<openni_wrapper::Image> image;
+        std::shared_ptr<openni_wrapper::Image> image;
         CloudConstPtr cloud;
 
         // See if we can get a cloud
@@ -292,18 +292,18 @@ class OpenNIViewer
         delete[] rgb_data_;
     }
 
-    boost::shared_ptr<pcl::visualization::ImageViewer> image_viewer_;
+    std::shared_ptr<pcl::visualization::ImageViewer> image_viewer_;
 
     pcl::Grabber& grabber_;
-    boost::mutex cloud_mutex_;
-    boost::mutex image_mutex_;
-    boost::mutex points_mutex_;
+    std::mutex cloud_mutex_;
+    std::mutex image_mutex_;
+    std::mutex points_mutex_;
 
     CloudConstPtr cloud_;
-    boost::shared_ptr<openni_wrapper::Image> image_;
+    std::shared_ptr<openni_wrapper::Image> image_;
     unsigned char* rgb_data_;
     unsigned rgb_data_size_;
-    boost::shared_ptr<pcl::tracking::PyramidalKLTTracker<PointType> > tracker_;
+    std::shared_ptr<pcl::tracking::PyramidalKLTTracker<PointType> > tracker_;
     pcl::PointCloud<pcl::PointUV>::ConstPtr keypoints_;
     pcl::PointIndicesConstPtr points_;
     pcl::PointIndicesConstPtr points_status_;
@@ -311,7 +311,7 @@ class OpenNIViewer
 };
 
 // Create the PCLVisualizer object
-boost::shared_ptr<pcl::visualization::ImageViewer> img;
+std::shared_ptr<pcl::visualization::ImageViewer> img;
 
 /* ---[ */
 int
@@ -335,7 +335,7 @@ main (int argc, char** argv)
       if (argc >= 3)
       {
         pcl::OpenNIGrabber grabber(argv[2]);
-        boost::shared_ptr<openni_wrapper::OpenNIDevice> device = grabber.getDevice();
+        std::shared_ptr<openni_wrapper::OpenNIDevice> device = grabber.getDevice();
         cout << "Supported depth modes for device: " << device->getVendorName() << " , " << device->getProductName() << endl;
         std::vector<std::pair<int, XnMapOutputMode > > modes = grabber.getAvailableDepthModes();
         for (std::vector<std::pair<int, XnMapOutputMode > >::const_iterator it = modes.begin(); it != modes.end(); ++it)

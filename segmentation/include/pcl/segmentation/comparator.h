@@ -57,8 +57,8 @@ namespace pcl
       typedef typename PointCloud::Ptr PointCloudPtr;
       typedef typename PointCloud::ConstPtr PointCloudConstPtr;
 
-      typedef boost::shared_ptr<Comparator<PointT> > Ptr;
-      typedef boost::shared_ptr<const Comparator<PointT> > ConstPtr;
+      typedef std::shared_ptr<Comparator<PointT> > Ptr;
+      typedef std::shared_ptr<const Comparator<PointT> > ConstPtr;
 
       /** \brief Empty constructor for comparator. */
       Comparator () : input_ ()

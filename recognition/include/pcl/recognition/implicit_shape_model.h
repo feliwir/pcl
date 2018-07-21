@@ -242,7 +242,7 @@ namespace pcl
     {
       public:
 
-        typedef boost::shared_ptr<pcl::features::ISMModel> ISMModelPtr;
+        typedef std::shared_ptr<pcl::features::ISMModel> ISMModelPtr;
 
       protected:
 
@@ -378,7 +378,7 @@ namespace pcl
         setSamplingSize (float sampling_size);
 
         /** \brief Returns the current feature estimator used for extraction of the descriptors. */
-        boost::shared_ptr<pcl::Feature<PointT, pcl::Histogram<FeatureSize> > >
+        std::shared_ptr<pcl::Feature<PointT, pcl::Histogram<FeatureSize> > >
         getFeatureEstimator ();
 
         /** \brief Changes the feature estimator.
@@ -386,7 +386,7 @@ namespace pcl
           * Note that it must be fully initialized and configured.
           */
         void
-        setFeatureEstimator (boost::shared_ptr<pcl::Feature<PointT, pcl::Histogram<FeatureSize> > > feature);
+        setFeatureEstimator (std::shared_ptr<pcl::Feature<PointT, pcl::Histogram<FeatureSize> > > feature);
 
         /** \brief Returns the number of clusters used for descriptor clustering. */
         unsigned int
@@ -438,7 +438,7 @@ namespace pcl
           * \param[in] in_normals cloud of normals corresponding to the input cloud
           * \param[in] in_class_of_interest class which we are looking for
           */
-        boost::shared_ptr<pcl::features::ISMVoteList<PointT> >
+        std::shared_ptr<pcl::features::ISMVoteList<PointT> >
         findObjects (ISMModelPtr model, typename pcl::PointCloud<PointT>::Ptr in_cloud, typename pcl::PointCloud<Normal>::Ptr in_normals, int in_class_of_interest);
 
       protected:
@@ -598,7 +598,7 @@ namespace pcl
         float sampling_size_;
 
         /** \brief Stores the feature estimator. */
-        boost::shared_ptr<pcl::Feature<PointT, pcl::Histogram<FeatureSize> > > feature_estimator_;
+        std::shared_ptr<pcl::Feature<PointT, pcl::Histogram<FeatureSize> > > feature_estimator_;
 
         /** \brief Number of clusters, is used for clustering descriptors during the training. */
         unsigned int number_of_clusters_;

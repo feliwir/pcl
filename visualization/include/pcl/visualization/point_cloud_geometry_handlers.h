@@ -65,8 +65,8 @@ namespace pcl
         typedef typename PointCloud::Ptr PointCloudPtr;
         typedef typename PointCloud::ConstPtr PointCloudConstPtr;
 
-        typedef typename boost::shared_ptr<PointCloudGeometryHandler<PointT> > Ptr;
-        typedef typename boost::shared_ptr<const PointCloudGeometryHandler<PointT> > ConstPtr;
+        typedef typename std::shared_ptr<PointCloudGeometryHandler<PointT> > Ptr;
+        typedef typename std::shared_ptr<const PointCloudGeometryHandler<PointT> > ConstPtr;
 
         /** \brief Constructor. */
         PointCloudGeometryHandler (const PointCloudConstPtr &cloud) :
@@ -143,8 +143,8 @@ namespace pcl
         typedef typename PointCloud::Ptr PointCloudPtr;
         typedef typename PointCloud::ConstPtr PointCloudConstPtr;
 
-        typedef typename boost::shared_ptr<PointCloudGeometryHandlerXYZ<PointT> > Ptr;
-        typedef typename boost::shared_ptr<const PointCloudGeometryHandlerXYZ<PointT> > ConstPtr;
+        typedef typename std::shared_ptr<PointCloudGeometryHandlerXYZ<PointT> > Ptr;
+        typedef typename std::shared_ptr<const PointCloudGeometryHandlerXYZ<PointT> > ConstPtr;
 
         /** \brief Constructor. */
         PointCloudGeometryHandlerXYZ (const PointCloudConstPtr &cloud);
@@ -191,8 +191,8 @@ namespace pcl
         typedef typename PointCloud::Ptr PointCloudPtr;
         typedef typename PointCloud::ConstPtr PointCloudConstPtr;
 
-        typedef typename boost::shared_ptr<PointCloudGeometryHandlerSurfaceNormal<PointT> > Ptr;
-        typedef typename boost::shared_ptr<const PointCloudGeometryHandlerSurfaceNormal<PointT> > ConstPtr;
+        typedef typename std::shared_ptr<PointCloudGeometryHandlerSurfaceNormal<PointT> > Ptr;
+        typedef typename std::shared_ptr<const PointCloudGeometryHandlerSurfaceNormal<PointT> > ConstPtr;
 
         /** \brief Constructor. */
         PointCloudGeometryHandlerSurfaceNormal (const PointCloudConstPtr &cloud);
@@ -236,8 +236,8 @@ namespace pcl
         typedef typename PointCloud::Ptr PointCloudPtr;
         typedef typename PointCloud::ConstPtr PointCloudConstPtr;
 
-        typedef typename boost::shared_ptr<PointCloudGeometryHandlerCustom<PointT> > Ptr;
-        typedef typename boost::shared_ptr<const PointCloudGeometryHandlerCustom<PointT> > ConstPtr;
+        typedef typename std::shared_ptr<PointCloudGeometryHandlerCustom<PointT> > Ptr;
+        typedef typename std::shared_ptr<const PointCloudGeometryHandlerCustom<PointT> > ConstPtr;
 
         /** \brief Constructor. */
         PointCloudGeometryHandlerCustom (const PointCloudConstPtr &cloud,
@@ -327,8 +327,8 @@ namespace pcl
         typedef PointCloud::Ptr PointCloudPtr;
         typedef PointCloud::ConstPtr PointCloudConstPtr;
 
-        typedef boost::shared_ptr<PointCloudGeometryHandler<PointCloud> > Ptr;
-        typedef boost::shared_ptr<const PointCloudGeometryHandler<PointCloud> > ConstPtr;
+        typedef std::shared_ptr<PointCloudGeometryHandler<PointCloud> > Ptr;
+        typedef std::shared_ptr<const PointCloudGeometryHandler<PointCloud> > ConstPtr;
 
         /** \brief Constructor. */
         PointCloudGeometryHandler (const PointCloudConstPtr &cloud, const Eigen::Vector4f & = Eigen::Vector4f::Zero ())
@@ -407,8 +407,8 @@ namespace pcl
         typedef PointCloud::Ptr PointCloudPtr;
         typedef PointCloud::ConstPtr PointCloudConstPtr;
 
-        typedef boost::shared_ptr<PointCloudGeometryHandlerXYZ<PointCloud> > Ptr;
-        typedef boost::shared_ptr<const PointCloudGeometryHandlerXYZ<PointCloud> > ConstPtr;
+        typedef std::shared_ptr<PointCloudGeometryHandlerXYZ<PointCloud> > Ptr;
+        typedef std::shared_ptr<const PointCloudGeometryHandlerXYZ<PointCloud> > ConstPtr;
 
         /** \brief Constructor. */
         PointCloudGeometryHandlerXYZ (const PointCloudConstPtr &cloud);
@@ -440,8 +440,8 @@ namespace pcl
         typedef PointCloud::Ptr PointCloudPtr;
         typedef PointCloud::ConstPtr PointCloudConstPtr;
 
-        typedef boost::shared_ptr<PointCloudGeometryHandlerSurfaceNormal<PointCloud> > Ptr;
-        typedef boost::shared_ptr<const PointCloudGeometryHandlerSurfaceNormal<PointCloud> > ConstPtr;
+        typedef std::shared_ptr<PointCloudGeometryHandlerSurfaceNormal<PointCloud> > Ptr;
+        typedef std::shared_ptr<const PointCloudGeometryHandlerSurfaceNormal<PointCloud> > ConstPtr;
 
         /** \brief Constructor. */
         PointCloudGeometryHandlerSurfaceNormal (const PointCloudConstPtr &cloud);

@@ -60,8 +60,8 @@ namespace pcl
   class Poisson : public SurfaceReconstruction<PointNT>
   {
     public:
-      typedef boost::shared_ptr<Poisson<PointNT> > Ptr;
-      typedef boost::shared_ptr<const Poisson<PointNT> > ConstPtr;
+      typedef std::shared_ptr<Poisson<PointNT> > Ptr;
+      typedef std::shared_ptr<const Poisson<PointNT> > ConstPtr;
 
       using SurfaceReconstruction<PointNT>::input_;
       using SurfaceReconstruction<PointNT>::tree_;

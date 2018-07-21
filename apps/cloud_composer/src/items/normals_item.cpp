@@ -36,7 +36,7 @@ pcl::cloud_composer::NormalsItem::~NormalsItem ()
 }
 
 void
-pcl::cloud_composer::NormalsItem::paintView (boost::shared_ptr<pcl::visualization::PCLVisualizer> vis) const
+pcl::cloud_composer::NormalsItem::paintView (std::shared_ptr<pcl::visualization::PCLVisualizer> vis) const
 {
   //Get the parent cloud, convert to XYZ 
   if (parent ()->type () == CLOUD_ITEM)
@@ -60,7 +60,7 @@ pcl::cloud_composer::NormalsItem::paintView (boost::shared_ptr<pcl::visualizatio
 }
 
 void
-pcl::cloud_composer::NormalsItem::removeFromView (boost::shared_ptr<pcl::visualization::PCLVisualizer> vis) const
+pcl::cloud_composer::NormalsItem::removeFromView (std::shared_ptr<pcl::visualization::PCLVisualizer> vis) const
 {  
   //qDebug () << "Removing Normals "<<item_id_;
   vis->removePointCloud (getId ().toStdString ());

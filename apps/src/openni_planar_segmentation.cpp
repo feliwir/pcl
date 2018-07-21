@@ -81,7 +81,7 @@ class OpenNIPlanarSegmentation
     set (const CloudConstPtr& cloud)
     {
       //lock while we set our cloud;
-      boost::mutex::scoped_lock lock (mtx_);
+      std::lock_guard<std::mutex> lock (mtx_);
       cloud_  = cloud;
     }
 
@@ -89,7 +89,7 @@ class OpenNIPlanarSegmentation
     get ()
     {
       //lock while we swap our cloud and reset it.
-      boost::mutex::scoped_lock lock (mtx_);
+      std::lock_guard<std::mutex> lock (mtx_);
       CloudPtr temp_cloud (new Cloud);
       CloudPtr temp_cloud2 (new Cloud);
 
@@ -114,7 +114,7 @@ class OpenNIPlanarSegmentation
     {
       pcl::Grabber* interface = new pcl::OpenNIGrabber (device_id_);
 
-      boost::function<void (const CloudConstPtr&)> f = boost::bind (&OpenNIPlanarSegmentation::cloud_cb_, this, _1);
+      std::function<void (const CloudConstPtr&)> f = std::bind (&OpenNIPlanarSegmentation::cloud_cb_, this, std::placeholders::_1);
       boost::signals2::connection c = interface->registerCallback (f);
       
       interface->start ();
@@ -137,7 +137,7 @@ class OpenNIPlanarSegmentation
     pcl::ExtractIndices<PointType> extract_;
 
     std::string device_id_;
-    boost::mutex mtx_;
+    std::mutex mtx_;
     CloudConstPtr cloud_;
 };
 

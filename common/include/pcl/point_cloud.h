@@ -131,7 +131,7 @@ namespace pcl
 
   namespace detail
   {
-    template <typename PointT> boost::shared_ptr<pcl::MsgFieldMap>&
+    template <typename PointT> std::shared_ptr<pcl::MsgFieldMap>&
     getMapping (pcl::PointCloud<PointT>& p);
   } // namespace detail
 
@@ -425,8 +425,8 @@ namespace pcl
       typedef PointT PointType;  // Make the template class available from the outside
       typedef std::vector<PointT, Eigen::aligned_allocator<PointT> > VectorType;
       typedef std::vector<PointCloud<PointT>, Eigen::aligned_allocator<PointCloud<PointT> > > CloudVectorType;
-      typedef boost::shared_ptr<PointCloud<PointT> > Ptr;
-      typedef boost::shared_ptr<const PointCloud<PointT> > ConstPtr;
+      typedef std::shared_ptr<PointCloud<PointT> > Ptr;
+      typedef std::shared_ptr<const PointCloud<PointT> > ConstPtr;
 
       // std container compatibility typedefs according to
       // http://en.cppreference.com/w/cpp/concept/Container
@@ -589,9 +589,9 @@ namespace pcl
 
     protected:
       // This is motivated by ROS integration. Users should not need to access mapping_.
-      boost::shared_ptr<MsgFieldMap> mapping_;
+      std::shared_ptr<MsgFieldMap> mapping_;
 
-      friend boost::shared_ptr<MsgFieldMap>& detail::getMapping<PointT>(pcl::PointCloud<PointT> &p);
+      friend std::shared_ptr<MsgFieldMap>& detail::getMapping<PointT>(pcl::PointCloud<PointT> &p);
 
     public:
       EIGEN_MAKE_ALIGNED_OPERATOR_NEW
@@ -599,7 +599,7 @@ namespace pcl
 
   namespace detail
   {
-    template <typename PointT> boost::shared_ptr<pcl::MsgFieldMap>&
+    template <typename PointT> std::shared_ptr<pcl::MsgFieldMap>&
     getMapping (pcl::PointCloud<PointT>& p)
     {
       return (p.mapping_);

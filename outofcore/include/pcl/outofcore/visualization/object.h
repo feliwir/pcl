@@ -15,7 +15,7 @@
 // Boost
 //#include <boost/date_time.hpp>
 //#include <boost/filesystem.hpp>
-#include <boost/thread.hpp>
+#include <thread>
 
 //Forward Declaration
 class Scene;
@@ -57,7 +57,7 @@ public:
 
 protected:
   vtkSmartPointer<vtkActorCollection> actors_;
-  boost::mutex actors_mutex_;
+  std::mutex actors_mutex_;
 
 private:
 

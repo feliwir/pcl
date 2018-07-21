@@ -26,7 +26,7 @@ class SimpleHDLGrabber
 
     void 
     sectorScan (
-        const boost::shared_ptr<const pcl::PointCloud<pcl::PointXYZI> >&, 
+        const std::shared_ptr<const pcl::PointCloud<pcl::PointXYZI> >&, 
         float,
         float) 
     {
@@ -43,7 +43,7 @@ class SimpleHDLGrabber
 
     void 
     sweepScan (
-        const boost::shared_ptr<const pcl::PointCloud<pcl::PointXYZ> >& sweep)
+        const std::shared_ptr<const pcl::PointCloud<pcl::PointXYZ> >& sweep)
     {
       static unsigned count = 0;
       static double last = pcl::getTime();
@@ -70,15 +70,15 @@ class SimpleHDLGrabber
     {
       pcl::HDLGrabber interface (calibrationFile, pcapFile);
       // make callback function from member function
-      boost::function<void(const boost::shared_ptr<const pcl::PointCloud<pcl::PointXYZI> >&, float, float)> f =
-          boost::bind(&SimpleHDLGrabber::sectorScan, this, _1, _2, _3);
+      std::function<void(const std::shared_ptr<const pcl::PointCloud<pcl::PointXYZI> >&, float, float)> f =
+          std::bind(&SimpleHDLGrabber::sectorScan, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3);
 
       // connect callback function for desired signal. In this case its a sector with XYZ and intensity information
       //boost::signals2::connection c = interface.registerCallback(f);
 
       // Register a callback function that gets complete 360 degree sweeps.
-      boost::function<void(const boost::shared_ptr<const pcl::PointCloud<pcl::PointXYZ> >&)> f2 = boost::bind(
-          &SimpleHDLGrabber::sweepScan, this, _1);
+      std::function<void(const std::shared_ptr<const pcl::PointCloud<pcl::PointXYZ> >&)> f2 = std::bind(
+          &SimpleHDLGrabber::sweepScan, this, std::placeholders::_1);
       boost::signals2::connection c2 = interface.registerCallback(f2);
 
       //interface.filterPackets(boost::asio::ip::address_v4::from_string("192.168.18.38"));

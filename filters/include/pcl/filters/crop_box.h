@@ -64,8 +64,8 @@ namespace pcl
 
     public:
 
-      typedef boost::shared_ptr< CropBox<PointT> > Ptr;
-      typedef boost::shared_ptr< const CropBox<PointT> > ConstPtr;
+      typedef std::shared_ptr< CropBox<PointT> > Ptr;
+      typedef std::shared_ptr< const CropBox<PointT> > ConstPtr;
 
       /** \brief Constructor.
         * \param[in] extract_removed_indices Set to true if you want to be able to extract the indices of points being removed (default = false).

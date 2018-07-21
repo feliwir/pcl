@@ -34,7 +34,7 @@
 #include "pcl/io/openni2/openni2_device.h"
 #include "pcl/io/io_exception.h"
 
-#include <boost/make_shared.hpp>
+
 
 #include <set>
 #include <string>
@@ -112,7 +112,7 @@ namespace pcl
           virtual void
           onDeviceConnected (const openni::DeviceInfo* pInfo)
           {
-            boost::mutex::scoped_lock l (device_mutex_);
+            std::lock_guard<std::mutex> l (device_mutex_);
 
             const OpenNI2DeviceInfo device_info_wrapped = openni2_convert (pInfo);
 
@@ -124,18 +124,18 @@ namespace pcl
           virtual void
           onDeviceDisconnected (const openni::DeviceInfo* pInfo)
           {
-            boost::mutex::scoped_lock l (device_mutex_);
+            std::lock_guard<std::mutex> l (device_mutex_);
 
             const OpenNI2DeviceInfo device_info_wrapped = openni2_convert (pInfo);
             device_set_.erase (device_info_wrapped);
           }
 
-          boost::shared_ptr<std::vector<std::string> >
+          std::shared_ptr<std::vector<std::string> >
           getConnectedDeviceURIs ()
           {
-            boost::mutex::scoped_lock l (device_mutex_);
+            std::lock_guard<std::mutex> l (device_mutex_);
 
-            boost::shared_ptr<std::vector<std::string> > result = boost::make_shared<std::vector<std::string> >();
+            std::shared_ptr<std::vector<std::string> > result = std::make_shared<std::vector<std::string> >();
 
             result->reserve (device_set_.size ());
 
@@ -148,12 +148,12 @@ namespace pcl
             return result;
           }
 
-          boost::shared_ptr<std::vector<OpenNI2DeviceInfo> >
+          std::shared_ptr<std::vector<OpenNI2DeviceInfo> >
           getConnectedDeviceInfos ()
           {
-            boost::mutex::scoped_lock l (device_mutex_);
+            std::lock_guard<std::mutex> l (device_mutex_);
 
-            boost::shared_ptr<std::vector<OpenNI2DeviceInfo> > result = boost::make_shared<std::vector<OpenNI2DeviceInfo> >();
+            std::shared_ptr<std::vector<OpenNI2DeviceInfo> > result = std::make_shared<std::vector<OpenNI2DeviceInfo> >();
 
             result->reserve (device_set_.size ());
 
@@ -169,12 +169,12 @@ namespace pcl
           std::size_t
           getNumOfConnectedDevices ()
           {
-            boost::mutex::scoped_lock l (device_mutex_);
+            std::lock_guard<std::mutex> l (device_mutex_);
 
             return device_set_.size ();
           }
 
-          boost::mutex device_mutex_;
+          std::mutex device_mutex_;
           DeviceSet device_set_;
       };
 
@@ -194,20 +194,20 @@ pcl::io::openni2::OpenNI2DeviceManager::OpenNI2DeviceManager ()
   if (rc != openni::STATUS_OK)
     THROW_IO_EXCEPTION ("Initialize failed\n%s\n", openni::OpenNI::getExtendedError ());
 
-  device_listener_ = boost::make_shared<OpenNI2DeviceListener>();
+  device_listener_ = std::make_shared<OpenNI2DeviceListener>();
 }
 
 pcl::io::openni2::OpenNI2DeviceManager::~OpenNI2DeviceManager ()
 {
 }
 
-boost::shared_ptr<std::vector<OpenNI2DeviceInfo> >
+std::shared_ptr<std::vector<OpenNI2DeviceInfo> >
 pcl::io::openni2::OpenNI2DeviceManager::getConnectedDeviceInfos () const
 {
   return device_listener_->getConnectedDeviceInfos ();
 }
 
-boost::shared_ptr<std::vector<std::string> >
+std::shared_ptr<std::vector<std::string> >
 pcl::io::openni2::OpenNI2DeviceManager::getConnectedDeviceURIs () const
 {
   return device_listener_->getConnectedDeviceURIs ();
@@ -219,36 +219,36 @@ pcl::io::openni2::OpenNI2DeviceManager::getNumOfConnectedDevices () const
   return device_listener_->getNumOfConnectedDevices ();
 }
 
-boost::shared_ptr<OpenNI2Device>
+std::shared_ptr<OpenNI2Device>
 pcl::io::openni2::OpenNI2DeviceManager::getAnyDevice ()
 {
-  return boost::make_shared<OpenNI2Device>("");
+  return std::make_shared<OpenNI2Device>("");
 }
 
-boost::shared_ptr<OpenNI2Device>
+std::shared_ptr<OpenNI2Device>
 pcl::io::openni2::OpenNI2DeviceManager::getDevice (const std::string& device_URI)
 {
-  return boost::make_shared<OpenNI2Device>(device_URI);
+  return std::make_shared<OpenNI2Device>(device_URI);
 }
 
-boost::shared_ptr<OpenNI2Device>
+std::shared_ptr<OpenNI2Device>
 pcl::io::openni2::OpenNI2DeviceManager::getDeviceByIndex (int index)
 {
-  boost::shared_ptr<std::vector<std::string> > URIs = getConnectedDeviceURIs ();
-  return boost::make_shared<OpenNI2Device>( URIs->at (index) );
+  std::shared_ptr<std::vector<std::string> > URIs = getConnectedDeviceURIs ();
+  return std::make_shared<OpenNI2Device>( URIs->at (index) );
 }
 
-boost::shared_ptr<OpenNI2Device>
+std::shared_ptr<OpenNI2Device>
 pcl::io::openni2::OpenNI2DeviceManager::getFileDevice (const std::string& path)
 {
-  return boost::make_shared<OpenNI2Device>(path);
+  return std::make_shared<OpenNI2Device>(path);
 }
 
 std::ostream&
 operator<< (std::ostream& stream, const OpenNI2DeviceManager& device_manager) 
 {
 
-  boost::shared_ptr<std::vector<OpenNI2DeviceInfo> > device_info = device_manager.getConnectedDeviceInfos ();
+  std::shared_ptr<std::vector<OpenNI2DeviceInfo> > device_info = device_manager.getConnectedDeviceInfos ();
 
   std::vector<OpenNI2DeviceInfo>::const_iterator it;
   std::vector<OpenNI2DeviceInfo>::const_iterator it_end = device_info->end ();

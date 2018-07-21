@@ -105,8 +105,8 @@ namespace pcl
       typedef typename FeatureCloud::Ptr FeatureCloudPtr;
       typedef typename FeatureCloud::ConstPtr FeatureCloudConstPtr;
 
-      typedef boost::shared_ptr<SampleConsensusPrerejective<PointSource, PointTarget, FeatureT> > Ptr;
-      typedef boost::shared_ptr<const SampleConsensusPrerejective<PointSource, PointTarget, FeatureT> > ConstPtr;
+      typedef std::shared_ptr<SampleConsensusPrerejective<PointSource, PointTarget, FeatureT> > Ptr;
+      typedef std::shared_ptr<const SampleConsensusPrerejective<PointSource, PointTarget, FeatureT> > ConstPtr;
 
       typedef typename KdTreeFLANN<FeatureT>::Ptr FeatureKdTreePtr;
       

@@ -39,7 +39,7 @@
 #include <pcl/point_types.h>
 #include <pcl/common/time.h> //fps calculations
 #include <pcl/io/openni_grabber.h>
-#include <boost/thread/condition.hpp>
+#include <condition_variable> 
 #include <boost/circular_buffer.hpp>
 #include <csignal>
 #include <limits>
@@ -57,7 +57,7 @@ using namespace pcl;
 using namespace pcl::console;
 
 bool global_visualize = true, is_done = false, save_data = false, toggle_one_frame_capture = false, visualize = true;
-boost::mutex io_mutex;
+std::mutex io_mutex;
 int nr_frames_total = 0;
 
 #if defined(__linux__) 
@@ -139,11 +139,11 @@ do \
 //////////////////////////////////////////////////////////////////////////////////////////
 struct Frame
 {
-  typedef boost::shared_ptr<Frame> Ptr;
-  typedef boost::shared_ptr<const Frame> ConstPtr;
+  typedef std::shared_ptr<Frame> Ptr;
+  typedef std::shared_ptr<const Frame> ConstPtr;
 
-  Frame (const boost::shared_ptr<openni_wrapper::Image> &_image,
-         const boost::shared_ptr<openni_wrapper::DepthImage> &_depth_image,
+  Frame (const std::shared_ptr<openni_wrapper::Image> &_image,
+         const std::shared_ptr<openni_wrapper::DepthImage> &_depth_image,
          const io::CameraParameters &_parameters_rgb,
          const io::CameraParameters &_parameters_depth,
          const boost::posix_time::ptime &_time)
@@ -154,8 +154,8 @@ struct Frame
     , time (_time) 
   {}
 
-  const boost::shared_ptr<openni_wrapper::Image> image;
-  const boost::shared_ptr<openni_wrapper::DepthImage> depth_image;
+  const std::shared_ptr<openni_wrapper::Image> image;
+  const std::shared_ptr<openni_wrapper::DepthImage> depth_image;
         
   io::CameraParameters parameters_rgb, parameters_depth;
 
@@ -173,7 +173,7 @@ class Buffer
     {
       bool retVal = false;
       {
-        boost::mutex::scoped_lock buff_lock (bmutex_);
+        std::lock_guard<std::mutex> buff_lock (bmutex_);
         if (!buffer_.full ())
           retVal = true;
         buffer_.push_back (frame);
@@ -187,13 +187,13 @@ class Buffer
     {
       Frame::ConstPtr cloud;
       {
-        boost::mutex::scoped_lock buff_lock (bmutex_);
+        std::lock_guard<std::mutex> buff_lock (bmutex_);
         while (buffer_.empty ())
         {
           if (is_done)
             break;
           {
-            boost::mutex::scoped_lock io_lock (io_mutex);
+            std::lock_guard<std::mutex> io_lock (io_mutex);
             //cerr << "No data in buffer_ yet or buffer is empty." << endl;
           }
           buff_empty_.wait (buff_lock);
@@ -207,21 +207,21 @@ class Buffer
     inline bool 
     isFull ()
     {
-      boost::mutex::scoped_lock buff_lock (bmutex_);
+      std::lock_guard<std::mutex> buff_lock (bmutex_);
       return (buffer_.full ());
     }
 		
     inline bool
     isEmpty ()
     {
-      boost::mutex::scoped_lock buff_lock (bmutex_);
+      std::lock_guard<std::mutex> buff_lock (bmutex_);
     	return (buffer_.empty ());
     }
 		
     inline int 
     getSize ()
     {
-      boost::mutex::scoped_lock buff_lock (bmutex_);
+      std::lock_guard<std::mutex> buff_lock (bmutex_);
       return (int (buffer_.size ()));
     }
 		
@@ -234,14 +234,14 @@ class Buffer
     inline void 
     setCapacity (int buff_size)
     {
-      boost::mutex::scoped_lock buff_lock (bmutex_);
+      std::lock_guard<std::mutex> buff_lock (bmutex_);
       buffer_.set_capacity (buff_size);
     }
 
     inline void 
     clear ()
     {
-      boost::mutex::scoped_lock buff_lock (bmutex_);
+      std::lock_guard<std::mutex> buff_lock (bmutex_);
       buffer_.clear ();
     }
 
@@ -249,8 +249,8 @@ class Buffer
 		Buffer (const Buffer&);            // Disabled copy constructor
 		Buffer& operator =(const Buffer&); // Disabled assignment operator
 		
-    boost::mutex bmutex_;
-		boost::condition_variable buff_empty_;
+    std::mutex bmutex_;
+		std::condition_variable buff_empty_;
 		boost::circular_buffer<Frame::ConstPtr> buffer_;
 };
 
@@ -323,19 +323,19 @@ class Writer
         if (save_data || toggle_one_frame_capture)
           writeToDisk (buf_.popFront ());
         else
-          boost::this_thread::sleep (boost::posix_time::microseconds (100));
+          std::this_thread::sleep_for (std::chrono::microseconds (100));
       }
 
       if (save_data && buf_.getSize () > 0)
       {
         {
-          boost::mutex::scoped_lock io_lock (io_mutex);
+          std::lock_guard<std::mutex> io_lock (io_mutex);
           print_info ("Writing remaining %ld clouds in the buffer to disk...\n", buf_.getSize ());
         }
         while (!buf_.isEmpty ())
         {
           {
-            boost::mutex::scoped_lock io_lock (io_mutex);
+            std::lock_guard<std::mutex> io_lock (io_mutex);
             print_info ("Clearing buffer... %ld remaining...\n", buf_.getSize ());
           }
           writeToDisk (buf_.popFront ());
@@ -347,7 +347,7 @@ class Writer
     Writer (Buffer &buf)
       : buf_ (buf)
     {
-      thread_.reset (new boost::thread (boost::bind (&Writer::receiveAndProcess, this)));
+      thread_.reset (new std::thread (std::bind (&Writer::receiveAndProcess, this)));
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////
@@ -355,13 +355,13 @@ class Writer
     stop ()
     {
       thread_->join ();
-      boost::mutex::scoped_lock io_lock (io_mutex);
+      std::lock_guard<std::mutex> io_lock (io_mutex);
       print_highlight ("Writer done.\n");
     }
 
   private:
     Buffer &buf_;
-    boost::shared_ptr<boost::thread> thread_;
+    std::shared_ptr<std::thread> thread_;
 };
 
 
@@ -371,8 +371,8 @@ class Driver
   private:
     //////////////////////////////////////////////////////////////////////////
     void
-    image_callback (const boost::shared_ptr<openni_wrapper::Image> &image, 
-                    const boost::shared_ptr<openni_wrapper::DepthImage> &depth_image, 
+    image_callback (const std::shared_ptr<openni_wrapper::Image> &image, 
+                    const std::shared_ptr<openni_wrapper::DepthImage> &depth_image, 
                     float)
     {
       boost::posix_time::ptime time = boost::posix_time::microsec_clock::local_time ();
@@ -396,13 +396,13 @@ class Driver
 
       if ((save_data || toggle_one_frame_capture) && !buf_write_.pushBack (frame))
       {
-        boost::mutex::scoped_lock io_lock (io_mutex);
+        std::lock_guard<std::mutex> io_lock (io_mutex);
         print_warn ("Warning! Write buffer was full, overwriting data!\n");
       }
 
       if (global_visualize && visualize && !buf_vis_.pushBack (frame))
       {
-        boost::mutex::scoped_lock io_lock (io_mutex);
+        std::lock_guard<std::mutex> io_lock (io_mutex);
         print_warn ("Warning! Visualization buffer was full, overwriting data!\n");
       }
     }
@@ -411,14 +411,14 @@ class Driver
     void 
     grabAndSend ()
     {
-      boost::function<void (const boost::shared_ptr<openni_wrapper::Image>&, const boost::shared_ptr<openni_wrapper::DepthImage>&, float) > image_cb = boost::bind (&Driver::image_callback, this, _1, _2, _3);
+      std::function<void (const std::shared_ptr<openni_wrapper::Image>&, const std::shared_ptr<openni_wrapper::DepthImage>&, float) > image_cb = std::bind (&Driver::image_callback, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3);
       boost::signals2::connection image_connection = grabber_.registerCallback (image_cb);
 
       grabber_.start ();
       
       while (!is_done)
       {
-        boost::this_thread::sleep (boost::posix_time::seconds (1));
+        std::this_thread::sleep_for (std::chrono::seconds (1));
       }
       grabber_.stop ();
       image_connection.disconnect ();
@@ -430,7 +430,7 @@ class Driver
       , buf_write_ (buf_write)
       , buf_vis_ (buf_vis)
     {
-      thread_.reset (new boost::thread (boost::bind (&Driver::grabAndSend, this)));
+      thread_.reset (new std::thread (std::bind (&Driver::grabAndSend, this)));
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////
@@ -438,7 +438,7 @@ class Driver
     stop ()
     {
       thread_->join ();
-      boost::mutex::scoped_lock io_lock (io_mutex);
+      std::lock_guard<std::mutex> io_lock (io_mutex);
       print_highlight ("Grabber done.\n");
     }
 
@@ -446,7 +446,7 @@ class Driver
     
     OpenNIGrabber& grabber_;
     Buffer &buf_write_, &buf_vis_;
-    boost::shared_ptr<boost::thread> thread_;
+    std::shared_ptr<std::thread> thread_;
 };
 
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -477,7 +477,7 @@ class Viewer
              !depth_image_viewer_->wasStopped () && 
              !is_done)
       {
-        boost::this_thread::sleep (boost::posix_time::microseconds (100));
+        std::this_thread::sleep_for (std::chrono::microseconds (100));
 
         if (!visualize)
         {
@@ -556,7 +556,7 @@ class Viewer
     void
     stop ()
     {
-      boost::mutex::scoped_lock io_lock (io_mutex);
+      std::lock_guard<std::mutex> io_lock (io_mutex);
       print_highlight ("Viewer done.\n");
     }
 
@@ -613,8 +613,8 @@ class Viewer
     }
 
     Buffer &buf_;
-    boost::shared_ptr<visualization::ImageViewer> image_viewer_;
-    boost::shared_ptr<visualization::ImageViewer> depth_image_viewer_;
+    std::shared_ptr<visualization::ImageViewer> image_viewer_;
+    std::shared_ptr<visualization::ImageViewer> depth_image_viewer_;
     bool image_cld_init_, depth_image_cld_init_;
 };
 
@@ -655,7 +655,7 @@ usage (char ** argv)
 void 
 ctrlC (int)
 {
-	boost::mutex::scoped_lock io_lock (io_mutex);
+	std::lock_guard<std::mutex> io_lock (io_mutex);
 	print_info ("\nCtrl-C detected, exit condition set to true.\n");
 	is_done = true;
 }
@@ -692,7 +692,7 @@ main (int argc, char ** argv)
       if (argc >= 3)
       {
         OpenNIGrabber grabber (argv[2]);
-        boost::shared_ptr<openni_wrapper::OpenNIDevice> device = grabber.getDevice ();
+        std::shared_ptr<openni_wrapper::OpenNIDevice> device = grabber.getDevice ();
         vector<pair<int, XnMapOutputMode> > modes;
 
         if (device->hasImageStream ())
@@ -766,7 +766,7 @@ main (int argc, char ** argv)
 
   Driver driver (ni_grabber, buf_write, buf_vis);
   Writer writer (buf_write);
-  boost::shared_ptr<Viewer> viewer;
+  std::shared_ptr<Viewer> viewer;
   if (global_visualize)
     viewer.reset (new Viewer (buf_vis));
   else

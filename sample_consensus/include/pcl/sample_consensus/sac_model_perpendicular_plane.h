@@ -77,7 +77,7 @@ namespace pcl
       typedef typename SampleConsensusModelPlane<PointT>::PointCloudPtr PointCloudPtr;
       typedef typename SampleConsensusModelPlane<PointT>::PointCloudConstPtr PointCloudConstPtr;
 
-      typedef boost::shared_ptr<SampleConsensusModelPerpendicularPlane> Ptr;
+      typedef std::shared_ptr<SampleConsensusModelPerpendicularPlane> Ptr;
 
       /** \brief Constructor for base SampleConsensusModelPerpendicularPlane.
         * \param[in] cloud the input point cloud dataset

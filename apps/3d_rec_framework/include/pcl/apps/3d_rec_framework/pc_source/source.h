@@ -34,9 +34,9 @@ namespace pcl
         typedef typename pcl::PointCloud<PointT>::ConstPtr PointTPtrConst;
 
       public:
-        boost::shared_ptr<std::vector<PointTPtr> > views_;
-        boost::shared_ptr<std::vector<Eigen::Matrix4f, Eigen::aligned_allocator<Eigen::Matrix4f> > > poses_;
-        boost::shared_ptr<std::vector<float> > self_occlusions_;
+        std::shared_ptr<std::vector<PointTPtr> > views_;
+        std::shared_ptr<std::vector<Eigen::Matrix4f, Eigen::aligned_allocator<Eigen::Matrix4f> > > poses_;
+        std::shared_ptr<std::vector<float> > self_occlusions_;
         std::string id_;
         std::string class_;
         PointTPtr assembled_;
@@ -85,7 +85,7 @@ namespace pcl
     protected:
       typedef Model<PointInT> ModelT;
       std::string path_;
-      boost::shared_ptr<std::vector<ModelT> > models_;
+      std::shared_ptr<std::vector<ModelT> > models_;
       float model_scale_;
       bool filter_duplicate_views_;
       bool load_views_;
@@ -226,13 +226,13 @@ namespace pcl
       /**
        * \brief Get the generated model
        */
-      boost::shared_ptr<std::vector<ModelT> >
+      std::shared_ptr<std::vector<ModelT> >
       getModels ()
       {
         return models_;
       }
 
-      boost::shared_ptr<std::vector<ModelT> >
+      std::shared_ptr<std::vector<ModelT> >
       getModels (std::string & model_id)
       {
 

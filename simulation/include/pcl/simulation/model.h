@@ -17,7 +17,7 @@
 # include <GL/glu.h>
 #endif
 
-#include <boost/shared_ptr.hpp>
+#include <memory>
 #include <pcl/pcl_macros.h>
 #include <pcl/io/pcd_io.h>
 #include <pcl/point_types.h>
@@ -65,15 +65,15 @@ namespace pcl
       public:
         virtual void draw () = 0;
 
-        typedef boost::shared_ptr<Model> Ptr;
-        typedef boost::shared_ptr<const Model> ConstPtr;
+        typedef std::shared_ptr<Model> Ptr;
+        typedef std::shared_ptr<const Model> ConstPtr;
     };
 
     class PCL_EXPORTS TriangleMeshModel : public Model
     {
       public:
-        typedef boost::shared_ptr<TriangleMeshModel> Ptr;
-        typedef boost::shared_ptr<const TriangleMeshModel> ConstPtr;
+        typedef std::shared_ptr<TriangleMeshModel> Ptr;
+        typedef std::shared_ptr<const TriangleMeshModel> ConstPtr;
 
         TriangleMeshModel (pcl::PolygonMesh::Ptr plg);
 
@@ -98,8 +98,8 @@ namespace pcl
         virtual ~PolygonMeshModel();
         virtual void draw();
 
-        typedef boost::shared_ptr<PolygonMeshModel> Ptr;
-        typedef boost::shared_ptr<const PolygonMeshModel> ConstPtr;
+        typedef std::shared_ptr<PolygonMeshModel> Ptr;
+        typedef std::shared_ptr<const PolygonMeshModel> ConstPtr;
       private:
         std::vector<SinglePoly> polygons;
 
@@ -121,8 +121,8 @@ namespace pcl
     class PCL_EXPORTS PointCloudModel : public Model
     {
       public:
-        typedef boost::shared_ptr<PointCloudModel> Ptr;
-        typedef boost::shared_ptr<const PointCloudModel> ConstPtr;
+        typedef std::shared_ptr<PointCloudModel> Ptr;
+        typedef std::shared_ptr<const PointCloudModel> ConstPtr;
 
         PointCloudModel (GLenum mode, pcl::PointCloud<pcl::PointXYZRGB>::Ptr pc);
 
@@ -186,8 +186,8 @@ namespace pcl
     class PCL_EXPORTS TexturedQuad
     {
       public:
-        typedef boost::shared_ptr<TexturedQuad> Ptr;
-        typedef boost::shared_ptr<const TexturedQuad> ConstPtr;
+        typedef std::shared_ptr<TexturedQuad> Ptr;
+        typedef std::shared_ptr<const TexturedQuad> ConstPtr;
 
         TexturedQuad (int width, int height);
         ~TexturedQuad ();

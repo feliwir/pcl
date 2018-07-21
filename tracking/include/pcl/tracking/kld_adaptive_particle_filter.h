@@ -53,12 +53,12 @@ namespace pcl
       typedef typename PointCloudState::ConstPtr PointCloudStateConstPtr;
 
       typedef PointCoherence<PointInT> Coherence;
-      typedef boost::shared_ptr< Coherence > CoherencePtr;
-      typedef boost::shared_ptr< const Coherence > CoherenceConstPtr;
+      typedef std::shared_ptr< Coherence > CoherencePtr;
+      typedef std::shared_ptr< const Coherence > CoherenceConstPtr;
 
       typedef PointCloudCoherence<PointInT> CloudCoherence;
-      typedef boost::shared_ptr< CloudCoherence > CloudCoherencePtr;
-      typedef boost::shared_ptr< const CloudCoherence > CloudCoherenceConstPtr;
+      typedef std::shared_ptr< CloudCoherence > CloudCoherencePtr;
+      typedef std::shared_ptr< const CloudCoherence > CloudCoherenceConstPtr;
 
       /** \brief Empty constructor. */
       KLDAdaptiveParticleFilterTracker ()

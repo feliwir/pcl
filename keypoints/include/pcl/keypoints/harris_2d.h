@@ -54,8 +54,8 @@ namespace pcl
   class HarrisKeypoint2D : public Keypoint<PointInT, PointOutT>
   {
     public:
-      typedef boost::shared_ptr<HarrisKeypoint2D<PointInT, PointOutT, IntensityT> > Ptr;
-      typedef boost::shared_ptr<const HarrisKeypoint2D<PointInT, PointOutT, IntensityT> > ConstPtr;
+      typedef std::shared_ptr<HarrisKeypoint2D<PointInT, PointOutT, IntensityT> > Ptr;
+      typedef std::shared_ptr<const HarrisKeypoint2D<PointInT, PointOutT, IntensityT> > ConstPtr;
 
       typedef typename Keypoint<PointInT, PointOutT>::PointCloudIn PointCloudIn;
       typedef typename Keypoint<PointInT, PointOutT>::PointCloudOut PointCloudOut;
@@ -169,7 +169,7 @@ namespace pcl
       Eigen::MatrixXf derivatives_rows_;
       Eigen::MatrixXf derivatives_cols_;
       /// intermediate holder for computed responses
-      boost::shared_ptr<pcl::PointCloud<PointOutT> > response_;
+      std::shared_ptr<pcl::PointCloud<PointOutT> > response_;
       /// comparator for responses intensity
       bool 
       greaterIntensityAtIndices (int a, int b) const

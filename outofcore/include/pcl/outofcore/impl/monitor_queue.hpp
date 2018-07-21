@@ -12,7 +12,7 @@ public:
   void
   push (const DataT& newData)
   {
-    boost::mutex::scoped_lock lock (monitor_mutex_);
+    std::lock_guard<std::mutex> lock (monitor_mutex_);
     queue_.push (newData);
     item_available_.notify_one ();
   }
@@ -20,7 +20,7 @@ public:
   DataT
   pop ()
   {
-    boost::mutex::scoped_lock lock (monitor_mutex_);
+    std::lock_guard<std::mutex> lock (monitor_mutex_);
 
     if (queue_.empty ())
     {
@@ -35,8 +35,8 @@ public:
 
 private:
   std::queue<DataT> queue_;
-  boost::mutex monitor_mutex_;
-  boost::condition item_available_;
+  std::mutex monitor_mutex_;
+  std::condition_variable item_available_;
 };
 
 #endif //PCL_OUTOFCORE_MONITOR_QUEUE_IMPL_H_

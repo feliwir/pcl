@@ -88,8 +88,8 @@ namespace pcl
 
     public:
 
-      typedef boost::shared_ptr< StatisticalOutlierRemoval<PointT> > Ptr;
-      typedef boost::shared_ptr< const StatisticalOutlierRemoval<PointT> > ConstPtr;
+      typedef std::shared_ptr< StatisticalOutlierRemoval<PointT> > Ptr;
+      typedef std::shared_ptr< const StatisticalOutlierRemoval<PointT> > ConstPtr;
 
 
       /** \brief Constructor.

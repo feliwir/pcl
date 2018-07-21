@@ -69,8 +69,8 @@ namespace pcl
     {
       public:
         typedef Eigen::Matrix<Scalar, 4, 4> Matrix4;
-        typedef boost::shared_ptr<TransformationValidation<PointSource, PointTarget, Scalar> > Ptr;
-        typedef boost::shared_ptr<const TransformationValidation<PointSource, PointTarget, Scalar> > ConstPtr;
+        typedef std::shared_ptr<TransformationValidation<PointSource, PointTarget, Scalar> > Ptr;
+        typedef std::shared_ptr<const TransformationValidation<PointSource, PointTarget, Scalar> > ConstPtr;
 
         typedef pcl::PointCloud<PointSource> PointCloudSource;
         typedef typename PointCloudSource::Ptr PointCloudSourcePtr;

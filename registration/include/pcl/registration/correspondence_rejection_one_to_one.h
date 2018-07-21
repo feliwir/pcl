@@ -62,8 +62,8 @@ namespace pcl
       using CorrespondenceRejector::getClassName;
 
       public:
-        typedef boost::shared_ptr<CorrespondenceRejectorOneToOne> Ptr;
-        typedef boost::shared_ptr<const CorrespondenceRejectorOneToOne> ConstPtr;
+        typedef std::shared_ptr<CorrespondenceRejectorOneToOne> Ptr;
+        typedef std::shared_ptr<const CorrespondenceRejectorOneToOne> ConstPtr;
 
         /** \brief Empty constructor. */
         CorrespondenceRejectorOneToOne ()

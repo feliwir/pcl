@@ -65,13 +65,13 @@ namespace pcl
       public:
         // public typedefs
         typedef pcl::PointCloud<PointT> PointCloud;
-        typedef boost::shared_ptr<PointCloud> PointCloudPtr;
+        typedef std::shared_ptr<PointCloud> PointCloudPtr;
 
-        typedef boost::shared_ptr<const PointCloud> PointCloudConstPtr;
-        typedef boost::shared_ptr<const std::vector<int> > IndicesConstPtr;
+        typedef std::shared_ptr<const PointCloud> PointCloudConstPtr;
+        typedef std::shared_ptr<const std::vector<int> > IndicesConstPtr;
 
-        typedef boost::shared_ptr<pcl::search::OrganizedNeighbor<PointT> > Ptr;
-        typedef boost::shared_ptr<const pcl::search::OrganizedNeighbor<PointT> > ConstPtr;
+        typedef std::shared_ptr<pcl::search::OrganizedNeighbor<PointT> > Ptr;
+        typedef std::shared_ptr<const pcl::search::OrganizedNeighbor<PointT> > ConstPtr;
 
         using pcl::search::Search<PointT>::indices_;
         using pcl::search::Search<PointT>::sorted_results_;

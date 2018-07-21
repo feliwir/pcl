@@ -74,7 +74,7 @@ class OpenNIChangeViewer
       octree->addPointsFromInputCloud ();
 
       std::cerr << octree->getLeafCount() << " -- ";
-      boost::shared_ptr<std::vector<int> > newPointIdxVector (new std::vector<int>);
+      std::shared_ptr<std::vector<int> > newPointIdxVector (new std::vector<int>);
 
       // get a vector of new points, which did not exist in previous buffer
       octree->getPointIndicesFromNewVoxels (*newPointIdxVector, noise_filter_);
@@ -119,8 +119,8 @@ class OpenNIChangeViewer
     {
       pcl::Grabber* interface = new pcl::OpenNIGrabber();
 
-      boost::function<void (const pcl::PointCloud<pcl::PointXYZRGBA>::ConstPtr&)> f = 
-        boost::bind (&OpenNIChangeViewer::cloud_cb_, this, _1);
+      std::function<void (const pcl::PointCloud<pcl::PointXYZRGBA>::ConstPtr&)> f = 
+        std::bind (&OpenNIChangeViewer::cloud_cb_, this, std::placeholders::_1);
 
       boost::signals2::connection c = interface->registerCallback (f);
       
@@ -128,7 +128,7 @@ class OpenNIChangeViewer
       
       while (!viewer.wasStopped())
       {
-        boost::this_thread::sleep(boost::posix_time::seconds(1));
+        std::this_thread::sleep_for(std::chrono::seconds(1));
       }
 
       interface->stop ();

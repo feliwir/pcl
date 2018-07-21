@@ -97,13 +97,13 @@ namespace pcl
     };
 
     typedef boost::unordered_map<std::string, CloudActor> CloudActorMap;
-    typedef boost::shared_ptr<CloudActorMap> CloudActorMapPtr;
+    typedef std::shared_ptr<CloudActorMap> CloudActorMapPtr;
 
     typedef boost::unordered_map<std::string, vtkSmartPointer<vtkProp> > ShapeActorMap;
-    typedef boost::shared_ptr<ShapeActorMap> ShapeActorMapPtr;
+    typedef std::shared_ptr<ShapeActorMap> ShapeActorMapPtr;
 
     typedef boost::unordered_map<std::string, vtkSmartPointer<vtkProp> > CoordinateActorMap;
-    typedef boost::shared_ptr<CoordinateActorMap> CoordinateActorMapPtr;
+    typedef std::shared_ptr<CoordinateActorMap> CoordinateActorMapPtr;
   }
 }
 

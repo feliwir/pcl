@@ -252,8 +252,8 @@ DisparityToCloud::compute (const boost::uint16_t* depth_image,
 
 //////////////////////////////////////////////////////////////////////////
 template <template <typename> class Storage> void
-DisparityToCloud::compute (const boost::shared_ptr<openni_wrapper::DepthImage>& depth_image,
-                                     const boost::shared_ptr<openni_wrapper::Image>& rgb_image,
+DisparityToCloud::compute (const std::shared_ptr<openni_wrapper::DepthImage>& depth_image,
+                                     const std::shared_ptr<openni_wrapper::Image>& rgb_image,
                                      float constant,
                                      typename PointCloudAOS<Storage>::Ptr &output,
                                      bool downsample, int stride, int smoothing_nr_iterations, int smoothing_filter_size) 
@@ -433,8 +433,8 @@ DisparityToCloud::compute (const boost::shared_ptr<openni_wrapper::DepthImage>& 
 
 //////////////////////////////////////////////////////////////////////////
 /*void
-DisparityToCloud::compute (const boost::shared_ptr<openni_wrapper::DepthImage>& depth_image,
-                                     const boost::shared_ptr<openni_wrapper::Image>& rgb_image,
+DisparityToCloud::compute (const std::shared_ptr<openni_wrapper::DepthImage>& depth_image,
+                                     const std::shared_ptr<openni_wrapper::Image>& rgb_image,
                                      float constant,
                                      PointCloudAOS<Host>::Ptr &output) 
 {
@@ -474,40 +474,40 @@ DisparityToCloud::compute (const boost::shared_ptr<openni_wrapper::DepthImage>& 
 
 //////////////////////////////////////////////////////////////////////////
 void
-DisparityToCloud::compute (const boost::shared_ptr<openni_wrapper::DepthImage>& depth_image,
+DisparityToCloud::compute (const std::shared_ptr<openni_wrapper::DepthImage>& depth_image,
                                      float constant,
                                      PointCloudAOS<Device>::Ptr &output)
 {
   if (!output)
     output.reset (new PointCloudAOS<Device>);
 
-  compute<Device> (depth_image, boost::shared_ptr<openni_wrapper::Image>(), constant, output, false);
+  compute<Device> (depth_image, std::shared_ptr<openni_wrapper::Image>(), constant, output, false);
 }
 
 //////////////////////////////////////////////////////////////////////////
 void
-DisparityToCloud::compute (const boost::shared_ptr<openni_wrapper::DepthImage>& depth_image,
+DisparityToCloud::compute (const std::shared_ptr<openni_wrapper::DepthImage>& depth_image,
                                      float constant,
                                      PointCloudAOS<Host>::Ptr &output)
 {
   if (!output)
     output.reset (new PointCloudAOS<Host>);
 
-  compute<Host> (depth_image, boost::shared_ptr<openni_wrapper::Image>(), constant, output, false);
+  compute<Host> (depth_image, std::shared_ptr<openni_wrapper::Image>(), constant, output, false);
   //PointCloudAOS<Device>::Ptr data;
   //compute (depth_image, constant, data);
   //*output << *data;
 }
 
 template PCL_EXPORTS void
-DisparityToCloud::compute<Host> (const boost::shared_ptr<openni_wrapper::DepthImage>& depth_image,
-                                     const boost::shared_ptr<openni_wrapper::Image>& rgb_image,
+DisparityToCloud::compute<Host> (const std::shared_ptr<openni_wrapper::DepthImage>& depth_image,
+                                     const std::shared_ptr<openni_wrapper::Image>& rgb_image,
                                      float constant,
                                      PointCloudAOS<Host>::Ptr &output,
                                      bool downsample, int stride, int, int);
 template PCL_EXPORTS void
-DisparityToCloud::compute<Device> (const boost::shared_ptr<openni_wrapper::DepthImage>& depth_image,
-                                     const boost::shared_ptr<openni_wrapper::Image>& rgb_image,
+DisparityToCloud::compute<Device> (const std::shared_ptr<openni_wrapper::DepthImage>& depth_image,
+                                     const std::shared_ptr<openni_wrapper::Image>& rgb_image,
                                      float constant,
                                      PointCloudAOS<Device>::Ptr &output,
                                      bool downsample, int stridem, int, int);

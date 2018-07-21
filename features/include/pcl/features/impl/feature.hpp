@@ -146,7 +146,7 @@ pcl::Feature<PointInT, PointOutT>::initCompute ()
       int (KdTree::*radiusSearchSurface)(const PointCloudIn &cloud, int index, double radius,
                                          std::vector<int> &k_indices, std::vector<float> &k_distances,
                                          unsigned int max_nn) const = &pcl::search::Search<PointInT>::radiusSearch;
-      search_method_surface_ = boost::bind (radiusSearchSurface, boost::ref (tree_), _1, _2, _3, _4, _5, 0);
+      search_method_surface_ = std::bind (radiusSearchSurface, std::ref (tree_), std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4, std::placeholders::_5, 0);
     }
   }
   else
@@ -157,7 +157,7 @@ pcl::Feature<PointInT, PointOutT>::initCompute ()
       // Declare the search locator definition
       int (KdTree::*nearestKSearchSurface)(const PointCloudIn &cloud, int index, int k, std::vector<int> &k_indices,
                                            std::vector<float> &k_distances) const = &KdTree::nearestKSearch;
-      search_method_surface_ = boost::bind (nearestKSearchSurface, boost::ref (tree_), _1, _2, _3, _4, _5);
+      search_method_surface_ = std::bind (nearestKSearchSurface, std::ref (tree_), std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4, std::placeholders::_5);
     }
     else
     {

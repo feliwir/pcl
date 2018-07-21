@@ -59,7 +59,7 @@ namespace pcl
   {
     public:
 
-    //typedef boost::shared_ptr<std::vector<int> > pcl::IndicesPtr;
+    //typedef std::shared_ptr<std::vector<int> > pcl::IndicesPtr;
     
 
       /** \brief Constructor that sets default values for member variables. */

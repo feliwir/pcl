@@ -189,8 +189,8 @@ namespace pcl
       
     public:
     
-      typedef boost::shared_ptr< VoxelGrid<PointT> > Ptr;
-      typedef boost::shared_ptr< const VoxelGrid<PointT> > ConstPtr;
+      typedef std::shared_ptr< VoxelGrid<PointT> > Ptr;
+      typedef std::shared_ptr< const VoxelGrid<PointT> > ConstPtr;
     
       /** \brief Empty constructor. */
       VoxelGrid () : 

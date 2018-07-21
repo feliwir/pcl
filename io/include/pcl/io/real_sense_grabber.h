@@ -38,8 +38,8 @@
 #ifndef PCL_IO_REAL_SENSE_GRABBER_H
 #define PCL_IO_REAL_SENSE_GRABBER_H
 
-#include <boost/thread/thread.hpp>
-#include <boost/thread/mutex.hpp>
+#include <thread>
+#include <mutex>
 
 #include <pcl/io/grabber.h>
 #include <pcl/point_cloud.h>
@@ -237,7 +237,7 @@ namespace pcl
       boost::signals2::signal<sig_cb_real_sense_point_cloud>* point_cloud_signal_;
       boost::signals2::signal<sig_cb_real_sense_point_cloud_rgba>* point_cloud_rgba_signal_;
 
-      boost::shared_ptr<pcl::io::real_sense::RealSenseDevice> device_;
+      std::shared_ptr<pcl::io::real_sense::RealSenseDevice> device_;
 
       bool is_running_;
       unsigned int confidence_threshold_;
@@ -265,12 +265,12 @@ namespace pcl
       bool need_xyzrgba_;
 
       EventFrequency frequency_;
-      mutable boost::mutex fps_mutex_;
+      mutable std::mutex fps_mutex_;
 
-      boost::thread thread_;
+      std::thread thread_;
 
       /// Depth buffer to perform temporal filtering of the depth images
-      boost::shared_ptr<pcl::io::Buffer<unsigned short> > depth_buffer_;
+      std::shared_ptr<pcl::io::Buffer<unsigned short> > depth_buffer_;
 
   };
 

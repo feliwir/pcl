@@ -55,7 +55,7 @@ namespace pcl
     class FrameWrapper
     {
       public:
-        typedef boost::shared_ptr<FrameWrapper> Ptr;
+        typedef std::shared_ptr<FrameWrapper> Ptr;
 
         virtual const void*
         getData () const = 0;

@@ -87,8 +87,8 @@ namespace pcl
 
     public:
 
-      typedef boost::shared_ptr< PassThrough<PointT> > Ptr;
-      typedef boost::shared_ptr< const PassThrough<PointT> > ConstPtr;
+      typedef std::shared_ptr< PassThrough<PointT> > Ptr;
+      typedef std::shared_ptr< const PassThrough<PointT> > ConstPtr;
 
 
       /** \brief Constructor.

@@ -376,7 +376,7 @@ void pcl::GlobalHypothesesVerification<ModelT, SceneT>::SAOptimize(std::vector<i
 {
 
   //temporal copy of recogniton_models_
-  std::vector < boost::shared_ptr<RecognitionModel> > recognition_models_copy;
+  std::vector < std::shared_ptr<RecognitionModel> > recognition_models_copy;
   recognition_models_copy = recognition_models_;
 
   recognition_models_.clear ();
@@ -388,7 +388,7 @@ void pcl::GlobalHypothesesVerification<ModelT, SceneT>::SAOptimize(std::vector<i
 
   for (size_t j = 0; j < recognition_models_.size (); j++)
   {
-    boost::shared_ptr < RecognitionModel > recog_model = recognition_models_[j];
+    std::shared_ptr < RecognitionModel > recog_model = recognition_models_[j];
     for (size_t i = 0; i < recog_model->explained_.size (); i++)
     {
       explained_by_RM_[recog_model->explained_[i]]++;
@@ -487,7 +487,7 @@ void pcl::GlobalHypothesesVerification<ModelT, SceneT>::verify()
 
 template<typename ModelT, typename SceneT>
 bool pcl::GlobalHypothesesVerification<ModelT, SceneT>::addModel(typename pcl::PointCloud<ModelT>::ConstPtr & model,
-    typename pcl::PointCloud<ModelT>::ConstPtr & complete_model, boost::shared_ptr<RecognitionModel> & recog_model)
+    typename pcl::PointCloud<ModelT>::ConstPtr & complete_model, std::shared_ptr<RecognitionModel> & recog_model)
 {
   //voxelize model cloud
   recog_model->cloud_.reset (new pcl::PointCloud<ModelT> ());
@@ -568,8 +568,8 @@ bool pcl::GlobalHypothesesVerification<ModelT, SceneT>::addModel(typename pcl::P
   std::vector<int> nn_indices;
   std::vector<float> nn_distances;
 
-  std::map<int, boost::shared_ptr<std::vector<std::pair<int, float> > > > model_explains_scene_points; //which point i from the scene is explained by a points j_k with dist d_k from the model
-  std::map<int, boost::shared_ptr<std::vector<std::pair<int, float> > > >::iterator it;
+  std::map<int, std::shared_ptr<std::vector<std::pair<int, float> > > > model_explains_scene_points; //which point i from the scene is explained by a points j_k with dist d_k from the model
+  std::map<int, std::shared_ptr<std::vector<std::pair<int, float> > > >::iterator it;
 
   outliers_weight.resize (recog_model->cloud_->points.size ());
   recog_model->outlier_indices_.resize (recog_model->cloud_->points.size ());
@@ -591,7 +591,7 @@ bool pcl::GlobalHypothesesVerification<ModelT, SceneT>::addModel(typename pcl::P
         it = model_explains_scene_points.find (nn_indices[k]);
         if (it == model_explains_scene_points.end ())
         {
-          boost::shared_ptr < std::vector<std::pair<int, float> > > vec (new std::vector<std::pair<int, float> > ());
+          std::shared_ptr < std::vector<std::pair<int, float> > > vec (new std::vector<std::pair<int, float> > ());
           vec->push_back (pair);
           model_explains_scene_points[nn_indices[k]] = vec;
         } else
@@ -652,7 +652,7 @@ bool pcl::GlobalHypothesesVerification<ModelT, SceneT>::addModel(typename pcl::P
 }
 
 template<typename ModelT, typename SceneT>
-void pcl::GlobalHypothesesVerification<ModelT, SceneT>::computeClutterCue(boost::shared_ptr<RecognitionModel> & recog_model)
+void pcl::GlobalHypothesesVerification<ModelT, SceneT>::computeClutterCue(std::shared_ptr<RecognitionModel> & recog_model)
 {
   if (detect_clutter_)
   {
@@ -677,12 +677,12 @@ void pcl::GlobalHypothesesVerification<ModelT, SceneT>::computeClutterCue(boost:
 
     //sort neighborhood indices by id
     std::sort (neighborhood_indices.begin (), neighborhood_indices.end (),
-        boost::bind (&std::pair<int, int>::first, _1) < boost::bind (&std::pair<int, int>::first, _2));
+        std::bind (&std::pair<int, int>::first, std::placeholders::_1) < std::bind (&std::pair<int, int>::first, std::placeholders::_2));
 
     //erase duplicated unexplained points
     neighborhood_indices.erase (
         std::unique (neighborhood_indices.begin (), neighborhood_indices.end (),
-            boost::bind (&std::pair<int, int>::first, _1) == boost::bind (&std::pair<int, int>::first, _2)), neighborhood_indices.end ());
+            std::bind (&std::pair<int, int>::first, std::placeholders::_1) == std::bind (&std::pair<int, int>::first, std::placeholders::_2)), neighborhood_indices.end ());
 
     //sort explained points
     std::vector<int> exp_idces (recog_model->explained_);

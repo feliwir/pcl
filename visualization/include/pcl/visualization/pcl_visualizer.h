@@ -86,8 +86,8 @@ namespace pcl
     class PCL_EXPORTS PCLVisualizer
     {
       public:
-        typedef boost::shared_ptr<PCLVisualizer> Ptr;
-        typedef boost::shared_ptr<const PCLVisualizer> ConstPtr;
+        typedef std::shared_ptr<PCLVisualizer> Ptr;
+        typedef std::shared_ptr<const PCLVisualizer> ConstPtr;
 
         typedef PointCloudGeometryHandler<pcl::PCLPointCloud2> GeometryHandler;
         typedef GeometryHandler::Ptr GeometryHandlerPtr;
@@ -159,12 +159,12 @@ namespace pcl
         void
         setWindowBorders (bool mode);
 
-        /** \brief Register a callback boost::function for keyboard events
+        /** \brief Register a callback std::function for keyboard events
           * \param[in] cb a boost function that will be registered as a callback for a keyboard event
           * \return a connection object that allows to disconnect the callback function.
           */
         boost::signals2::connection
-        registerKeyboardCallback (boost::function<void (const pcl::visualization::KeyboardEvent&)> cb);
+        registerKeyboardCallback (std::function<void (const pcl::visualization::KeyboardEvent&)> cb);
 
         /** \brief Register a callback function for keyboard events
           * \param[in] callback  the function that will be registered as a callback for a keyboard event
@@ -174,7 +174,7 @@ namespace pcl
         inline boost::signals2::connection
         registerKeyboardCallback (void (*callback) (const pcl::visualization::KeyboardEvent&, void*), void* cookie = NULL)
         {
-          return (registerKeyboardCallback (boost::bind (callback, _1, cookie)));
+          return (registerKeyboardCallback (std::bind (callback, std::placeholders::_1, cookie)));
         }
 
         /** \brief Register a callback function for keyboard events
@@ -186,7 +186,7 @@ namespace pcl
         template<typename T> inline boost::signals2::connection
         registerKeyboardCallback (void (T::*callback) (const pcl::visualization::KeyboardEvent&, void*), T& instance, void* cookie = NULL)
         {
-          return (registerKeyboardCallback (boost::bind (callback,  boost::ref (instance), _1, cookie)));
+          return (registerKeyboardCallback (std::bind (callback,  std::ref (instance), std::placeholders::_1, cookie)));
         }
 
         /** \brief Register a callback function for mouse events
@@ -194,7 +194,7 @@ namespace pcl
           * \return a connection object that allows to disconnect the callback function.
           */
         boost::signals2::connection
-        registerMouseCallback (boost::function<void (const pcl::visualization::MouseEvent&)> cb);
+        registerMouseCallback (std::function<void (const pcl::visualization::MouseEvent&)> cb);
 
         /** \brief Register a callback function for mouse events
           * \param[in] callback  the function that will be registered as a callback for a mouse event
@@ -204,7 +204,7 @@ namespace pcl
         inline boost::signals2::connection
         registerMouseCallback (void (*callback) (const pcl::visualization::MouseEvent&, void*), void* cookie = NULL)
         {
-          return (registerMouseCallback (boost::bind (callback, _1, cookie)));
+          return (registerMouseCallback (std::bind (callback, std::placeholders::_1, cookie)));
         }
 
         /** \brief Register a callback function for mouse events
@@ -216,7 +216,7 @@ namespace pcl
         template<typename T> inline boost::signals2::connection
         registerMouseCallback (void (T::*callback) (const pcl::visualization::MouseEvent&, void*), T& instance, void* cookie = NULL)
         {
-          return (registerMouseCallback (boost::bind (callback, boost::ref (instance), _1, cookie)));
+          return (registerMouseCallback (std::bind (callback, std::ref (instance), std::placeholders::_1, cookie)));
         }
 
         /** \brief Register a callback function for point picking events
@@ -224,7 +224,7 @@ namespace pcl
           * \return a connection object that allows to disconnect the callback function.
           */
         boost::signals2::connection
-        registerPointPickingCallback (boost::function<void (const pcl::visualization::PointPickingEvent&)> cb);
+        registerPointPickingCallback (std::function<void (const pcl::visualization::PointPickingEvent&)> cb);
 
         /** \brief Register a callback function for point picking events
           * \param[in] callback  the function that will be registered as a callback for a point picking event
@@ -243,7 +243,7 @@ namespace pcl
         template<typename T> inline boost::signals2::connection
         registerPointPickingCallback (void (T::*callback) (const pcl::visualization::PointPickingEvent&, void*), T& instance, void* cookie = NULL)
         {
-          return (registerPointPickingCallback (boost::bind (callback, boost::ref (instance), _1, cookie)));
+          return (registerPointPickingCallback (std::bind (callback, std::ref (instance), std::placeholders::_1, cookie)));
         }
 
         /** \brief Register a callback function for area picking events
@@ -251,7 +251,7 @@ namespace pcl
           * \return a connection object that allows to disconnect the callback function.
           */
         boost::signals2::connection
-        registerAreaPickingCallback (boost::function<void (const pcl::visualization::AreaPickingEvent&)> cb);
+        registerAreaPickingCallback (std::function<void (const pcl::visualization::AreaPickingEvent&)> cb);
 
         /** \brief Register a callback function for area picking events
           * \param[in] callback  the function that will be registered as a callback for an area picking event
@@ -270,7 +270,7 @@ namespace pcl
         template<typename T> inline boost::signals2::connection
         registerAreaPickingCallback (void (T::*callback) (const pcl::visualization::AreaPickingEvent&, void*), T& instance, void* cookie = NULL)
         {
-          return (registerAreaPickingCallback (boost::bind (callback, boost::ref (instance), _1, cookie)));
+          return (registerAreaPickingCallback (std::bind (callback, std::ref (instance), std::placeholders::_1, cookie)));
         }
 
         /** \brief Spin method. Calls the interactor and runs an internal loop. */

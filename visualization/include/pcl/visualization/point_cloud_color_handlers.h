@@ -68,8 +68,8 @@ namespace pcl
         typedef typename PointCloud::Ptr PointCloudPtr;
         typedef typename PointCloud::ConstPtr PointCloudConstPtr;
 
-        typedef boost::shared_ptr<PointCloudColorHandler<PointT> > Ptr;
-        typedef boost::shared_ptr<const PointCloudColorHandler<PointT> > ConstPtr;
+        typedef std::shared_ptr<PointCloudColorHandler<PointT> > Ptr;
+        typedef std::shared_ptr<const PointCloudColorHandler<PointT> > ConstPtr;
 
         /** \brief Constructor. */
         PointCloudColorHandler () :
@@ -142,8 +142,8 @@ namespace pcl
       typedef typename PointCloud::ConstPtr PointCloudConstPtr;
 
       public:
-        typedef boost::shared_ptr<PointCloudColorHandlerRandom<PointT> > Ptr;
-        typedef boost::shared_ptr<const PointCloudColorHandlerRandom<PointT> > ConstPtr;
+        typedef std::shared_ptr<PointCloudColorHandlerRandom<PointT> > Ptr;
+        typedef std::shared_ptr<const PointCloudColorHandlerRandom<PointT> > ConstPtr;
 
         /** \brief Constructor. */
         PointCloudColorHandlerRandom () :
@@ -195,8 +195,8 @@ namespace pcl
       typedef typename PointCloud::ConstPtr PointCloudConstPtr;
 
       public:
-        typedef boost::shared_ptr<PointCloudColorHandlerCustom<PointT> > Ptr;
-        typedef boost::shared_ptr<const PointCloudColorHandlerCustom<PointT> > ConstPtr;
+        typedef std::shared_ptr<PointCloudColorHandlerCustom<PointT> > Ptr;
+        typedef std::shared_ptr<const PointCloudColorHandlerCustom<PointT> > ConstPtr;
 
         /** \brief Constructor. */
         PointCloudColorHandlerCustom (double r, double g, double b)
@@ -261,8 +261,8 @@ namespace pcl
       typedef typename PointCloud::ConstPtr PointCloudConstPtr;
 
       public:
-        typedef boost::shared_ptr<PointCloudColorHandlerRGBField<PointT> > Ptr;
-        typedef boost::shared_ptr<const PointCloudColorHandlerRGBField<PointT> > ConstPtr;
+        typedef std::shared_ptr<PointCloudColorHandlerRGBField<PointT> > Ptr;
+        typedef std::shared_ptr<const PointCloudColorHandlerRGBField<PointT> > ConstPtr;
 
         /** \brief Constructor. */
         PointCloudColorHandlerRGBField ()
@@ -324,8 +324,8 @@ namespace pcl
       typedef typename PointCloud::ConstPtr PointCloudConstPtr;
 
       public:
-        typedef boost::shared_ptr<PointCloudColorHandlerHSVField<PointT> > Ptr;
-        typedef boost::shared_ptr<const PointCloudColorHandlerHSVField<PointT> > ConstPtr;
+        typedef std::shared_ptr<PointCloudColorHandlerHSVField<PointT> > Ptr;
+        typedef std::shared_ptr<const PointCloudColorHandlerHSVField<PointT> > ConstPtr;
 
         /** \brief Constructor. */
         PointCloudColorHandlerHSVField (const PointCloudConstPtr &cloud);
@@ -377,8 +377,8 @@ namespace pcl
       typedef typename PointCloud::ConstPtr PointCloudConstPtr;
 
       public:
-        typedef boost::shared_ptr<PointCloudColorHandlerGenericField<PointT> > Ptr;
-        typedef boost::shared_ptr<const PointCloudColorHandlerGenericField<PointT> > ConstPtr;
+        typedef std::shared_ptr<PointCloudColorHandlerGenericField<PointT> > Ptr;
+        typedef std::shared_ptr<const PointCloudColorHandlerGenericField<PointT> > ConstPtr;
 
         /** \brief Constructor. */
         PointCloudColorHandlerGenericField (const std::string &field_name)
@@ -446,8 +446,8 @@ namespace pcl
       typedef typename PointCloud::ConstPtr PointCloudConstPtr;
 
       public:
-        typedef boost::shared_ptr<PointCloudColorHandlerRGBAField<PointT> > Ptr;
-        typedef boost::shared_ptr<const PointCloudColorHandlerRGBAField<PointT> > ConstPtr;
+        typedef std::shared_ptr<PointCloudColorHandlerRGBAField<PointT> > Ptr;
+        typedef std::shared_ptr<const PointCloudColorHandlerRGBAField<PointT> > ConstPtr;
 
         /** \brief Constructor. */
         PointCloudColorHandlerRGBAField ()
@@ -510,8 +510,8 @@ namespace pcl
       typedef typename PointCloud::ConstPtr PointCloudConstPtr;
 
       public:
-        typedef boost::shared_ptr<PointCloudColorHandlerLabelField<PointT> > Ptr;
-        typedef boost::shared_ptr<const PointCloudColorHandlerLabelField<PointT> > ConstPtr;
+        typedef std::shared_ptr<PointCloudColorHandlerLabelField<PointT> > Ptr;
+        typedef std::shared_ptr<const PointCloudColorHandlerLabelField<PointT> > ConstPtr;
 
         /** \brief Constructor.
           * \param[in] static_mapping Use a static colormapping from label_id to color (default true) */
@@ -580,8 +580,8 @@ namespace pcl
         typedef PointCloud::Ptr PointCloudPtr;
         typedef PointCloud::ConstPtr PointCloudConstPtr;
 
-        typedef boost::shared_ptr<PointCloudColorHandler<PointCloud> > Ptr;
-        typedef boost::shared_ptr<const PointCloudColorHandler<PointCloud> > ConstPtr;
+        typedef std::shared_ptr<PointCloudColorHandler<PointCloud> > Ptr;
+        typedef std::shared_ptr<const PointCloudColorHandler<PointCloud> > ConstPtr;
 
         /** \brief Constructor. */
         PointCloudColorHandler (const PointCloudConstPtr &cloud) :
@@ -646,8 +646,8 @@ namespace pcl
       typedef PointCloud::ConstPtr PointCloudConstPtr;
 
       public:
-        typedef boost::shared_ptr<PointCloudColorHandlerRandom<PointCloud> > Ptr;
-        typedef boost::shared_ptr<const PointCloudColorHandlerRandom<PointCloud> > ConstPtr;
+        typedef std::shared_ptr<PointCloudColorHandlerRandom<PointCloud> > Ptr;
+        typedef std::shared_ptr<const PointCloudColorHandlerRandom<PointCloud> > ConstPtr;
 
         /** \brief Constructor. */
         PointCloudColorHandlerRandom (const PointCloudConstPtr &cloud) :
@@ -737,8 +737,8 @@ namespace pcl
       typedef PointCloud::ConstPtr PointCloudConstPtr;
 
       public:
-        typedef boost::shared_ptr<PointCloudColorHandlerRGBField<PointCloud> > Ptr;
-        typedef boost::shared_ptr<const PointCloudColorHandlerRGBField<PointCloud> > ConstPtr;
+        typedef std::shared_ptr<PointCloudColorHandlerRGBField<PointCloud> > Ptr;
+        typedef std::shared_ptr<const PointCloudColorHandlerRGBField<PointCloud> > ConstPtr;
 
         /** \brief Constructor. */
         PointCloudColorHandlerRGBField (const PointCloudConstPtr &cloud);
@@ -777,8 +777,8 @@ namespace pcl
       typedef PointCloud::ConstPtr PointCloudConstPtr;
 
       public:
-        typedef boost::shared_ptr<PointCloudColorHandlerHSVField<PointCloud> > Ptr;
-        typedef boost::shared_ptr<const PointCloudColorHandlerHSVField<PointCloud> > ConstPtr;
+        typedef std::shared_ptr<PointCloudColorHandlerHSVField<PointCloud> > Ptr;
+        typedef std::shared_ptr<const PointCloudColorHandlerHSVField<PointCloud> > ConstPtr;
 
         /** \brief Constructor. */
         PointCloudColorHandlerHSVField (const PointCloudConstPtr &cloud);
@@ -824,8 +824,8 @@ namespace pcl
       typedef PointCloud::ConstPtr PointCloudConstPtr;
 
       public:
-        typedef boost::shared_ptr<PointCloudColorHandlerGenericField<PointCloud> > Ptr;
-        typedef boost::shared_ptr<const PointCloudColorHandlerGenericField<PointCloud> > ConstPtr;
+        typedef std::shared_ptr<PointCloudColorHandlerGenericField<PointCloud> > Ptr;
+        typedef std::shared_ptr<const PointCloudColorHandlerGenericField<PointCloud> > ConstPtr;
 
         /** \brief Constructor. */
         PointCloudColorHandlerGenericField (const PointCloudConstPtr &cloud,
@@ -870,8 +870,8 @@ namespace pcl
       typedef PointCloud::ConstPtr PointCloudConstPtr;
 
       public:
-        typedef boost::shared_ptr<PointCloudColorHandlerRGBAField<PointCloud> > Ptr;
-        typedef boost::shared_ptr<const PointCloudColorHandlerRGBAField<PointCloud> > ConstPtr;
+        typedef std::shared_ptr<PointCloudColorHandlerRGBAField<PointCloud> > Ptr;
+        typedef std::shared_ptr<const PointCloudColorHandlerRGBAField<PointCloud> > ConstPtr;
 
         /** \brief Constructor. */
         PointCloudColorHandlerRGBAField (const PointCloudConstPtr &cloud);
@@ -911,8 +911,8 @@ namespace pcl
       typedef PointCloud::ConstPtr PointCloudConstPtr;
 
       public:
-        typedef boost::shared_ptr<PointCloudColorHandlerLabelField<PointCloud> > Ptr;
-        typedef boost::shared_ptr<const PointCloudColorHandlerLabelField<PointCloud> > ConstPtr;
+        typedef std::shared_ptr<PointCloudColorHandlerLabelField<PointCloud> > Ptr;
+        typedef std::shared_ptr<const PointCloudColorHandlerLabelField<PointCloud> > ConstPtr;
 
         /** \brief Constructor.
           * \param[in] static_mapping Use a static colormapping from label_id to color (default true) */

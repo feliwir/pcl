@@ -46,7 +46,7 @@
 #include <pcl/gpu/people/label_blob2.h>
 #include <pcl/gpu/people/label_common.h>
 #include "pcl/gpu/people/person_attribs.h"
-#include <boost/shared_ptr.hpp>
+#include <memory>
 #include <string>
 #include <vector>
 
@@ -65,7 +65,7 @@ namespace pcl
       class PCL_EXPORTS RDFBodyPartsDetector
       {
         public:
-          typedef boost::shared_ptr<RDFBodyPartsDetector> Ptr;          
+          typedef std::shared_ptr<RDFBodyPartsDetector> Ptr;          
           typedef std::vector<std::vector<Blob2, Eigen::aligned_allocator<Blob2> > > BlobMatrix;
           
           typedef DeviceArray2D<unsigned char> Labels;
@@ -134,7 +134,7 @@ namespace pcl
           pcl::device::LabelProbability P_l_prev_2_;  // for the second iteration
 
         private:
-          boost::shared_ptr<device::MultiTreeLiveProc> impl_;
+          std::shared_ptr<device::MultiTreeLiveProc> impl_;
           
           int max_cluster_size_;
           float cluster_tolerance_;

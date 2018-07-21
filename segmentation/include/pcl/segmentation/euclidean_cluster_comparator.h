@@ -63,12 +63,12 @@ namespace pcl
         typedef typename PointCloudL::Ptr PointCloudLPtr;
         typedef typename PointCloudL::ConstPtr PointCloudLConstPtr;
 
-        typedef boost::shared_ptr<EuclideanClusterComparator<PointT, PointLT> > Ptr;
-        typedef boost::shared_ptr<const EuclideanClusterComparator<PointT, PointLT> > ConstPtr;
+        typedef std::shared_ptr<EuclideanClusterComparator<PointT, PointLT> > Ptr;
+        typedef std::shared_ptr<const EuclideanClusterComparator<PointT, PointLT> > ConstPtr;
 
         typedef std::set<uint32_t> ExcludeLabelSet;
-        typedef boost::shared_ptr<ExcludeLabelSet> ExcludeLabelSetPtr;
-        typedef boost::shared_ptr<const ExcludeLabelSet> ExcludeLabelSetConstPtr;
+        typedef std::shared_ptr<ExcludeLabelSet> ExcludeLabelSetPtr;
+        typedef std::shared_ptr<const ExcludeLabelSet> ExcludeLabelSetConstPtr;
 
         /** \brief Default constructor for EuclideanClusterComparator. */
         EuclideanClusterComparator ()
@@ -206,8 +206,8 @@ namespace pcl
       typedef typename PointCloudN::Ptr PointCloudNPtr;
       typedef typename PointCloudN::ConstPtr PointCloudNConstPtr;
 
-      typedef boost::shared_ptr<EuclideanClusterComparator<PointT, PointNT, PointLT> > Ptr;
-      typedef boost::shared_ptr<const EuclideanClusterComparator<PointT, PointNT, PointLT> > ConstPtr;
+      typedef std::shared_ptr<EuclideanClusterComparator<PointT, PointNT, PointLT> > Ptr;
+      typedef std::shared_ptr<const EuclideanClusterComparator<PointT, PointNT, PointLT> > ConstPtr;
 
       using experimental::EuclideanClusterComparator<PointT, PointLT>::setExcludeLabels;
 
@@ -260,7 +260,7 @@ namespace pcl
       PCL_DEPRECATED ("Use setExcludeLabels (const ExcludeLabelSetConstPtr &) instead")
       setExcludeLabels (const std::vector<bool>& exclude_labels)
       {
-        exclude_labels_ = boost::make_shared<std::set<uint32_t> > ();
+        exclude_labels_ = std::make_shared<std::set<uint32_t> > ();
         for (uint32_t i = 0; i < exclude_labels.size (); ++i)
           if (exclude_labels[i])
             exclude_labels_->insert (i);

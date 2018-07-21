@@ -92,16 +92,16 @@ namespace pcl
         typedef typename PointCloud::Ptr PointCloudPtr;
         typedef typename PointCloud::ConstPtr PointCloudConstPtr;
 
-        typedef boost::shared_ptr<SampleConsensusModel> Ptr;
-        typedef boost::shared_ptr<const SampleConsensusModel> ConstPtr;
+        typedef std::shared_ptr<SampleConsensusModel> Ptr;
+        typedef std::shared_ptr<const SampleConsensusModel> ConstPtr;
 
         typedef typename Storage<int>::type Indices;
-        typedef boost::shared_ptr<typename Storage<int>::type> IndicesPtr;
-        typedef boost::shared_ptr<const typename Storage<int>::type> IndicesConstPtr;
+        typedef std::shared_ptr<typename Storage<int>::type> IndicesPtr;
+        typedef std::shared_ptr<const typename Storage<int>::type> IndicesConstPtr;
 
         typedef typename Storage<float>::type Coefficients;
-        typedef boost::shared_ptr <Coefficients> CoefficientsPtr;
-        typedef boost::shared_ptr <const Coefficients> CoefficientsConstPtr;
+        typedef std::shared_ptr <Coefficients> CoefficientsPtr;
+        typedef std::shared_ptr <const Coefficients> CoefficientsConstPtr;
 
         typedef typename Storage<float4>::type Hypotheses;
         //TODO: should be vector<int> instead of int. but currently, only 1point plane model supports this
@@ -129,7 +129,7 @@ namespace pcl
          */
   /*      SampleConsensusModel (const PointCloudConstPtr &cloud, const std::vector<int> &indices) :
                               input_ (cloud),
-                              indices_ (boost::make_shared <std::vector<int> > (indices)),
+                              indices_ (std::make_shared <std::vector<int> > (indices)),
                               radius_min_ (-DBL_MAX), radius_max_ (DBL_MAX) 
       
         {
@@ -280,7 +280,7 @@ namespace pcl
   //      inline void 
   //      setIndices (std::vector<int> &indices) 
   //      { 
-  //        indices_ = boost::make_shared <std::vector<int> > (indices); 
+  //        indices_ = std::make_shared <std::vector<int> > (indices); 
   //      }
 
         /** \brief Get a pointer to the vector of indices used. */
@@ -332,11 +332,11 @@ namespace pcl
 
   //      friend class ProgressiveSampleConsensus<PointT>;
 
-        inline boost::shared_ptr<typename Storage<float4>::type>
+        inline std::shared_ptr<typename Storage<float4>::type>
         getNormals () { return (normals_); }
 
         inline
-          void setNormals (boost::shared_ptr<typename Storage<float4>::type> normals) { normals_ = normals; }
+          void setNormals (std::shared_ptr<typename Storage<float4>::type> normals) { normals_ = normals; }
 
 
       protected:
@@ -348,7 +348,7 @@ namespace pcl
 
         /** \brief A boost shared pointer to the point cloud data array. */
         PointCloudConstPtr input_;
-        boost::shared_ptr<typename Storage<float4>::type> normals_;
+        std::shared_ptr<typename Storage<float4>::type> normals_;
 
         /** \brief A pointer to the vector of point indices to use. */
         IndicesPtr indices_;
@@ -376,8 +376,8 @@ namespace pcl
   //      typedef typename pcl::PointCloud<PointNT>::ConstPtr PointCloudNConstPtr;
   //      typedef typename pcl::PointCloud<PointNT>::Ptr PointCloudNPtr;
   //
-  //      typedef boost::shared_ptr<SampleConsensusModelFromNormals> Ptr;
-  //      typedef boost::shared_ptr<const SampleConsensusModelFromNormals> ConstPtr;
+  //      typedef std::shared_ptr<SampleConsensusModelFromNormals> Ptr;
+  //      typedef std::shared_ptr<const SampleConsensusModelFromNormals> ConstPtr;
   //
   //      /* \brief Empty constructor for base SampleConsensusModelFromNormals. */
   //      SampleConsensusModelFromNormals () : normal_distance_weight_ (0.0) {};

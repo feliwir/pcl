@@ -72,8 +72,8 @@ typedef Cloud::ConstPtr CloudConstPtr;
 class HRCSSegmentation
 {
   private:
-    boost::shared_ptr<pcl::visualization::PCLVisualizer> viewer;
-    boost::shared_ptr<pcl::visualization::ImageViewer> image_viewer;
+    std::shared_ptr<pcl::visualization::PCLVisualizer> viewer;
+    std::shared_ptr<pcl::visualization::ImageViewer> image_viewer;
     pcl::PointCloud<PointT>::ConstPtr prev_cloud;
     pcl::PointCloud<pcl::Normal>::ConstPtr prev_normal_cloud;
     pcl::PointCloud<pcl::PointXYZ>::ConstPtr prev_ground_cloud;
@@ -81,7 +81,7 @@ class HRCSSegmentation
     pcl::PointCloud<PointT>::ConstPtr prev_label_image;
     Eigen::Vector4f prev_ground_normal;
     Eigen::Vector4f prev_ground_centroid;
-    boost::mutex cloud_mutex;
+    std::mutex cloud_mutex;
 
     pcl::IntegralImageNormalEstimation<PointT, pcl::Normal> ne;
     pcl::GroundPlaneComparator<PointT, pcl::Normal>::Ptr road_comparator;
@@ -329,7 +329,7 @@ class HRCSSegmentation
         grow_labels[model_label] = true;
       }
       
-      boost::shared_ptr<pcl::PointCloud<pcl::Label> > labels_ptr (new pcl::PointCloud<pcl::Label>());
+      std::shared_ptr<pcl::PointCloud<pcl::Label> > labels_ptr (new pcl::PointCloud<pcl::Label>());
       *labels_ptr = labels;
       pcl::OrganizedMultiPlaneSegmentation<PointT, pcl::Normal, pcl::Label> mps;
       pcl::PlaneRefinementComparator<PointT, pcl::Normal, pcl::Label>::Ptr refinement_compare (new pcl::PlaneRefinementComparator<PointT, pcl::Normal, pcl::Label>());
@@ -393,7 +393,7 @@ class HRCSSegmentation
         pcl::PointCloud<PointT>::CloudVectorType clusters;
         if (ground_cloud->points.size () > 0)
         {
-          boost::shared_ptr<std::set<uint32_t> > plane_labels = boost::make_shared<std::set<uint32_t> > ();
+          std::shared_ptr<std::set<uint32_t> > plane_labels = std::make_shared<std::set<uint32_t> > ();
           for (size_t i = 0; i < region_indices.size (); ++i)
             if ((region_indices[i].indices.size () > mps.getMinInliers ()))
               plane_labels->insert (i);

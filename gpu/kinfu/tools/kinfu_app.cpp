@@ -114,8 +114,8 @@ namespace pcl
       typedef typename pcl::PointCloud<RGB>::ConstPtr RgbCloudConstPtr;
 
       public:
-        typedef boost::shared_ptr<PointCloudColorHandlerRGBCloud<PointT> > Ptr;
-        typedef boost::shared_ptr<const PointCloudColorHandlerRGBCloud<PointT> > ConstPtr;
+        typedef std::shared_ptr<PointCloudColorHandlerRGBCloud<PointT> > Ptr;
+        typedef std::shared_ptr<const PointCloudColorHandlerRGBCloud<PointT> > ConstPtr;
         
         /** \brief Constructor. */
         PointCloudColorHandlerRGBCloud (const PointCloudConstPtr& cloud, const RgbCloudConstPtr& colors)
@@ -280,17 +280,17 @@ typename PointCloud<MergedT>::Ptr merge(const PointCloud<PointT>& points, const 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-boost::shared_ptr<pcl::PolygonMesh> convertToMesh(const DeviceArray<PointXYZ>& triangles)
+std::shared_ptr<pcl::PolygonMesh> convertToMesh(const DeviceArray<PointXYZ>& triangles)
 { 
   if (triangles.empty())
-      return boost::shared_ptr<pcl::PolygonMesh>();
+      return std::shared_ptr<pcl::PolygonMesh>();
 
   pcl::PointCloud<pcl::PointXYZ> cloud;
   cloud.width  = (int)triangles.size();
   cloud.height = 1;
   triangles.download(cloud.points);
 
-  boost::shared_ptr<pcl::PolygonMesh> mesh_ptr( new pcl::PolygonMesh() ); 
+  std::shared_ptr<pcl::PolygonMesh> mesh_ptr( new pcl::PolygonMesh() ); 
   pcl::toPCLPointCloud2(cloud, mesh_ptr->cloud);
       
   mesh_ptr->polygons.resize (triangles.size() / 3);
@@ -640,7 +640,7 @@ struct SceneCloudView
   MarchingCubes::Ptr marching_cubes_;
   DeviceArray<PointXYZ> triangles_buffer_device_;
 
-  boost::shared_ptr<pcl::PolygonMesh> mesh_ptr_;
+  std::shared_ptr<pcl::PolygonMesh> mesh_ptr_;
 };
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -649,7 +649,7 @@ struct KinFuApp
 {
   enum { PCD_BIN = 1, PCD_ASCII = 2, PLY = 3, MESH_PLY = 7, MESH_VTK = 8 };
   
-  KinFuApp(pcl::Grabber& source, float vsz, int icp, int viz, boost::shared_ptr<CameraPoseProcessor> pose_processor=boost::shared_ptr<CameraPoseProcessor> () ) : exit_ (false), scan_ (false), scan_mesh_(false), scan_volume_ (false), independent_camera_ (false),
+  KinFuApp(pcl::Grabber& source, float vsz, int icp, int viz, std::shared_ptr<CameraPoseProcessor> pose_processor=std::shared_ptr<CameraPoseProcessor> () ) : exit_ (false), scan_ (false), scan_mesh_(false), scan_volume_ (false), independent_camera_ (false),
       registration_ (false), integrate_colors_ (false), pcd_source_ (false), focal_length_(-1.f), capture_ (source), scene_cloud_view_(viz), image_view_(viz), time_ms_(0), icp_(icp), viz_(viz), pose_processor_ (pose_processor)
   {    
     //Init Kinfu Tracker
@@ -693,7 +693,7 @@ struct KinFuApp
   void
   initCurrentFrameView ()
   {
-    current_frame_cloud_view_ = boost::shared_ptr<CurrentFrameCloudView>(new CurrentFrameCloudView ());
+    current_frame_cloud_view_ = std::shared_ptr<CurrentFrameCloudView>(new CurrentFrameCloudView ());
     current_frame_cloud_view_->cloud_viewer_.registerKeyboardCallback (keyboard_callback, (void*)this);
     current_frame_cloud_view_->setViewerPose (kinfu_.getCameraPose ());
   }
@@ -832,10 +832,10 @@ struct KinFuApp
       setViewerPose (*scene_cloud_view_.cloud_viewer_, kinfu_.getCameraPose());
   }
   
-  void source_cb1_device(const boost::shared_ptr<openni_wrapper::DepthImage>& depth_wrapper)  
+  void source_cb1_device(const std::shared_ptr<openni_wrapper::DepthImage>& depth_wrapper)  
   {        
     {
-      boost::mutex::scoped_try_lock lock(data_ready_mutex_);
+      std::mutex::scoped_try_lock lock(data_ready_mutex_);
       if (exit_ || !lock)
           return;
       
@@ -850,10 +850,10 @@ struct KinFuApp
     data_ready_cond_.notify_one();
   }
 
-  void source_cb2_device(const boost::shared_ptr<openni_wrapper::Image>& image_wrapper, const boost::shared_ptr<openni_wrapper::DepthImage>& depth_wrapper, float)
+  void source_cb2_device(const std::shared_ptr<openni_wrapper::Image>& image_wrapper, const std::shared_ptr<openni_wrapper::DepthImage>& depth_wrapper, float)
   {
     {
-      boost::mutex::scoped_try_lock lock(data_ready_mutex_);
+      std::mutex::scoped_try_lock lock(data_ready_mutex_);
       if (exit_ || !lock)
           return;
                   
@@ -877,10 +877,10 @@ struct KinFuApp
   }
 
 
-   void source_cb1_oni(const boost::shared_ptr<openni_wrapper::DepthImage>& depth_wrapper)  
+   void source_cb1_oni(const std::shared_ptr<openni_wrapper::DepthImage>& depth_wrapper)  
   {        
     {
-      boost::mutex::scoped_lock lock(data_ready_mutex_);
+      std::lock_guard<std::mutex> lock(data_ready_mutex_);
       if (exit_)
           return;
       
@@ -895,10 +895,10 @@ struct KinFuApp
     data_ready_cond_.notify_one();
   }
 
-  void source_cb2_oni(const boost::shared_ptr<openni_wrapper::Image>& image_wrapper, const boost::shared_ptr<openni_wrapper::DepthImage>& depth_wrapper, float)
+  void source_cb2_oni(const std::shared_ptr<openni_wrapper::Image>& image_wrapper, const std::shared_ptr<openni_wrapper::DepthImage>& depth_wrapper, float)
   {
     {
-      boost::mutex::scoped_lock lock(data_ready_mutex_);
+      std::lock_guard<std::mutex> lock(data_ready_mutex_);
       if (exit_)
           return;
                   
@@ -925,7 +925,7 @@ struct KinFuApp
   source_cb3 (const pcl::PointCloud<pcl::PointXYZRGBA>::ConstPtr & DC3)
   {
     {
-      boost::mutex::scoped_try_lock lock(data_ready_mutex_);
+      std::mutex::scoped_try_lock lock(data_ready_mutex_);
       if (exit_ || !lock)
         return;
       int width  = DC3->width;
@@ -962,20 +962,20 @@ struct KinFuApp
   startMainLoop (bool triggered_capture)
   {   
     using namespace openni_wrapper;
-    typedef boost::shared_ptr<DepthImage> DepthImagePtr;
-    typedef boost::shared_ptr<Image> ImagePtr;
+    typedef std::shared_ptr<DepthImage> DepthImagePtr;
+    typedef std::shared_ptr<Image> ImagePtr;
         
-    boost::function<void (const ImagePtr&, const DepthImagePtr&, float constant)> func1_dev = boost::bind (&KinFuApp::source_cb2_device, this, _1, _2, _3);
-    boost::function<void (const DepthImagePtr&)> func2_dev = boost::bind (&KinFuApp::source_cb1_device, this, _1);
+    std::function<void (const ImagePtr&, const DepthImagePtr&, float constant)> func1_dev = std::bind (&KinFuApp::source_cb2_device, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3);
+    std::function<void (const DepthImagePtr&)> func2_dev = std::bind (&KinFuApp::source_cb1_device, this, std::placeholders::_1);
 
-    boost::function<void (const ImagePtr&, const DepthImagePtr&, float constant)> func1_oni = boost::bind (&KinFuApp::source_cb2_oni, this, _1, _2, _3);
-    boost::function<void (const DepthImagePtr&)> func2_oni = boost::bind (&KinFuApp::source_cb1_oni, this, _1);
+    std::function<void (const ImagePtr&, const DepthImagePtr&, float constant)> func1_oni = std::bind (&KinFuApp::source_cb2_oni, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3);
+    std::function<void (const DepthImagePtr&)> func2_oni = std::bind (&KinFuApp::source_cb1_oni, this, std::placeholders::_1);
     
     bool is_oni = dynamic_cast<pcl::ONIGrabber*>(&capture_) != 0;
-    boost::function<void (const ImagePtr&, const DepthImagePtr&, float constant)> func1 = is_oni ? func1_oni : func1_dev;
-    boost::function<void (const DepthImagePtr&)> func2 = is_oni ? func2_oni : func2_dev;
+    std::function<void (const ImagePtr&, const DepthImagePtr&, float constant)> func1 = is_oni ? func1_oni : func1_dev;
+    std::function<void (const DepthImagePtr&)> func2 = is_oni ? func2_oni : func2_dev;
 
-    boost::function<void (const pcl::PointCloud<pcl::PointXYZRGBA>::ConstPtr&) > func3 = boost::bind (&KinFuApp::source_cb3, this, _1);
+    std::function<void (const pcl::PointCloud<pcl::PointXYZRGBA>::ConstPtr&) > func3 = std::bind (&KinFuApp::source_cb3, this, std::placeholders::_1);
 
     bool need_colors = integrate_colors_ || registration_;
     if ( pcd_source_ && !capture_.providesCallback<void (const pcl::PointCloud<pcl::PointXYZRGBA>::ConstPtr&)>() )
@@ -985,7 +985,7 @@ struct KinFuApp
     boost::signals2::connection c = pcd_source_? capture_.registerCallback (func3) : need_colors ? capture_.registerCallback (func1) : capture_.registerCallback (func2);
 
     {
-      boost::unique_lock<boost::mutex> lock(data_ready_mutex_);
+      std::unique_lock<std::mutex> lock(data_ready_mutex_);
 
       if (!triggered_capture)
           capture_.start (); // Start stream
@@ -1092,7 +1092,7 @@ struct KinFuApp
 
   SceneCloudView scene_cloud_view_;
   ImageView image_view_;
-  boost::shared_ptr<CurrentFrameCloudView> current_frame_cloud_view_;
+  std::shared_ptr<CurrentFrameCloudView> current_frame_cloud_view_;
 
   KinfuTracker::DepthMap depth_device_;
 
@@ -1101,8 +1101,8 @@ struct KinFuApp
 
   Evaluation::Ptr evaluation_ptr_;
   
-  boost::mutex data_ready_mutex_;
-  boost::condition_variable data_ready_cond_;
+  std::mutex data_ready_mutex_;
+  std::condition_variable data_ready_cond_;
  
   std::vector<KinfuTracker::PixelRGB> source_image_data_;
   std::vector<unsigned short> source_depth_data_;
@@ -1112,7 +1112,7 @@ struct KinFuApp
   int time_ms_;
   int icp_, viz_;
 
-  boost::shared_ptr<CameraPoseProcessor> pose_processor_;
+  std::shared_ptr<CameraPoseProcessor> pose_processor_;
 
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   static void
@@ -1239,7 +1239,7 @@ main (int argc, char* argv[])
 //  if (checkIfPreFermiGPU(device))
 //    return cout << endl << "Kinfu is supported only for Fermi and Kepler arhitectures. It is not even compiled for pre-Fermi by default. Exiting..." << endl, 1;
   
-  boost::shared_ptr<pcl::Grabber> capture;
+  std::shared_ptr<pcl::Grabber> capture;
   
   bool triggered_capture = false;
   bool pcd_input = false;
@@ -1297,7 +1297,7 @@ main (int argc, char* argv[])
   pc::parse_argument (argc, argv, "--viz", visualization);
         
   std::string camera_pose_file;
-  boost::shared_ptr<CameraPoseProcessor> pose_processor;
+  std::shared_ptr<CameraPoseProcessor> pose_processor;
   if (pc::parse_argument (argc, argv, "-save_pose", camera_pose_file) && camera_pose_file.size () > 0)
   {
     pose_processor.reset (new CameraPoseWriter (camera_pose_file));

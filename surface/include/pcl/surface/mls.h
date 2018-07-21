@@ -49,7 +49,7 @@
 #include <pcl/surface/eigen.h>
 #include <pcl/surface/processing.h>
 #include <map>
-#include <boost/function.hpp>
+#include 
 
 namespace pcl
 {
@@ -207,7 +207,7 @@ namespace pcl
                        const std::vector<int> &nn_indices,
                        double search_radius,
                        int polynomial_order = 2,
-                       boost::function<double(const double)> weight_func = 0);
+                       std::function<double(const double)> weight_func = 0);
 
     Eigen::Vector3d query_point;  /**< \brief The query point about which the mls surface was generated */
     Eigen::Vector3d mean;         /**< \brief The mean point of all the neighbors. */
@@ -249,8 +249,8 @@ namespace pcl
   class MovingLeastSquares : public CloudSurfaceProcessing<PointInT, PointOutT>
   {
     public:
-      typedef boost::shared_ptr<MovingLeastSquares<PointInT, PointOutT> > Ptr;
-      typedef boost::shared_ptr<const MovingLeastSquares<PointInT, PointOutT> > ConstPtr;
+      typedef std::shared_ptr<MovingLeastSquares<PointInT, PointOutT> > Ptr;
+      typedef std::shared_ptr<const MovingLeastSquares<PointInT, PointOutT> > ConstPtr;
 
       using PCLBase<PointInT>::input_;
       using PCLBase<PointInT>::indices_;
@@ -271,7 +271,7 @@ namespace pcl
       typedef typename PointCloudIn::Ptr PointCloudInPtr;
       typedef typename PointCloudIn::ConstPtr PointCloudInConstPtr;
 
-      typedef boost::function<int (int, double, std::vector<int> &, std::vector<float> &)> SearchMethod;
+      typedef std::function<int (int, double, std::vector<int> &, std::vector<float> &)> SearchMethod;
 
       enum UpsamplingMethod
       {
@@ -335,7 +335,7 @@ namespace pcl
         tree_ = tree;
         // Declare the search locator definition
         int (KdTree::*radiusSearch)(int index, double radius, std::vector<int> &k_indices, std::vector<float> &k_sqr_distances, unsigned int max_nn) const = &KdTree::radiusSearch;
-        search_method_ = boost::bind (radiusSearch, boost::ref (tree_), _1, _2, _3, _4, 0);
+        search_method_ = std::bind (radiusSearch, std::ref (tree_), std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4, 0);
       }
 
       /** \brief Get a pointer to the search method used. */
@@ -737,7 +737,7 @@ namespace pcl
       /** \brief Random number generator using an uniform distribution of floats
         * \note Used only in the case of RANDOM_UNIFORM_DENSITY upsampling
         */
-      boost::shared_ptr<boost::variate_generator<boost::mt19937&,
+      std::shared_ptr<boost::variate_generator<boost::mt19937&,
                                                  boost::uniform_real<float> >
                        > rng_uniform_distribution_;
 

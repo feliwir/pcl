@@ -116,7 +116,7 @@ class OpenNIFeaturePersistence
     void
     cloud_cb (const CloudConstPtr& cloud)
     {
-      boost::mutex::scoped_lock lock (mtx_);
+      std::lock_guard<std::mutex> lock (mtx_);
       //lock while we set our cloud;
       FPS_CALC ("computation");
 
@@ -155,10 +155,10 @@ class OpenNIFeaturePersistence
     void
     viz_cb (pcl::visualization::PCLVisualizer& viz)
     {
-      boost::mutex::scoped_lock lock (mtx_);
+      std::lock_guard<std::mutex> lock (mtx_);
       if (!cloud_)
       {
-        boost::this_thread::sleep(boost::posix_time::seconds(1));
+        std::this_thread::sleep_for(std::chrono::seconds(1));
         return;
       }
 
@@ -187,16 +187,16 @@ class OpenNIFeaturePersistence
     {
       pcl::Grabber* interface = new pcl::OpenNIGrabber (device_id_);
 
-      boost::function<void (const CloudConstPtr&)> f = boost::bind (&OpenNIFeaturePersistence::cloud_cb, this, _1);
+      std::function<void (const CloudConstPtr&)> f = std::bind (&OpenNIFeaturePersistence::cloud_cb, this, std::placeholders::_1);
       boost::signals2::connection c = interface->registerCallback (f);
 
-      viewer.runOnVisualizationThread (boost::bind(&OpenNIFeaturePersistence::viz_cb, this, _1), "viz_cb");
+      viewer.runOnVisualizationThread (std::bind(&OpenNIFeaturePersistence::viz_cb, this, std::placeholders::_1), "viz_cb");
 
       interface->start ();
 
       while (!viewer.wasStopped ())
       {
-        boost::this_thread::sleep(boost::posix_time::seconds(1));
+        std::this_thread::sleep_for(std::chrono::seconds(1));
       }
 
       interface->stop ();
@@ -211,7 +211,7 @@ class OpenNIFeaturePersistence
 
     pcl::visualization::CloudViewer viewer;
     std::string device_id_;
-    boost::mutex mtx_;
+    std::mutex mtx_;
     // Data
     CloudPtr feature_locations_, cloud_subsampled_;
     pcl::PointCloud<pcl::Normal>::Ptr normals_;

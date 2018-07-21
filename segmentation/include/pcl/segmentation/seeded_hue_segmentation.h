@@ -59,7 +59,7 @@ namespace pcl
     */
   void 
   seededHueSegmentation (const PointCloud<PointXYZRGB>                           &cloud, 
-                         const boost::shared_ptr<search::Search<PointXYZRGB> >   &tree, 
+                         const std::shared_ptr<search::Search<PointXYZRGB> >   &tree, 
                          float                                                   tolerance, 
                          PointIndices                                            &indices_in, 
                          PointIndices                                            &indices_out, 
@@ -78,7 +78,7 @@ namespace pcl
     */
   void 
   seededHueSegmentation (const PointCloud<PointXYZRGB>                           &cloud, 
-                         const boost::shared_ptr<search::Search<PointXYZRGBL> >  &tree, 
+                         const std::shared_ptr<search::Search<PointXYZRGBL> >  &tree, 
                          float                                                   tolerance, 
                          PointIndices                                            &indices_in, 
                          PointIndices                                            &indices_out, 

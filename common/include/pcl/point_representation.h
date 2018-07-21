@@ -71,8 +71,8 @@ namespace pcl
       bool trivial_;
 
     public:
-      typedef boost::shared_ptr<PointRepresentation<PointT> > Ptr;
-      typedef boost::shared_ptr<const PointRepresentation<PointT> > ConstPtr;
+      typedef std::shared_ptr<PointRepresentation<PointT> > Ptr;
+      typedef std::shared_ptr<const PointRepresentation<PointT> > ConstPtr;
 
       /** \brief Empty constructor */
       PointRepresentation () : nr_dimensions_ (0), alpha_ (0), trivial_ (false) {}
@@ -182,8 +182,8 @@ namespace pcl
 
     public:
       // Boost shared pointers
-      typedef boost::shared_ptr<DefaultPointRepresentation<PointDefault> > Ptr;
-      typedef boost::shared_ptr<const DefaultPointRepresentation<PointDefault> > ConstPtr;
+      typedef std::shared_ptr<DefaultPointRepresentation<PointDefault> > Ptr;
+      typedef std::shared_ptr<const DefaultPointRepresentation<PointDefault> > ConstPtr;
 
       DefaultPointRepresentation ()
       {
@@ -290,8 +290,8 @@ namespace pcl
 
     public:
       // Boost shared pointers
-      typedef typename boost::shared_ptr<DefaultFeatureRepresentation<PointDefault> > Ptr;
-      typedef typename boost::shared_ptr<const DefaultFeatureRepresentation<PointDefault> > ConstPtr;
+      typedef typename std::shared_ptr<DefaultFeatureRepresentation<PointDefault> > Ptr;
+      typedef typename std::shared_ptr<const DefaultFeatureRepresentation<PointDefault> > ConstPtr;
       typedef typename pcl::traits::fieldList<PointDefault>::type FieldList;
 
       DefaultFeatureRepresentation ()
@@ -536,8 +536,8 @@ namespace pcl
 
     public:
       // Boost shared pointers
-      typedef boost::shared_ptr<CustomPointRepresentation<PointDefault> > Ptr;
-      typedef boost::shared_ptr<const CustomPointRepresentation<PointDefault> > ConstPtr;
+      typedef std::shared_ptr<CustomPointRepresentation<PointDefault> > Ptr;
+      typedef std::shared_ptr<const CustomPointRepresentation<PointDefault> > ConstPtr;
 
       /** \brief Constructor
         * \param[in] max_dim the maximum number of dimensions to use

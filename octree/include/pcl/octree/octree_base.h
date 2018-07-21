@@ -45,6 +45,7 @@
 #include <pcl/octree/octree_container.h>
 #include <pcl/octree/octree_key.h>
 #include <pcl/octree/octree_iterator.h>
+#include <mutex>
 
 namespace pcl
 {

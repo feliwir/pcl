@@ -72,7 +72,7 @@ class OpenNISmoothing;
 void keyboardEventOccurred (const pcl::visualization::KeyboardEvent &event,
                             void *stop_void)
 {
-  boost::shared_ptr<bool> stop = *static_cast<boost::shared_ptr<bool>*> (stop_void);
+  std::shared_ptr<bool> stop = *static_cast<std::shared_ptr<bool>*> (stop_void);
   if (event.getKeySym () == "s" && event.keyDown ())
   {
     *stop = ! *stop;
@@ -136,7 +136,7 @@ class OpenNISmoothing
     {
       pcl::Grabber* interface = new pcl::OpenNIGrabber (device_id_);
 
-      boost::function<void (const CloudConstPtr&)> f = boost::bind (&OpenNISmoothing::cloud_cb_, this, _1);
+      std::function<void (const CloudConstPtr&)> f = std::bind (&OpenNISmoothing::cloud_cb_, this, std::placeholders::_1);
       boost::signals2::connection c = interface->registerCallback (f);
 
       viewer.registerKeyboardCallback (keyboardEventOccurred, reinterpret_cast<void*> (&stop_computing_));
@@ -165,11 +165,11 @@ class OpenNISmoothing
     pcl::MovingLeastSquares<PointType, PointType> smoother_;
     pcl::visualization::PCLVisualizer viewer;
     std::string device_id_;
-    boost::mutex mtx_;
+    std::mutex mtx_;
     CloudConstPtr cloud_;
     CloudPtr cloud_smoothed_;
     int viewport_input_, viewport_smoothed_;
-    boost::shared_ptr<bool> stop_computing_;
+    std::shared_ptr<bool> stop_computing_;
 };
 
 void

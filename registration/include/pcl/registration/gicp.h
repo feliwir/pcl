@@ -91,14 +91,14 @@ namespace pcl
       typedef PointIndices::ConstPtr PointIndicesConstPtr;
 
       typedef std::vector< Eigen::Matrix3d, Eigen::aligned_allocator<Eigen::Matrix3d> > MatricesVector;
-      typedef boost::shared_ptr< MatricesVector > MatricesVectorPtr;
-      typedef boost::shared_ptr< const MatricesVector > MatricesVectorConstPtr;
+      typedef std::shared_ptr< MatricesVector > MatricesVectorPtr;
+      typedef std::shared_ptr< const MatricesVector > MatricesVectorConstPtr;
       
       typedef typename Registration<PointSource, PointTarget>::KdTree InputKdTree;
       typedef typename Registration<PointSource, PointTarget>::KdTreePtr InputKdTreePtr;
 
-      typedef boost::shared_ptr< GeneralizedIterativeClosestPoint<PointSource, PointTarget> > Ptr;
-      typedef boost::shared_ptr< const GeneralizedIterativeClosestPoint<PointSource, PointTarget> > ConstPtr;
+      typedef std::shared_ptr< GeneralizedIterativeClosestPoint<PointSource, PointTarget> > Ptr;
+      typedef std::shared_ptr< const GeneralizedIterativeClosestPoint<PointSource, PointTarget> > ConstPtr;
 
 
       typedef Eigen::Matrix<double, 6, 1> Vector6d;
@@ -117,8 +117,8 @@ namespace pcl
         transformation_epsilon_ = 5e-4;
         corr_dist_threshold_ = 5.;
         rigid_transformation_estimation_ = 
-          boost::bind (&GeneralizedIterativeClosestPoint<PointSource, PointTarget>::estimateRigidTransformationBFGS, 
-                       this, _1, _2, _3, _4, _5); 
+          std::bind (&GeneralizedIterativeClosestPoint<PointSource, PointTarget>::estimateRigidTransformationBFGS, 
+                       this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4, std::placeholders::_5); 
       }
 
       /** \brief Provide a pointer to the input dataset
@@ -355,7 +355,7 @@ namespace pcl
         const GeneralizedIterativeClosestPoint *gicp_;
       };
       
-      boost::function<void(const pcl::PointCloud<PointSource> &cloud_src,
+      std::function<void(const pcl::PointCloud<PointSource> &cloud_src,
                            const std::vector<int> &src_indices,
                            const pcl::PointCloud<PointTarget> &cloud_tgt,
                            const std::vector<int> &tgt_indices,

@@ -8,7 +8,7 @@
 #ifndef PCL_SIMULATION_SCENE_HPP_
 #define PCL_SIMULATION_SCENE_HPP_
 
-#include <boost/shared_ptr.hpp>
+#include <memory>
 
 #include <pcl/pcl_macros.h>
 //#include <pcl/win32_macros.h>
@@ -23,8 +23,8 @@ namespace pcl
     class PCL_EXPORTS Scene
     {
     public:
-      typedef boost::shared_ptr<Scene> Ptr;
-      typedef boost::shared_ptr<Scene> ConstPtr;
+      typedef std::shared_ptr<Scene> Ptr;
+      typedef std::shared_ptr<Scene> ConstPtr;
 
       void
       draw ();

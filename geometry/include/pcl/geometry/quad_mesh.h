@@ -63,8 +63,8 @@ namespace pcl
         typedef pcl::geometry::MeshBase <QuadMesh <MeshTraitsT>, MeshTraitsT, QuadMeshTag> Base;
 
         typedef QuadMesh <MeshTraitsT>         Self;
-        typedef boost::shared_ptr <Self>       Ptr;
-        typedef boost::shared_ptr <const Self> ConstPtr;
+        typedef std::shared_ptr <Self>       Ptr;
+        typedef std::shared_ptr <const Self> ConstPtr;
 
         typedef typename Base::VertexData   VertexData;
         typedef typename Base::HalfEdgeData HalfEdgeData;

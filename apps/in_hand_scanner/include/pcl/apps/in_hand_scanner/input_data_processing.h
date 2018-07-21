@@ -171,12 +171,12 @@ namespace pcl
 
         typedef pcl::Normal                            Normal;
         typedef pcl::PointCloud <Normal>               CloudNormals;
-        typedef boost::shared_ptr <CloudNormals>       CloudNormalsPtr;
-        typedef boost::shared_ptr <const CloudNormals> CloudNormalsConstPtr;
+        typedef std::shared_ptr <CloudNormals>       CloudNormalsPtr;
+        typedef std::shared_ptr <const CloudNormals> CloudNormalsConstPtr;
 
         typedef pcl::IntegralImageNormalEstimation <PointXYZRGBA, Normal> NormalEstimation;
-        typedef boost::shared_ptr <NormalEstimation>                      NormalEstimationPtr;
-        typedef boost::shared_ptr <const NormalEstimation>                NormalEstimationConstPtr;
+        typedef std::shared_ptr <NormalEstimation>                      NormalEstimationPtr;
+        typedef std::shared_ptr <const NormalEstimation>                NormalEstimationConstPtr;
 
         typedef Eigen::Matrix <bool, Eigen::Dynamic, Eigen::Dynamic> MatrixXb;
         typedef Eigen::MatrixXi                                      MatrixXi;

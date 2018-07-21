@@ -128,15 +128,15 @@ public:
   cloud_callback (const CloudConstPtr& cloud)
   {
     FPS_CALC ("cloud callback");
-    boost::mutex::scoped_lock lock (cloud_mutex_);
+    std::lock_guard<std::mutex> lock (cloud_mutex_);
     cloud_ = cloud;
   }
 
   void
-  image_callback (const boost::shared_ptr<pcl::io::openni2::Image>& image)
+  image_callback (const std::shared_ptr<pcl::io::openni2::Image>& image)
   {
     FPS_CALC ("image callback");
-    boost::mutex::scoped_lock lock (image_mutex_);
+    std::lock_guard<std::mutex> lock (image_mutex_);
     image_ = image;
 
     if (image->getEncoding () != pcl::io::openni2::Image::RGB)
@@ -183,16 +183,16 @@ public:
     cloud_viewer_->registerMouseCallback (&OpenNI2Viewer::mouse_callback, *this);
     cloud_viewer_->registerKeyboardCallback (&OpenNI2Viewer::keyboard_callback, *this);
     cloud_viewer_->setCameraFieldOfView (1.02259994f);
-    boost::function<void (const CloudConstPtr&) > cloud_cb = boost::bind (&OpenNI2Viewer::cloud_callback, this, _1);
+    std::function<void (const CloudConstPtr&) > cloud_cb = std::bind (&OpenNI2Viewer::cloud_callback, this, std::placeholders::_1);
     boost::signals2::connection cloud_connection = grabber_.registerCallback (cloud_cb);
 
     boost::signals2::connection image_connection;
-    if (grabber_.providesCallback<void (const boost::shared_ptr<pcl::io::openni2::Image>&)>())
+    if (grabber_.providesCallback<void (const std::shared_ptr<pcl::io::openni2::Image>&)>())
     {
       image_viewer_.reset (new pcl::visualization::ImageViewer ("PCL OpenNI image"));
       image_viewer_->registerMouseCallback (&OpenNI2Viewer::mouse_callback, *this);
       image_viewer_->registerKeyboardCallback (&OpenNI2Viewer::keyboard_callback, *this);
-      boost::function<void (const boost::shared_ptr<pcl::io::openni2::Image>&) > image_cb = boost::bind (&OpenNI2Viewer::image_callback, this, _1);
+      std::function<void (const std::shared_ptr<pcl::io::openni2::Image>&) > image_cb = std::bind (&OpenNI2Viewer::image_callback, this, std::placeholders::_1);
       image_connection = grabber_.registerCallback (image_cb);
     }
 
@@ -202,7 +202,7 @@ public:
 
     while (!cloud_viewer_->wasStopped () && (image_viewer_ && !image_viewer_->wasStopped ()))
     {
-      boost::shared_ptr<pcl::io::openni2::Image> image;
+      std::shared_ptr<pcl::io::openni2::Image> image;
       CloudConstPtr cloud;
 
       cloud_viewer_->spinOnce ();
@@ -270,22 +270,22 @@ public:
       delete[] rgb_data_;
   }
 
-  boost::shared_ptr<pcl::visualization::PCLVisualizer> cloud_viewer_;
-  boost::shared_ptr<pcl::visualization::ImageViewer> image_viewer_;
+  std::shared_ptr<pcl::visualization::PCLVisualizer> cloud_viewer_;
+  std::shared_ptr<pcl::visualization::ImageViewer> image_viewer_;
 
   pcl::io::OpenNI2Grabber& grabber_;
-  boost::mutex cloud_mutex_;
-  boost::mutex image_mutex_;
+  std::mutex cloud_mutex_;
+  std::mutex image_mutex_;
 
   CloudConstPtr cloud_;
-  boost::shared_ptr<pcl::io::openni2::Image> image_;
+  std::shared_ptr<pcl::io::openni2::Image> image_;
   unsigned char* rgb_data_;
   unsigned rgb_data_size_;
 };
 
 // Create the PCLVisualizer object
-boost::shared_ptr<pcl::visualization::PCLVisualizer> cld;
-boost::shared_ptr<pcl::visualization::ImageViewer> img;
+std::shared_ptr<pcl::visualization::PCLVisualizer> cld;
+std::shared_ptr<pcl::visualization::ImageViewer> img;
 
 /* ---[ */
 int
@@ -309,17 +309,17 @@ main (int argc, char** argv)
       if (argc >= 3)
       {
         pcl::io::OpenNI2Grabber grabber (argv[2]);
-        boost::shared_ptr<pcl::io::openni2::OpenNI2Device> device = grabber.getDevice ();
+        std::shared_ptr<pcl::io::openni2::OpenNI2Device> device = grabber.getDevice ();
         cout << *device;		// Prints out all sensor data, including supported video modes
       }
       else
       {
-        boost::shared_ptr<pcl::io::openni2::OpenNI2DeviceManager> deviceManager = pcl::io::openni2::OpenNI2DeviceManager::getInstance ();
+        std::shared_ptr<pcl::io::openni2::OpenNI2DeviceManager> deviceManager = pcl::io::openni2::OpenNI2DeviceManager::getInstance ();
         if (deviceManager->getNumOfConnectedDevices () > 0)
         {
           for (unsigned deviceIdx = 0; deviceIdx < deviceManager->getNumOfConnectedDevices (); ++deviceIdx)
           {
-            boost::shared_ptr<pcl::io::openni2::OpenNI2Device> device = deviceManager->getDeviceByIndex (deviceIdx);
+            std::shared_ptr<pcl::io::openni2::OpenNI2Device> device = deviceManager->getDeviceByIndex (deviceIdx);
             cout << "Device " << device->getStringID () << "connected." << endl;
           }
 
@@ -334,10 +334,10 @@ main (int argc, char** argv)
   }
   else
   {
-    boost::shared_ptr<pcl::io::openni2::OpenNI2DeviceManager> deviceManager = pcl::io::openni2::OpenNI2DeviceManager::getInstance ();
+    std::shared_ptr<pcl::io::openni2::OpenNI2DeviceManager> deviceManager = pcl::io::openni2::OpenNI2DeviceManager::getInstance ();
     if (deviceManager->getNumOfConnectedDevices () > 0)
     {
-      boost::shared_ptr<pcl::io::openni2::OpenNI2Device> device = deviceManager->getAnyDevice ();
+      std::shared_ptr<pcl::io::openni2::OpenNI2Device> device = deviceManager->getAnyDevice ();
       cout << "Device ID not set, using default device: " << device->getStringID () << endl;
     }
   }

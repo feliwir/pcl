@@ -70,8 +70,8 @@ namespace pcl
 
     public:
 
-        typedef boost::shared_ptr< NormalDistributionsTransform2D<PointSource, PointTarget> > Ptr;
-        typedef boost::shared_ptr< const NormalDistributionsTransform2D<PointSource, PointTarget> > ConstPtr;
+        typedef std::shared_ptr< NormalDistributionsTransform2D<PointSource, PointTarget> > Ptr;
+        typedef std::shared_ptr< const NormalDistributionsTransform2D<PointSource, PointTarget> > ConstPtr;
 
       /** \brief Empty constructor. */
       NormalDistributionsTransform2D ()

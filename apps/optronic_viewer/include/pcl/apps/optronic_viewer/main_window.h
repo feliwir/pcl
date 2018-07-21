@@ -38,7 +38,7 @@
 #ifndef PCL_APPS_OPTRONIC_VIEWER_MAIN_WINDOW_H_
 #define PCL_APPS_OPTRONIC_VIEWER_MAIN_WINDOW_H_
 
-#include <boost/shared_ptr.hpp>
+#include <memory>
 
 #include <pcl/apps/optronic_viewer/qt.h>
 #include <pcl/apps/optronic_viewer/openni_grabber.h>
@@ -165,7 +165,7 @@ namespace pcl
           std::vector<CloudFilter*> active_cloud_filters_;
 
           // mutexes
-          boost::mutex cloud_mutex_;
+          std::mutex cloud_mutex_;
       };
     }
   }

@@ -51,8 +51,8 @@ namespace pcl
   {
     public:
 
-      typedef boost::shared_ptr< PlaneClipper3D<PointT> > Ptr;
-      typedef boost::shared_ptr< const PlaneClipper3D<PointT> > ConstPtr;
+      typedef std::shared_ptr< PlaneClipper3D<PointT> > Ptr;
+      typedef std::shared_ptr< const PlaneClipper3D<PointT> > ConstPtr;
 
       /**
        * @author Suat Gedikli <gedikli@willowgarage.com>

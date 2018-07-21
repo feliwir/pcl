@@ -47,7 +47,7 @@ pcl::cloud_composer::SanitizeCloudTool::performAction (ConstItemList input_data,
     pass_filter.setKeepOrganized (keep_organized);
         
     //Create output cloud
-    pcl::PCLPointCloud2::Ptr cloud_filtered = boost::make_shared<pcl::PCLPointCloud2> ();
+    pcl::PCLPointCloud2::Ptr cloud_filtered = std::make_shared<pcl::PCLPointCloud2> ();
     //Filter!  
     pass_filter.filter (*cloud_filtered);
     

@@ -72,8 +72,8 @@ namespace pcl
   class ShapeContext3DEstimation : public FeatureFromNormals<PointInT, PointNT, PointOutT>
   {
     public:
-      typedef boost::shared_ptr<ShapeContext3DEstimation<PointInT, PointNT, PointOutT> > Ptr;
-      typedef boost::shared_ptr<const ShapeContext3DEstimation<PointInT, PointNT, PointOutT> > ConstPtr;
+      typedef std::shared_ptr<ShapeContext3DEstimation<PointInT, PointNT, PointOutT> > Ptr;
+      typedef std::shared_ptr<const ShapeContext3DEstimation<PointInT, PointNT, PointOutT> > ConstPtr;
 
       using Feature<PointInT, PointOutT>::feature_name_;
       using Feature<PointInT, PointOutT>::getClassName;
@@ -216,7 +216,7 @@ namespace pcl
       boost::mt19937 rng_alg_;
 
       /** \brief Boost-based random number generator distribution. */
-      boost::shared_ptr<boost::uniform_01<boost::mt19937> > rng_;
+      std::shared_ptr<boost::uniform_01<boost::mt19937> > rng_;
 
      /*  \brief Shift computed descriptor "L" times along the azimuthal direction
        * \param[in] block_size the size of each azimuthal block

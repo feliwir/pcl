@@ -90,7 +90,7 @@ pcl::cloud_composer::ProjectModel::setCloudView (CloudView* view)
 }
 
 void
-pcl::cloud_composer::ProjectModel::setPointSelection (boost::shared_ptr<SelectionEvent> selected_event)
+pcl::cloud_composer::ProjectModel::setPointSelection (std::shared_ptr<SelectionEvent> selected_event)
 {
   selection_event_ = selected_event;
   //Get all the items in this project that are clouds
@@ -106,7 +106,7 @@ pcl::cloud_composer::ProjectModel::setPointSelection (boost::shared_ptr<Selectio
   // Find all indices in the selected points which are present in the clouds
   foreach (CloudItem* cloud_item, project_clouds)
   {
-    pcl::PointIndices::Ptr found_indices = boost::make_shared<pcl::PointIndices>();
+    pcl::PointIndices::Ptr found_indices = std::make_shared<pcl::PointIndices>();
     selected_event->findIndicesInItem (cloud_item, found_indices);
     if (found_indices->indices.size () > 0)
     {
@@ -120,7 +120,7 @@ pcl::cloud_composer::ProjectModel::setPointSelection (boost::shared_ptr<Selectio
 }
 
 void
-pcl::cloud_composer::ProjectModel::manipulateClouds (boost::shared_ptr<ManipulationEvent> manip_event)
+pcl::cloud_composer::ProjectModel::manipulateClouds (std::shared_ptr<ManipulationEvent> manip_event)
 {
   
   //Get all the items in this project that are clouds
@@ -274,7 +274,7 @@ pcl::cloud_composer::ProjectModel::insertNewCloudFromRGBandDepth ()
     return;
   }
   qDebug () << "Images loaded, making cloud";
-  PointCloud<PointXYZRGB>::Ptr cloud = boost::shared_ptr<PointCloud<PointXYZRGB> > (new PointCloud<PointXYZRGB>);
+  PointCloud<PointXYZRGB>::Ptr cloud = std::shared_ptr<PointCloud<PointXYZRGB> > (new PointCloud<PointXYZRGB>);
   cloud->points.reserve (depth_dims[0] * depth_dims[1]);
   cloud->width = depth_dims[0];
   cloud->height = depth_dims[1];

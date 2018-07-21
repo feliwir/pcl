@@ -68,7 +68,7 @@ namespace pcl
       typedef typename SampleConsensusModel<PointT>::PointCloudPtr PointCloudPtr;
       typedef typename SampleConsensusModel<PointT>::PointCloudConstPtr PointCloudConstPtr;
 
-      typedef boost::shared_ptr<SampleConsensusModelRegistration> Ptr;
+      typedef std::shared_ptr<SampleConsensusModelRegistration> Ptr;
 
       /** \brief Constructor for base SampleConsensusModelRegistration.
         * \param[in] cloud the input point cloud dataset
@@ -318,7 +318,7 @@ namespace pcl
       PointCloudConstPtr target_;
 
       /** \brief A pointer to the vector of target point indices to use. */
-      boost::shared_ptr <std::vector<int> > indices_tgt_;
+      std::shared_ptr <std::vector<int> > indices_tgt_;
 
       /** \brief Given the index in the original point cloud, give the matching original index in the target cloud */
       std::map<int, int> correspondences_;

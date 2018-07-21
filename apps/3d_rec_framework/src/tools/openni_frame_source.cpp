@@ -1,7 +1,6 @@
 #include "pcl/apps/3d_rec_framework/tools/openni_frame_source.h"
 #include <pcl/io/pcd_io.h>
 #include <boost/thread/mutex.hpp>
-#include <boost/make_shared.hpp>
 
 namespace OpenNIFrameSource
 {
@@ -9,8 +8,8 @@ namespace OpenNIFrameSource
   OpenNIFrameSource::OpenNIFrameSource (const std::string& device_id) :
     grabber_ (device_id), most_recent_frame_ (), frame_counter_ (0), active_ (true)
   {
-    boost::function<void
-    (const PointCloudConstPtr&)> frame_cb = boost::bind (&OpenNIFrameSource::onNewFrame, this, _1);
+    std::function<void
+    (const PointCloudConstPtr&)> frame_cb = std::bind (&OpenNIFrameSource::onNewFrame, this, std::placeholders::_1);
     grabber_.registerCallback (frame_cb);
     grabber_.start ();
   }
@@ -38,7 +37,7 @@ namespace OpenNIFrameSource
   {
     mutex_.lock ();
     ++frame_counter_;
-    most_recent_frame_ = boost::make_shared<PointCloud> (*cloud); // Make a copy of the frame
+    most_recent_frame_ = std::make_shared<PointCloud> (*cloud); // Make a copy of the frame
     mutex_.unlock ();
   }
 

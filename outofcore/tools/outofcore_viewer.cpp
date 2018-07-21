@@ -88,7 +88,7 @@ typedef OutofcoreOctreeBase<OutofcoreOctreeDiskContainer<PointT>, PointT> octree
 typedef OutofcoreOctreeBaseNode<OutofcoreOctreeDiskContainer<PointT>, PointT> octree_disk_node;
 
 //typedef octree_base<OutofcoreOctreeDiskContainer<PointT> , PointT> octree_disk;
-typedef boost::shared_ptr<octree_disk> OctreeDiskPtr;
+typedef std::shared_ptr<octree_disk> OctreeDiskPtr;
 //typedef octree_base_node<octree_disk_container<PointT> , PointT> octree_disk_node;
 typedef Eigen::aligned_allocator<PointT> AlignedPointT;
 
@@ -131,7 +131,7 @@ typedef Eigen::aligned_allocator<PointT> AlignedPointT;
 // Boost
 #include <boost/date_time.hpp>
 #include <boost/filesystem.hpp>
-#include <boost/thread.hpp>
+#include <thread>
 
 // Globals
 vtkSmartPointer<vtkRenderWindow> window;

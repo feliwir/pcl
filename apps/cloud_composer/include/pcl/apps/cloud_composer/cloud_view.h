@@ -70,7 +70,7 @@ namespace pcl
       QVTKWidget* 
       getQVTK() const {return qvtk_; }
       
-      boost::shared_ptr<pcl::visualization::PCLVisualizer>
+      std::shared_ptr<pcl::visualization::PCLVisualizer>
       getPCLVisualizer () const { return vis_; }
       
       void 
@@ -136,7 +136,7 @@ namespace pcl
       void
       removeOrientationMarkerWidgetAxes ();
       
-      boost::shared_ptr<pcl::visualization::PCLVisualizer> vis_;
+      std::shared_ptr<pcl::visualization::PCLVisualizer> vis_;
       ProjectModel* model_;
       QVTKWidget* qvtk_;
       vtkSmartPointer<InteractorStyleSwitch> style_switch_;

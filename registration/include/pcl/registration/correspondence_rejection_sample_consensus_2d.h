@@ -69,8 +69,8 @@ namespace pcl
         using CorrespondenceRejectorSampleConsensus<PointT>::max_iterations_;
         using CorrespondenceRejectorSampleConsensus<PointT>::best_transformation_;
 
-        typedef boost::shared_ptr<CorrespondenceRejectorSampleConsensus2D> Ptr;
-        typedef boost::shared_ptr<const CorrespondenceRejectorSampleConsensus2D> ConstPtr;
+        typedef std::shared_ptr<CorrespondenceRejectorSampleConsensus2D> Ptr;
+        typedef std::shared_ptr<const CorrespondenceRejectorSampleConsensus2D> ConstPtr;
 
         /** \brief Empty constructor. Sets the inlier threshold to 5cm (0.05m), 
           * and the maximum number of iterations to 1000. 

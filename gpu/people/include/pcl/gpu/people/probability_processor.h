@@ -60,7 +60,7 @@ namespace pcl
       class PCL_EXPORTS ProbabilityProcessor
       {        
         public:
-          typedef boost::shared_ptr<ProbabilityProcessor> Ptr;
+          typedef std::shared_ptr<ProbabilityProcessor> Ptr;
           typedef DeviceArray2D<unsigned short> Depth;
           typedef DeviceArray2D<unsigned char> Labels;
 
@@ -104,7 +104,7 @@ namespace pcl
                         pcl::device::LabelProbability&  probOut);
 
         private:
-          boost::shared_ptr<pcl::device::ProbabilityProc> impl_;
+          std::shared_ptr<pcl::device::ProbabilityProc> impl_;
 
       };
     }

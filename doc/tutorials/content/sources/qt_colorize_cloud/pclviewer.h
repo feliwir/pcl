@@ -58,7 +58,7 @@ class PCLViewer : public QMainWindow
 
   protected:
     /** @brief The PCL visualizer object */
-    boost::shared_ptr<pcl::visualization::PCLVisualizer> viewer_;
+    std::shared_ptr<pcl::visualization::PCLVisualizer> viewer_;
 
     /** @brief The point cloud displayed */
     PointCloudT::Ptr cloud_;

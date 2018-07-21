@@ -58,8 +58,8 @@ namespace openni_wrapper
   class PCL_EXPORTS Image
   {
   public:
-    typedef boost::shared_ptr<Image> Ptr;
-    typedef boost::shared_ptr<const Image> ConstPtr;
+    typedef std::shared_ptr<Image> Ptr;
+    typedef std::shared_ptr<const Image> ConstPtr;
 
     typedef enum
     {
@@ -73,7 +73,7 @@ namespace openni_wrapper
      * @brief Constructor
      * @param[in] image_meta_data the actual image data from the OpenNI driver
      */
-    inline Image (boost::shared_ptr<xn::ImageMetaData> image_meta_data) throw ();
+    inline Image (std::shared_ptr<xn::ImageMetaData> image_meta_data) throw ();
 
     /**
      * @author Suat Gedikli
@@ -165,10 +165,10 @@ namespace openni_wrapper
     inline const xn::ImageMetaData& getMetaData () const throw ();
 
   protected:
-    boost::shared_ptr<xn::ImageMetaData> image_md_;
+    std::shared_ptr<xn::ImageMetaData> image_md_;
   } ;
 
-  Image::Image (boost::shared_ptr<xn::ImageMetaData> image_meta_data) throw ()
+  Image::Image (std::shared_ptr<xn::ImageMetaData> image_meta_data) throw ()
   : image_md_ (image_meta_data)
   {
   }

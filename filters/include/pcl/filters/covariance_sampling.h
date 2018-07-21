@@ -73,8 +73,8 @@ namespace pcl
       typedef typename pcl::PointCloud<PointNT>::ConstPtr NormalsConstPtr;
 
     public:
-      typedef boost::shared_ptr< CovarianceSampling<PointT, PointNT> > Ptr;
-      typedef boost::shared_ptr< const CovarianceSampling<PointT, PointNT> > ConstPtr;
+      typedef std::shared_ptr< CovarianceSampling<PointT, PointNT> > Ptr;
+      typedef std::shared_ptr< const CovarianceSampling<PointT, PointNT> > ConstPtr;
  
       /** \brief Empty constructor. */
       CovarianceSampling ()

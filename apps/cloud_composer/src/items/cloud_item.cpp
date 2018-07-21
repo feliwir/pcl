@@ -73,7 +73,7 @@ pcl::cloud_composer::CloudItem::~CloudItem ()
 
 
 void
-pcl::cloud_composer::CloudItem::paintView (boost::shared_ptr<pcl::visualization::PCLVisualizer> vis) const
+pcl::cloud_composer::CloudItem::paintView (std::shared_ptr<pcl::visualization::PCLVisualizer> vis) const
 {
   vis->addPointCloud (cloud_blob_ptr_, geometry_handler_, color_handler_, origin_, orientation_, getId ().toStdString ());
   vis->setPointCloudRenderingProperties (pcl::visualization::PCL_VISUALIZER_POINT_SIZE, properties_->getProperty ("Point Size").toDouble (), getId ().toStdString ());
@@ -82,7 +82,7 @@ pcl::cloud_composer::CloudItem::paintView (boost::shared_ptr<pcl::visualization:
 }
 
 void
-pcl::cloud_composer::CloudItem::removeFromView (boost::shared_ptr<pcl::visualization::PCLVisualizer> vis) const
+pcl::cloud_composer::CloudItem::removeFromView (std::shared_ptr<pcl::visualization::PCLVisualizer> vis) const
 {  
   vis->removePointCloud (getId ().toStdString ());
 }
@@ -143,31 +143,31 @@ pcl::cloud_composer::CloudItem::setTemplateCloudFromBlob ()
     {
       case (PointTypeFlags::XYZ):
       {
-        pcl::PointCloud <PointXYZ>::Ptr cloud_ptr = boost::shared_ptr<pcl::PointCloud <PointXYZ> > (new pcl::PointCloud <PointXYZ> );
+        pcl::PointCloud <PointXYZ>::Ptr cloud_ptr = std::shared_ptr<pcl::PointCloud <PointXYZ> > (new pcl::PointCloud <PointXYZ> );
         pcl::fromPCLPointCloud2 (*cloud_blob_ptr_, *cloud_ptr);
         cloud_pointer_variant = QVariant::fromValue (cloud_ptr);
         //Initialize the search kd-tree for this cloud
-        pcl::search::KdTree<PointXYZ>::Ptr kd_search = boost::make_shared<search::KdTree<PointXYZ> >();
+        pcl::search::KdTree<PointXYZ>::Ptr kd_search = std::make_shared<search::KdTree<PointXYZ> >();
         kd_search->setInputCloud (cloud_ptr);
         kd_tree_variant = QVariant::fromValue (kd_search);
         break;
       }
       case (PointTypeFlags::XYZ | PointTypeFlags::RGB):
       {
-        pcl::PointCloud <PointXYZRGB>::Ptr cloud_ptr = boost::shared_ptr<pcl::PointCloud <PointXYZRGB> > (new pcl::PointCloud <PointXYZRGB>);
+        pcl::PointCloud <PointXYZRGB>::Ptr cloud_ptr = std::shared_ptr<pcl::PointCloud <PointXYZRGB> > (new pcl::PointCloud <PointXYZRGB>);
         pcl::fromPCLPointCloud2 (*cloud_blob_ptr_, *cloud_ptr);
         cloud_pointer_variant = QVariant::fromValue (cloud_ptr);
-        pcl::search::KdTree<PointXYZRGB>::Ptr kd_search = boost::make_shared<search::KdTree<PointXYZRGB> >();
+        pcl::search::KdTree<PointXYZRGB>::Ptr kd_search = std::make_shared<search::KdTree<PointXYZRGB> >();
         kd_search->setInputCloud (cloud_ptr);
         kd_tree_variant = QVariant::fromValue (kd_search);
         break;
       }
       case (PointTypeFlags::XYZ | PointTypeFlags::RGBA):
       {
-        pcl::PointCloud <PointXYZRGBA>::Ptr cloud_ptr = boost::shared_ptr<pcl::PointCloud <PointXYZRGBA> > (new pcl::PointCloud <PointXYZRGBA>);
+        pcl::PointCloud <PointXYZRGBA>::Ptr cloud_ptr = std::shared_ptr<pcl::PointCloud <PointXYZRGBA> > (new pcl::PointCloud <PointXYZRGBA>);
         pcl::fromPCLPointCloud2 (*cloud_blob_ptr_, *cloud_ptr);
         cloud_pointer_variant = QVariant::fromValue (cloud_ptr);
-        pcl::search::KdTree<PointXYZRGBA>::Ptr kd_search = boost::make_shared<search::KdTree<PointXYZRGBA> >();
+        pcl::search::KdTree<PointXYZRGBA>::Ptr kd_search = std::make_shared<search::KdTree<PointXYZRGBA> >();
         kd_search->setInputCloud (cloud_ptr);
         kd_tree_variant = QVariant::fromValue (kd_search);
         break;
@@ -193,7 +193,7 @@ pcl::cloud_composer::CloudItem::checkIfFinite ()
   if (! cloud_blob_ptr_)
     return false;
   
-  pcl::PCLPointCloud2::Ptr cloud_filtered = boost::make_shared<pcl::PCLPointCloud2> ();
+  pcl::PCLPointCloud2::Ptr cloud_filtered = std::make_shared<pcl::PCLPointCloud2> ();
   pcl::PassThrough<pcl::PCLPointCloud2> pass_filter;
   pass_filter.setInputCloud (cloud_blob_ptr_);
   pass_filter.setKeepOrganized (false);

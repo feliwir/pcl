@@ -62,8 +62,8 @@ namespace pcl
 
     public:
 
-      typedef boost::shared_ptr< CropHull<PointT> > Ptr;
-      typedef boost::shared_ptr< const CropHull<PointT> > ConstPtr;
+      typedef std::shared_ptr< CropHull<PointT> > Ptr;
+      typedef std::shared_ptr< const CropHull<PointT> > ConstPtr;
 
       /** \brief Empty Constructor. */
       CropHull () :

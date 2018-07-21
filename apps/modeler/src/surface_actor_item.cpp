@@ -47,7 +47,7 @@
 
 //////////////////////////////////////////////////////////////////////////////////////////////
 pcl::modeler::SurfaceActorItem::SurfaceActorItem(QTreeWidgetItem* parent,
-                                               const boost::shared_ptr<CloudMesh>& cloud_mesh,
+                                               const std::shared_ptr<CloudMesh>& cloud_mesh,
                                                const vtkSmartPointer<vtkRenderWindow>& render_window)
   :ChannelActorItem(parent, cloud_mesh, render_window, vtkSmartPointer<vtkLODActor>::New(), "Surface")
 {

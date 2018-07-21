@@ -47,7 +47,7 @@
 #include <pcl/common/centroid.h>
 #include <pcl/common/eigen.h>
 #include <pcl/common/geometry.h>
-#include <boost/bind.hpp>
+#include <functional>
 
 #ifdef _OPENMP
 #include <omp.h>
@@ -721,7 +721,7 @@ pcl::MLSResult::computeMLSSurface (const pcl::PointCloud<PointT> &cloud,
                                    const std::vector<int> &nn_indices,
                                    double search_radius,
                                    int polynomial_order,
-                                   boost::function<double(const double)> weight_func)
+                                   std::function<double(const double)> weight_func)
 {
   // Compute the plane coefficients
   EIGEN_ALIGN16 Eigen::Matrix3d covariance_matrix;
@@ -772,7 +772,7 @@ pcl::MLSResult::computeMLSSurface (const pcl::PointCloud<PointT> &cloud,
       if (weight_func == 0)
       {
         max_sq_radius = search_radius * search_radius;
-        weight_func = boost::bind (&pcl::MLSResult::computeMLSWeight, this, _1, max_sq_radius);
+        weight_func = std::bind (&pcl::MLSResult::computeMLSWeight, this, std::placeholders::_1, max_sq_radius);
       }
 
       // Allocate matrices and vectors to hold the data used for the polynomial fit

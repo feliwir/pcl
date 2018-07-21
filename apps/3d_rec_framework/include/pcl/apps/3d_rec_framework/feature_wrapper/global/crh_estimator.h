@@ -24,7 +24,7 @@ namespace pcl
       using GlobalEstimator<PointInT, FeatureT>::normal_estimator_;
       using GlobalEstimator<PointInT, FeatureT>::normals_;
 
-      typename boost::shared_ptr<GlobalEstimator<PointInT, FeatureT> > feature_estimator_;
+      typename std::shared_ptr<GlobalEstimator<PointInT, FeatureT> > feature_estimator_;
       typedef pcl::PointCloud<pcl::Histogram<90> > CRHPointCloud;
       std::vector< CRHPointCloud::Ptr > crh_histograms_;
 
@@ -36,7 +36,7 @@ namespace pcl
       }
 
       void
-      setFeatureEstimator(typename boost::shared_ptr<GlobalEstimator<PointInT, FeatureT> > & feature_estimator) {
+      setFeatureEstimator(typename std::shared_ptr<GlobalEstimator<PointInT, FeatureT> > & feature_estimator) {
         feature_estimator_ = feature_estimator;
       }
 

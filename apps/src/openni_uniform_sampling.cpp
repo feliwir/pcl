@@ -76,7 +76,7 @@ class OpenNIUniformSampling
     void 
     cloud_cb_ (const CloudConstPtr& cloud)
     {
-      boost::mutex::scoped_lock lock (mtx_);
+      std::lock_guard<std::mutex> lock (mtx_);
       FPS_CALC ("computation");
 
       cloud_.reset (new Cloud);
@@ -93,10 +93,10 @@ class OpenNIUniformSampling
     void
     viz_cb (pcl::visualization::PCLVisualizer& viz)
     {
-      boost::mutex::scoped_lock lock (mtx_);
+      std::lock_guard<std::mutex> lock (mtx_);
       if (!keypoints_ && !cloud_)
       {
-        boost::this_thread::sleep(boost::posix_time::seconds(1));
+        std::this_thread::sleep_for(std::chrono::seconds(1));
         return;
       }
 
@@ -118,15 +118,15 @@ class OpenNIUniformSampling
     {
       pcl::Grabber* interface = new pcl::OpenNIGrabber (device_id_);
 
-      boost::function<void (const CloudConstPtr&)> f = boost::bind (&OpenNIUniformSampling::cloud_cb_, this, _1);
+      std::function<void (const CloudConstPtr&)> f = std::bind (&OpenNIUniformSampling::cloud_cb_, this, std::placeholders::_1);
       boost::signals2::connection c = interface->registerCallback (f);
-      viewer.runOnVisualizationThread (boost::bind(&OpenNIUniformSampling::viz_cb, this, _1), "viz_cb");
+      viewer.runOnVisualizationThread (std::bind(&OpenNIUniformSampling::viz_cb, this, std::placeholders::_1), "viz_cb");
       
       interface->start ();
       
       while (!viewer.wasStopped ())
       {
-        boost::this_thread::sleep(boost::posix_time::seconds(1));
+        std::this_thread::sleep_for(std::chrono::seconds(1));
       }
 
       interface->stop ();
@@ -135,7 +135,7 @@ class OpenNIUniformSampling
     pcl::UniformSampling<pcl::PointXYZRGBA> pass_;
     pcl::visualization::CloudViewer viewer;
     std::string device_id_;
-    boost::mutex mtx_;
+    std::mutex mtx_;
     CloudPtr cloud_;
     pcl::PointCloud<pcl::PointXYZ>::Ptr keypoints_;
 };

@@ -211,10 +211,10 @@ class PeoplePCDApp
       }
     }
         
-    void source_cb1(const boost::shared_ptr<const PointCloud<PointXYZRGBA> >& cloud)
+    void source_cb1(const std::shared_ptr<const PointCloud<PointXYZRGBA> >& cloud)
     {
       {          
-        boost::mutex::scoped_lock lock(data_ready_mutex_);
+        std::lock_guard<std::mutex> lock(data_ready_mutex_);
         if (exit_)
           return;
 
@@ -223,10 +223,10 @@ class PeoplePCDApp
       data_ready_cond_.notify_one();
     }
 
-    void source_cb2(const boost::shared_ptr<openni_wrapper::Image>& image_wrapper, const boost::shared_ptr<openni_wrapper::DepthImage>& depth_wrapper, float)
+    void source_cb2(const std::shared_ptr<openni_wrapper::Image>& image_wrapper, const std::shared_ptr<openni_wrapper::DepthImage>& depth_wrapper, float)
     {
       {                    
-        boost::mutex::scoped_try_lock lock(data_ready_mutex_);
+        std::mutex::scoped_try_lock lock(data_ready_mutex_);
 
         if (exit_ || !lock)
           return;
@@ -278,15 +278,15 @@ class PeoplePCDApp
       if (ispcd)
         cloud_cb_= true;
         
-      typedef boost::shared_ptr<openni_wrapper::DepthImage> DepthImagePtr;
-      typedef boost::shared_ptr<openni_wrapper::Image> ImagePtr;
+      typedef std::shared_ptr<openni_wrapper::DepthImage> DepthImagePtr;
+      typedef std::shared_ptr<openni_wrapper::Image> ImagePtr;
       
-      boost::function<void (const boost::shared_ptr<const PointCloud<PointXYZRGBA> >&)> func1 = boost::bind (&PeoplePCDApp::source_cb1, this, _1);
-      boost::function<void (const ImagePtr&, const DepthImagePtr&, float constant)> func2 = boost::bind (&PeoplePCDApp::source_cb2, this, _1, _2, _3);                  
+      std::function<void (const std::shared_ptr<const PointCloud<PointXYZRGBA> >&)> func1 = std::bind (&PeoplePCDApp::source_cb1, this, std::placeholders::_1);
+      std::function<void (const ImagePtr&, const DepthImagePtr&, float constant)> func2 = std::bind (&PeoplePCDApp::source_cb2, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3);                  
       boost::signals2::connection c = cloud_cb_ ? capture_.registerCallback (func1) : capture_.registerCallback (func2);
 
       {
-        boost::unique_lock<boost::mutex> lock(data_ready_mutex_);
+        std::unique_lock<std::mutex> lock(data_ready_mutex_);
         
         try 
         { 
@@ -319,8 +319,8 @@ class PeoplePCDApp
       c.disconnect();
     }
 
-    boost::mutex data_ready_mutex_;
-    boost::condition_variable data_ready_cond_;
+    std::mutex data_ready_mutex_;
+    std::condition_variable data_ready_cond_;
 
     pcl::Grabber& capture_;
     
@@ -383,7 +383,7 @@ int main(int argc, char** argv)
   pc::parse_argument (argc, argv, "-w", write);
 
   // selecting data source
-  boost::shared_ptr<pcl::Grabber> capture;
+  std::shared_ptr<pcl::Grabber> capture;
   string openni_device, oni_file, pcd_file, pcd_folder;  
    
   try

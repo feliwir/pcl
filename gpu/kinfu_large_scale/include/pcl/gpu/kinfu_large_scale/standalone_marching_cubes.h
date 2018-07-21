@@ -80,7 +80,7 @@ namespace pcl
       public:
           typedef typename pcl::PointCloud<PointT> PointCloud;
           typedef typename pcl::PointCloud<PointT>::Ptr PointCloudPtr;
-          typedef boost::shared_ptr<pcl::PolygonMesh> MeshPtr;
+          typedef std::shared_ptr<pcl::PolygonMesh> MeshPtr;
 
       /** \brief Constructor        
         */

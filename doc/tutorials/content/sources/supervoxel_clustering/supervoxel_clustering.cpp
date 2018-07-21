@@ -19,7 +19,7 @@ typedef pcl::PointCloud<PointLT> PointLCloudT;
 void addSupervoxelConnectionsToViewer (PointT &supervoxel_center,
                                        PointCloudT &adjacent_supervoxel_centers,
                                        std::string supervoxel_name,
-                                       boost::shared_ptr<pcl::visualization::PCLVisualizer> & viewer);
+                                       std::shared_ptr<pcl::visualization::PCLVisualizer> & viewer);
 
 
 int
@@ -36,7 +36,7 @@ main (int argc, char ** argv)
   }
 
 
-  PointCloudT::Ptr cloud = boost::shared_ptr <PointCloudT> (new PointCloudT ());
+  PointCloudT::Ptr cloud = std::shared_ptr <PointCloudT> (new PointCloudT ());
   pcl::console::print_highlight ("Loading point cloud...\n");
   if (pcl::io::loadPCDFile<PointT> (argv[1], *cloud))
   {
@@ -87,7 +87,7 @@ main (int argc, char ** argv)
   super.extract (supervoxel_clusters);
   pcl::console::print_info ("Found %d supervoxels\n", supervoxel_clusters.size ());
 
-  boost::shared_ptr<pcl::visualization::PCLVisualizer> viewer (new pcl::visualization::PCLVisualizer ("3D Viewer"));
+  std::shared_ptr<pcl::visualization::PCLVisualizer> viewer (new pcl::visualization::PCLVisualizer ("3D Viewer"));
   viewer->setBackgroundColor (0, 0, 0);
 
   PointCloudT::Ptr voxel_centroid_cloud = super.getVoxelCentroidCloud ();
@@ -143,7 +143,7 @@ void
 addSupervoxelConnectionsToViewer (PointT &supervoxel_center,
                                   PointCloudT &adjacent_supervoxel_centers,
                                   std::string supervoxel_name,
-                                  boost::shared_ptr<pcl::visualization::PCLVisualizer> & viewer)
+                                  std::shared_ptr<pcl::visualization::PCLVisualizer> & viewer)
 {
   vtkSmartPointer<vtkPoints> points = vtkSmartPointer<vtkPoints>::New ();
   vtkSmartPointer<vtkCellArray> cells = vtkSmartPointer<vtkCellArray>::New ();

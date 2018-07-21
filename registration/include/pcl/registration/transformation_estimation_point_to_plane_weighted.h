@@ -68,8 +68,8 @@ namespace pcl
       typedef PointIndices::ConstPtr PointIndicesConstPtr;
 
       public:
-        typedef boost::shared_ptr<TransformationEstimationPointToPlaneWeighted<PointSource, PointTarget, MatScalar> > Ptr;
-        typedef boost::shared_ptr<const TransformationEstimationPointToPlaneWeighted<PointSource, PointTarget, MatScalar> > ConstPtr;
+        typedef std::shared_ptr<TransformationEstimationPointToPlaneWeighted<PointSource, PointTarget, MatScalar> > Ptr;
+        typedef std::shared_ptr<const TransformationEstimationPointToPlaneWeighted<PointSource, PointTarget, MatScalar> > ConstPtr;
 
         typedef Eigen::Matrix<MatScalar, Eigen::Dynamic, 1> VectorX;
         typedef Eigen::Matrix<MatScalar, 4, 1> Vector4;
@@ -180,7 +180,7 @@ namespace pcl
           * \param[in] warp_fcn a shared pointer to an object that warps points
           */
         void
-        setWarpFunction (const boost::shared_ptr<WarpPointRigid<PointSource, PointTarget, MatScalar> > &warp_fcn)
+        setWarpFunction (const std::shared_ptr<WarpPointRigid<PointSource, PointTarget, MatScalar> > &warp_fcn)
         { warp_point_ = warp_fcn; }
 
       protected:
@@ -200,7 +200,7 @@ namespace pcl
         mutable const std::vector<int> *tmp_idx_tgt_;
 
         /** \brief The parameterized function used to warp the source to the target. */
-        boost::shared_ptr<pcl::registration::WarpPointRigid<PointSource, PointTarget, MatScalar> > warp_point_;
+        std::shared_ptr<pcl::registration::WarpPointRigid<PointSource, PointTarget, MatScalar> > warp_point_;
         
         /** Base functor all the models that need non linear optimization must
           * define their own one and implement operator() (const Eigen::VectorXd& x, Eigen::VectorXd& fvec)

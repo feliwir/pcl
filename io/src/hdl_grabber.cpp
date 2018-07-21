@@ -44,7 +44,7 @@
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/xml_parser.hpp>
 #include <boost/array.hpp>
-#include <boost/bind.hpp>
+#include <functional>
 #include <boost/math/special_functions.hpp>
 #ifdef HAVE_PCAP
 #include <pcap.h>
@@ -493,7 +493,7 @@ pcl::HDLGrabber::start ()
   if (isRunning ())
     return;
 
-  queue_consumer_thread_ = new boost::thread (boost::bind (&HDLGrabber::processVelodynePackets, this));
+  queue_consumer_thread_ = new std::thread (std::bind (&HDLGrabber::processVelodynePackets, this));
 
   if (pcap_file_name_.empty ())
   {
@@ -523,12 +523,12 @@ pcl::HDLGrabber::start ()
       PCL_ERROR("[pcl::HDLGrabber::start] Unable to bind to socket! %s\n", e.what ());
       return;
     }
-    hdl_read_packet_thread_ = new boost::thread (boost::bind (&HDLGrabber::readPacketsFromSocket, this));
+    hdl_read_packet_thread_ = new std::thread (std::bind (&HDLGrabber::readPacketsFromSocket, this));
   }
   else
   {
 #ifdef HAVE_PCAP
-    hdl_read_packet_thread_ = new boost::thread (boost::bind (&HDLGrabber::readPacketsFromPcap, this));
+    hdl_read_packet_thread_ = new std::thread (std::bind (&HDLGrabber::readPacketsFromPcap, this));
 #endif // #ifdef HAVE_PCAP
   }
 }
@@ -542,7 +542,6 @@ pcl::HDLGrabber::stop ()
 
   if (hdl_read_packet_thread_ != NULL)
   {
-    hdl_read_packet_thread_->interrupt ();
     hdl_read_packet_thread_->join ();
     delete hdl_read_packet_thread_;
     hdl_read_packet_thread_ = NULL;
@@ -565,7 +564,7 @@ pcl::HDLGrabber::stop ()
 bool
 pcl::HDLGrabber::isRunning () const
 {
-  return (!hdl_data_.isEmpty () || (hdl_read_packet_thread_ != NULL && !hdl_read_packet_thread_->timed_join (boost::posix_time::milliseconds (10))));
+  return (!hdl_data_.isEmpty () || (hdl_read_packet_thread_ != NULL ));
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -722,7 +721,7 @@ pcl::HDLGrabber::readPacketsFromPcap ()
     usec_delay = ((header->ts.tv_sec - lasttime.tv_sec) * 1000000) +
     (header->ts.tv_usec - lasttime.tv_usec);
 
-    boost::this_thread::sleep (boost::posix_time::microseconds (usec_delay));
+    std::this_thread::sleep_for (std::chrono::microseconds (usec_delay));
 
     lasttime.tv_sec = header->ts.tv_sec;
     lasttime.tv_usec = header->ts.tv_usec;

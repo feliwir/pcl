@@ -59,7 +59,7 @@ namespace openni_wrapper
         EdgeAwareWeighted
       } DebayeringMethod;
 
-      ImageBayerGRBG (boost::shared_ptr<xn::ImageMetaData> image_meta_data, DebayeringMethod method) throw ();
+      ImageBayerGRBG (std::shared_ptr<xn::ImageMetaData> image_meta_data, DebayeringMethod method) throw ();
       virtual ~ImageBayerGRBG () throw ();
 
       inline virtual Encoding

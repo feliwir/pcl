@@ -1,7 +1,7 @@
 #ifndef PCL_SIMULATION_IO_
 #define PCL_SIMULATION_IO_
 
-#include <boost/shared_ptr.hpp>
+#include <memory>
 
 #include <GL/glew.h>
 
@@ -37,8 +37,8 @@ namespace pcl
     class PCL_EXPORTS SimExample
     {
       public:
-        typedef boost::shared_ptr<SimExample> Ptr;
-        typedef boost::shared_ptr<const SimExample> ConstPtr;
+        typedef std::shared_ptr<SimExample> Ptr;
+        typedef std::shared_ptr<const SimExample> ConstPtr;
     	
         SimExample (int argc, char** argv,
     		int height,int width);

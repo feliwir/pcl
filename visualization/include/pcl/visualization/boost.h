@@ -45,20 +45,19 @@
 #endif
 
 //https://bugreports.qt-project.org/browse/QTBUG-22829
-#ifndef Q_MOC_RUN
-#include <boost/function.hpp>
+#ifndef Q_MOC_RUN 
 #include <boost/shared_array.hpp>
 #define BOOST_PARAMETER_MAX_ARITY 7
 #include <boost/signals2.hpp>
-#include <boost/shared_ptr.hpp>
+#include <memory>
 #include <boost/algorithm/string.hpp>
 #include <boost/algorithm/string/split.hpp>
 #include <boost/algorithm/string/classification.hpp>
-#include <boost/thread.hpp>
-#include <boost/bind.hpp>
+#include <thread>
+#include <functional>
 #include <boost/unordered_map.hpp>
-#include <boost/thread/mutex.hpp>
-#include <boost/thread/thread.hpp>
+#include <mutex>
+#include <thread>
 #include <boost/foreach.hpp>
 #ifndef Q_MOC_RUN
 #include <boost/date_time/posix_time/posix_time.hpp>

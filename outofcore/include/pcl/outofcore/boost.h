@@ -44,7 +44,7 @@
 #endif
 
 #include <boost/filesystem.hpp>
-#include <boost/thread.hpp>
+#include <thread>
 #include <boost/random/uniform_int.hpp>
 #include <boost/uuid/uuid.hpp>
 #include <boost/uuid/uuid_generators.hpp>

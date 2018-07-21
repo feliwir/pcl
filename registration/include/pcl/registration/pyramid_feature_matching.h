@@ -70,9 +70,9 @@ namespace pcl
     public:
       using PCLBase<PointFeature>::input_;
 
-      typedef boost::shared_ptr<PyramidFeatureHistogram<PointFeature> > Ptr;
+      typedef std::shared_ptr<PyramidFeatureHistogram<PointFeature> > Ptr;
       typedef Ptr PyramidFeatureHistogramPtr;
-      typedef boost::shared_ptr<const pcl::PointRepresentation<PointFeature> > FeatureRepresentationConstPtr;
+      typedef std::shared_ptr<const pcl::PointRepresentation<PointFeature> > FeatureRepresentationConstPtr;
 
 
       /** \brief Empty constructor that instantiates the feature representation variable */

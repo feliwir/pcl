@@ -50,8 +50,8 @@ namespace pcl
     using PCLBase<PointT>::initCompute;
 
     public:
-      typedef boost::shared_ptr<SurfelSmoothing<PointT, PointNT> > Ptr;
-      typedef boost::shared_ptr<const SurfelSmoothing<PointT, PointNT> > ConstPtr;
+      typedef std::shared_ptr<SurfelSmoothing<PointT, PointNT> > Ptr;
+      typedef std::shared_ptr<const SurfelSmoothing<PointT, PointNT> > ConstPtr;
 
       typedef pcl::PointCloud<PointT> PointCloudIn;
       typedef typename pcl::PointCloud<PointT>::Ptr PointCloudInPtr;
@@ -97,7 +97,7 @@ namespace pcl
       void
       extractSalientFeaturesBetweenScales (PointCloudInPtr &cloud2,
                                            NormalCloudPtr &cloud2_normals,
-                                           boost::shared_ptr<std::vector<int> > &output_features);
+                                           std::shared_ptr<std::vector<int> > &output_features);
 
     private:
       float scale_, scale_squared_;

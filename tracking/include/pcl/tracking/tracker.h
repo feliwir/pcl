@@ -63,11 +63,11 @@ namespace pcl
       using PCLBase<PointInT>::input_;
       
       typedef PCLBase<PointInT> BaseClass;
-      typedef boost::shared_ptr< Tracker<PointInT, StateT> > Ptr;
-      typedef boost::shared_ptr< const Tracker<PointInT, StateT> > ConstPtr;
+      typedef std::shared_ptr< Tracker<PointInT, StateT> > Ptr;
+      typedef std::shared_ptr< const Tracker<PointInT, StateT> > ConstPtr;
 
-      typedef boost::shared_ptr<pcl::search::Search<PointInT> > SearchPtr;
-      typedef boost::shared_ptr<const pcl::search::Search<PointInT> > SearchConstPtr;
+      typedef std::shared_ptr<pcl::search::Search<PointInT> > SearchPtr;
+      typedef std::shared_ptr<const pcl::search::Search<PointInT> > SearchConstPtr;
             
       typedef pcl::PointCloud<PointInT> PointCloudIn;
       typedef typename PointCloudIn::Ptr PointCloudInPtr;

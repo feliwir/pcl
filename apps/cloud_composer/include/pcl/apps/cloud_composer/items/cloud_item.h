@@ -104,11 +104,11 @@ namespace pcl
         
         /** \brief Paint View function - puts this cloud item into a PCLVisualizer object*/
         virtual void
-        paintView (boost::shared_ptr<pcl::visualization::PCLVisualizer> vis) const;
+        paintView (std::shared_ptr<pcl::visualization::PCLVisualizer> vis) const;
         
         /** \brief Remove from View function - removes this cloud from a PCLVisualizer object*/
         virtual void
-        removeFromView (boost::shared_ptr<pcl::visualization::PCLVisualizer> vis) const;
+        removeFromView (std::shared_ptr<pcl::visualization::PCLVisualizer> vis) const;
         
         /** \brief Initializes and stores a templated PointCloud object with point type matching the blob */
         void

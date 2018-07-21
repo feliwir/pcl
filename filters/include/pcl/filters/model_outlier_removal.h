@@ -174,7 +174,7 @@ namespace pcl
        * \param[in] thresh pointer to a threshold function
        */
       void
-      setThresholdFunction (boost::function<bool (double)> thresh)
+      setThresholdFunction (std::function<bool (double)> thresh)
       {
         threshold_function_ = thresh;
       }
@@ -186,7 +186,7 @@ namespace pcl
       template <typename T> void
       setThresholdFunction (bool (T::*thresh_function) (double), T& instance)
       {
-        setThresholdFunction (boost::bind (thresh_function, boost::ref (instance), _1));
+        setThresholdFunction (std::bind (thresh_function, std::ref (instance), std::placeholders::_1));
       }
 
     protected:
@@ -236,7 +236,7 @@ namespace pcl
 
       /** \brief The type of model to use (user given parameter). */
       pcl::SacModel model_type_;
-      boost::function<bool (double)> threshold_function_;
+      std::function<bool (double)> threshold_function_;
 
       inline bool
       checkSingleThreshold (double value)

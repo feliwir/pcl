@@ -64,12 +64,12 @@ namespace pcl
   class MultiscaleFeaturePersistence : public PCLBase<PointSource>
   {
     public:
-      typedef boost::shared_ptr<MultiscaleFeaturePersistence<PointSource, PointFeature> > Ptr;
-      typedef boost::shared_ptr<const MultiscaleFeaturePersistence<PointSource, PointFeature> > ConstPtr;
+      typedef std::shared_ptr<MultiscaleFeaturePersistence<PointSource, PointFeature> > Ptr;
+      typedef std::shared_ptr<const MultiscaleFeaturePersistence<PointSource, PointFeature> > ConstPtr;
       typedef pcl::PointCloud<PointFeature> FeatureCloud;
       typedef typename pcl::PointCloud<PointFeature>::Ptr FeatureCloudPtr;
       typedef typename pcl::Feature<PointSource, PointFeature>::Ptr FeatureEstimatorPtr;
-      typedef boost::shared_ptr<const pcl::PointRepresentation <PointFeature> > FeatureRepresentationConstPtr;
+      typedef std::shared_ptr<const pcl::PointRepresentation <PointFeature> > FeatureRepresentationConstPtr;
 
       using pcl::PCLBase<PointSource>::input_;
 
@@ -90,7 +90,7 @@ namespace pcl
        */
       void
       determinePersistentFeatures (FeatureCloud &output_features,
-                                   boost::shared_ptr<std::vector<int> > &output_indices);
+                                   std::shared_ptr<std::vector<int> > &output_indices);
 
       /** \brief Method for setting the scale parameters for the algorithm
        * \param scale_values vector of scales to determine the characteristic of each scaling step

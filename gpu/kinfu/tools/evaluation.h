@@ -37,7 +37,7 @@
 #pragma once
 
 #include <string>
-#include <boost/shared_ptr.hpp>
+#include <memory>
 #include <pcl/gpu/containers/kernel_containers.h>
 #include <pcl/gpu/kinfu/kinfu.h>
 
@@ -48,7 +48,7 @@
 class Evaluation
 {
 public:
-  typedef boost::shared_ptr<Evaluation> Ptr; 
+  typedef std::shared_ptr<Evaluation> Ptr; 
   typedef pcl::gpu::KinfuTracker::PixelRGB RGB;
 
   Evaluation(const std::string& folder);
@@ -98,6 +98,6 @@ private:
   void readFile(const std::string& file, std::vector< std::pair<double, std::string> >& output);
 
   struct Impl;
-  boost::shared_ptr<Impl> impl_;
+  std::shared_ptr<Impl> impl_;
 };
 

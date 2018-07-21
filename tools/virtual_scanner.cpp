@@ -394,7 +394,7 @@ main (int argc, char** argv)
 
     // Downsample and remove silly point duplicates
     pcl::PointCloud<pcl::PointWithViewpoint> cloud_downsampled;
-    grid.setInputCloud (boost::make_shared<pcl::PointCloud<pcl::PointWithViewpoint> > (cloud));
+    grid.setInputCloud (std::make_shared<pcl::PointCloud<pcl::PointWithViewpoint> > (cloud));
     //grid.filter (cloud_downsampled);
 
     // Saves the point cloud data to disk

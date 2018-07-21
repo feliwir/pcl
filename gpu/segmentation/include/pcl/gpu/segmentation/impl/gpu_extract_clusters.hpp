@@ -42,7 +42,7 @@
 #include <pcl/gpu/segmentation/gpu_extract_clusters.h>
 
 void
-pcl::gpu::extractEuclideanClusters (const boost::shared_ptr<pcl::PointCloud<pcl::PointXYZ> >  &host_cloud_,
+pcl::gpu::extractEuclideanClusters (const std::shared_ptr<pcl::PointCloud<pcl::PointXYZ> >  &host_cloud_,
                                     const pcl::gpu::Octree::Ptr                               &tree,
                                     float                                                     tolerance,
                                     std::vector<PointIndices>                                 &clusters,

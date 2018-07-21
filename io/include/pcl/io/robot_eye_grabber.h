@@ -45,7 +45,7 @@
 #include <pcl/point_types.h>
 #include <pcl/point_cloud.h>
 #include <boost/asio.hpp>
-#include <boost/thread/thread.hpp>
+#include <thread>
 
 namespace pcl
 {
@@ -62,7 +62,7 @@ namespace pcl
        * the limit specified by setSignalPointCloudSize().
        */
       typedef void (sig_cb_robot_eye_point_cloud_xyzi) (
-          const boost::shared_ptr<const pcl::PointCloud<pcl::PointXYZI> >&);
+          const std::shared_ptr<const pcl::PointCloud<pcl::PointXYZI> >&);
 
       /** \brief RobotEyeGrabber default constructor. */
       RobotEyeGrabber ();
@@ -116,7 +116,7 @@ namespace pcl
        * It is not safe to access this point cloud except if the grabber is
        * stopped or during the grabber callback.
        */
-      boost::shared_ptr<pcl::PointCloud<pcl::PointXYZI> > getPointCloud() const;
+      std::shared_ptr<pcl::PointCloud<pcl::PointXYZI> > getPointCloud() const;
 
     private:
 
@@ -130,12 +130,12 @@ namespace pcl
       boost::asio::ip::address sensor_address_;
       boost::asio::ip::udp::endpoint sender_endpoint_;
       boost::asio::io_service io_service_;
-      boost::shared_ptr<boost::asio::ip::udp::socket> socket_;
-      boost::shared_ptr<boost::thread> socket_thread_;
-      boost::shared_ptr<boost::thread> consumer_thread_;
+      std::shared_ptr<boost::asio::ip::udp::socket> socket_;
+      std::shared_ptr<std::thread> socket_thread_;
+      std::shared_ptr<std::thread> consumer_thread_;
 
       pcl::SynchronizedQueue<boost::shared_array<unsigned char> > packet_queue_;
-      boost::shared_ptr<pcl::PointCloud<pcl::PointXYZI> > point_cloud_xyzi_;
+      std::shared_ptr<pcl::PointCloud<pcl::PointXYZI> > point_cloud_xyzi_;
       boost::signals2::signal<sig_cb_robot_eye_point_cloud_xyzi>* point_cloud_signal_;
 
       void consumerThreadLoop ();

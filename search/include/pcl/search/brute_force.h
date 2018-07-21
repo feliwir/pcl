@@ -54,8 +54,8 @@ namespace pcl
       typedef typename Search<PointT>::PointCloud PointCloud;
       typedef typename Search<PointT>::PointCloudConstPtr PointCloudConstPtr;
 
-      typedef boost::shared_ptr<std::vector<int> > IndicesPtr;
-      typedef boost::shared_ptr<const std::vector<int> > IndicesConstPtr;
+      typedef std::shared_ptr<std::vector<int> > IndicesPtr;
+      typedef std::shared_ptr<const std::vector<int> > IndicesConstPtr;
 
       using pcl::search::Search<PointT>::input_;
       using pcl::search::Search<PointT>::indices_;

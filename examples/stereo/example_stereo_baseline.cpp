@@ -82,7 +82,7 @@ main(int argc, char **argv)
   //iv.addRGBImage<pcl::RGB> (left_cloud);
   //iv.spin (); // press 'q' to exit
 
-  boost::shared_ptr<pcl::visualization::PCLVisualizer> viewer (new pcl::visualization::PCLVisualizer ("3D Viewer"));
+  std::shared_ptr<pcl::visualization::PCLVisualizer> viewer (new pcl::visualization::PCLVisualizer ("3D Viewer"));
   viewer->setBackgroundColor (0, 0, 0);
   
   //viewer->addPointCloud<pcl::PointXYZRGB> (out_cloud, "stereo");
@@ -96,6 +96,6 @@ main(int argc, char **argv)
   {
     viewer->spinOnce (100);
     iv.spinOnce (100); // press 'q' to exit
-    boost::this_thread::sleep (boost::posix_time::microseconds (100000));
+    std::this_thread::sleep_for (std::chrono::microseconds (100000));
   }
 }

@@ -90,7 +90,7 @@ namespace openni_wrapper
     }
 
   protected:
-    virtual boost::shared_ptr<Image> getCurrentImage (boost::shared_ptr<xn::ImageMetaData> image_meta_data) const throw ();
+    virtual std::shared_ptr<Image> getCurrentImage (std::shared_ptr<xn::ImageMetaData> image_meta_data) const throw ();
 
     void PlayerThreadFunction ();
     static void __stdcall NewONIDepthDataAvailable (xn::ProductionNode& node, void* cookie) throw ();
@@ -98,9 +98,9 @@ namespace openni_wrapper
     static void __stdcall NewONIIRDataAvailable (xn::ProductionNode& node, void* cookie) throw ();
 
     xn::Player player_;
-    boost::thread player_thread_;
-    mutable boost::mutex player_mutex_;
-    boost::condition_variable player_condition_;
+    std::thread player_thread_;
+    mutable std::mutex player_mutex_;
+    std::condition_variable player_condition_;
     bool streaming_;
     bool depth_stream_running_;
     bool image_stream_running_;

@@ -56,7 +56,7 @@ namespace pcl
   void getPointCloudDifference (
       const pcl::PointCloud<PointT> &src,
       double threshold,
-      const boost::shared_ptr<pcl::search::Search<PointT> > &tree,
+      const std::shared_ptr<pcl::search::Search<PointT> > &tree,
       pcl::PointCloud<PointT> &output);
 
   template <typename PointT>
@@ -65,7 +65,7 @@ namespace pcl
       const pcl::PointCloud<PointT> &src,
       const pcl::PointCloud<PointT> &tgt,
       double threshold,
-      const boost::shared_ptr<pcl::search::Search<PointT> > &tree,
+      const std::shared_ptr<pcl::search::Search<PointT> > &tree,
       pcl::PointCloud<PointT> &output)
   {
     getPointCloudDifference<PointT> (src, pcl::PointCloud<PointT>(), threshold, tree, output);

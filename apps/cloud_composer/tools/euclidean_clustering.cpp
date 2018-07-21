@@ -81,7 +81,7 @@ pcl::cloud_composer::EuclideanClusteringTool::performAction (ConstItemList input
       {
         filter.setInputCloud (input_cloud);
         // It's annoying that I have to do this, but Euclidean returns a PointIndices struct
-        pcl::PointIndices::ConstPtr indices_ptr = boost::make_shared<pcl::PointIndices>(*it);
+        pcl::PointIndices::ConstPtr indices_ptr = std::make_shared<pcl::PointIndices>(*it);
         filter.setIndices (indices_ptr);
         extracted_indices->insert (extracted_indices->end (), it->indices.begin (), it->indices.end ());
         //This means remove the other points

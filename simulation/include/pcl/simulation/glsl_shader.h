@@ -12,7 +12,7 @@
 
 #include <GL/glew.h>
 #include <Eigen/Core>
-#include <boost/shared_ptr.hpp>
+#include <memory>
 
 namespace pcl
 {
@@ -32,8 +32,8 @@ namespace pcl
       class PCL_EXPORTS Program
       {
         public:
-          typedef boost::shared_ptr<Program> Ptr;
-          typedef boost::shared_ptr<const Program> ConstPtr;
+          typedef std::shared_ptr<Program> Ptr;
+          typedef std::shared_ptr<const Program> ConstPtr;
 
           /**
            * Construct an empty shader program.

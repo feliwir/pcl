@@ -139,7 +139,7 @@ pcl::visualization::PCLVisualizer::addPointCloud (
     // Here we're just pushing the handlers onto the queue. If needed, something fancier could
     // be done such as checking if a specific handler already exists, etc.
     //cloud_actor_map_[id].color_handlers.push_back (color_handler);
-    //style_->setCloudActorMap (boost::make_shared<CloudActorMap> (cloud_actor_map_));
+    //style_->setCloudActorMap (std::make_shared<CloudActorMap> (cloud_actor_map_));
     return (false);
   }
   // Convert the PointCloud to VTK PolyData
@@ -204,7 +204,7 @@ pcl::visualization::PCLVisualizer::addPointCloud (
     // be done such as checking if a specific handler already exists, etc.
     //cloud_actor_map_[id].geometry_handlers.push_back (geometry_handler);
     //cloud_actor_map_[id].color_handlers.push_back (color_handler);
-    //style_->setCloudActorMap (boost::make_shared<CloudActorMap> (cloud_actor_map_));
+    //style_->setCloudActorMap (std::make_shared<CloudActorMap> (cloud_actor_map_));
     return (false);
   }
   return (fromHandlersToScreen (geometry_handler, color_handler, id, viewport, cloud->sensor_origin_, cloud->sensor_orientation_));

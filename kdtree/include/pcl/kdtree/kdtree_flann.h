@@ -80,14 +80,14 @@ namespace pcl
       typedef typename KdTree<PointT>::PointCloud PointCloud;
       typedef typename KdTree<PointT>::PointCloudConstPtr PointCloudConstPtr;
 
-      typedef boost::shared_ptr<std::vector<int> > IndicesPtr;
-      typedef boost::shared_ptr<const std::vector<int> > IndicesConstPtr;
+      typedef std::shared_ptr<std::vector<int> > IndicesPtr;
+      typedef std::shared_ptr<const std::vector<int> > IndicesConstPtr;
 
       typedef ::flann::Index<Dist> FLANNIndex;
 
       // Boost shared pointers
-      typedef boost::shared_ptr<KdTreeFLANN<PointT, Dist> > Ptr;
-      typedef boost::shared_ptr<const KdTreeFLANN<PointT, Dist> > ConstPtr;
+      typedef std::shared_ptr<KdTreeFLANN<PointT, Dist> > Ptr;
+      typedef std::shared_ptr<const KdTreeFLANN<PointT, Dist> > ConstPtr;
 
       /** \brief Default Constructor for KdTreeFLANN.
         * \param[in] sorted set to true if the application that the tree will be used for requires sorted nearest neighbor indices (default). False otherwise. 
@@ -209,7 +209,7 @@ namespace pcl
       getName () const { return ("KdTreeFLANN"); }
 
       /** \brief A FLANN index object. */
-      boost::shared_ptr<FLANNIndex> flann_index_;
+      std::shared_ptr<FLANNIndex> flann_index_;
 
       /** \brief Internal pointer to data. */
       boost::shared_array<float> cloud_;

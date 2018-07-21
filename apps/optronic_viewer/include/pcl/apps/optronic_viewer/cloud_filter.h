@@ -39,7 +39,7 @@
 #define PCL_APPS_OPTRONIC_VIEWER_CLOUD_FILTER_H_
 
 #include <pcl/apps/optronic_viewer/qt.h>
-#include <boost/shared_ptr.hpp>
+#include <memory>
 #include <pcl/io/openni_grabber.h>
 
 #include <pcl/visualization/pcl_visualizer.h>

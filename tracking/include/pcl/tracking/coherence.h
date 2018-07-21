@@ -17,8 +17,8 @@ namespace pcl
     class PointCoherence
     {
     public:
-      typedef boost::shared_ptr< PointCoherence<PointInT> > Ptr;
-      typedef boost::shared_ptr< const PointCoherence<PointInT> > ConstPtr;
+      typedef std::shared_ptr< PointCoherence<PointInT> > Ptr;
+      typedef std::shared_ptr< const PointCoherence<PointInT> > ConstPtr;
       
     public:
       /** \brief empty constructor */
@@ -60,8 +60,8 @@ namespace pcl
     class PointCloudCoherence
     {
     public:
-      typedef boost::shared_ptr< PointCloudCoherence<PointInT> > Ptr;
-      typedef boost::shared_ptr< const PointCloudCoherence<PointInT> > ConstPtr;
+      typedef std::shared_ptr< PointCloudCoherence<PointInT> > Ptr;
+      typedef std::shared_ptr< const PointCloudCoherence<PointInT> > ConstPtr;
 
       typedef pcl::PointCloud<PointInT> PointCloudIn;
       typedef typename PointCloudIn::Ptr PointCloudInPtr;

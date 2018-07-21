@@ -149,8 +149,8 @@ printHelp (int, char **argv)
 #if VTK_MAJOR_VERSION>=6 || (VTK_MAJOR_VERSION==5 && VTK_MINOR_VERSION>6)
 pcl::visualization::PCLPlotter ph_global;
 #endif
-boost::shared_ptr<pcl::visualization::PCLVisualizer> p;
-std::vector<boost::shared_ptr<pcl::visualization::ImageViewer> > imgs;
+std::shared_ptr<pcl::visualization::PCLVisualizer> p;
+std::vector<std::shared_ptr<pcl::visualization::ImageViewer> > imgs;
 pcl::search::KdTree<pcl::PointXYZ> search;
 pcl::PCLPointCloud2::Ptr cloud;
 pcl::PointCloud<pcl::PointXYZ>::Ptr xyzcloud;
@@ -339,7 +339,7 @@ main (int argc, char** argv)
 
   // Create the PCLVisualizer object
 #if VTK_MAJOR_VERSION>=6 || (VTK_MAJOR_VERSION==5 && VTK_MINOR_VERSION>6)
-  boost::shared_ptr<pcl::visualization::PCLPlotter> ph;
+  std::shared_ptr<pcl::visualization::PCLPlotter> ph;
 #endif  
   // Using min_p, max_p to set the global Y min/max range for the histogram
   float min_p = FLT_MAX; float max_p = -FLT_MAX;
@@ -745,7 +745,7 @@ main (int argc, char** argv)
         }
         p->spinOnce ();
       }
-      boost::this_thread::sleep (boost::posix_time::microseconds (100));
+      std::this_thread::sleep_for (std::chrono::microseconds (100));
     }
     while (!stopped);
   }

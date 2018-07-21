@@ -81,7 +81,7 @@ class OpenNI3DConvexHull
     void 
     cloud_cb (const CloudConstPtr& cloud)
     {
-      boost::mutex::scoped_lock lock (mtx_);
+      std::lock_guard<std::mutex> lock (mtx_);
       FPS_CALC ("computation");
 
       cloud_pass_.reset (new Cloud);
@@ -104,12 +104,12 @@ class OpenNI3DConvexHull
     {
       if (!cloud_ || !new_cloud_)
       {
-        boost::this_thread::sleep(boost::posix_time::milliseconds(1));
+        std::this_thread::sleep_for(std::chrono::milliseconds(1));
         return;
       }
 
       {
-        boost::mutex::scoped_lock lock (mtx_);
+        std::lock_guard<std::mutex> lock (mtx_);
         FPS_CALC ("visualization");
         CloudPtr temp_cloud;
         temp_cloud.swap (cloud_pass_);
@@ -134,16 +134,16 @@ class OpenNI3DConvexHull
     {
       pcl::Grabber* interface = new pcl::OpenNIGrabber (device_id_);
 
-      boost::function<void (const CloudConstPtr&)> f = boost::bind (&OpenNI3DConvexHull::cloud_cb, this, _1);
+      std::function<void (const CloudConstPtr&)> f = std::bind (&OpenNI3DConvexHull::cloud_cb, this, std::placeholders::_1);
       boost::signals2::connection c = interface->registerCallback (f);
      
-      viewer.runOnVisualizationThread (boost::bind(&OpenNI3DConvexHull::viz_cb, this, _1), "viz_cb");
+      viewer.runOnVisualizationThread (std::bind(&OpenNI3DConvexHull::viz_cb, this, std::placeholders::_1), "viz_cb");
 
       interface->start ();
       
       while (!viewer.wasStopped ())
       {
-        boost::this_thread::sleep(boost::posix_time::milliseconds(1));
+        std::this_thread::sleep_for(std::chrono::milliseconds(1));
       }
 
       interface->stop ();
@@ -153,7 +153,7 @@ class OpenNI3DConvexHull
     pcl::visualization::CloudViewer viewer;
 
     std::string device_id_;
-    boost::mutex mtx_;
+    std::mutex mtx_;
     // Data
     CloudConstPtr cloud_;
     CloudPtr cloud_pass_, cloud_hull_;

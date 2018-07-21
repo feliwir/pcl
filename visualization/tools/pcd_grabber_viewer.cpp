@@ -51,8 +51,8 @@ using pcl::console::print_error;
 using pcl::console::print_info;
 using pcl::console::print_value;
 
-boost::mutex mutex_;
-boost::shared_ptr<pcl::PCDGrabber<pcl::PointXYZRGBA> > grabber;
+std::mutex mutex_;
+std::shared_ptr<pcl::PCDGrabber<pcl::PointXYZRGBA> > grabber;
 pcl::PointCloud<pcl::PointXYZRGBA>::ConstPtr cloud_;
 
 void
@@ -71,9 +71,9 @@ printHelp (int, char **argv)
 }
 
 // Create the PCLVisualizer object
-boost::shared_ptr<pcl::visualization::PCLVisualizer> cloud_viewer;
+std::shared_ptr<pcl::visualization::PCLVisualizer> cloud_viewer;
 #ifdef DISPLAY_IMAGE
-boost::shared_ptr<pcl::visualization::ImageViewer> img_viewer;
+std::shared_ptr<pcl::visualization::ImageViewer> img_viewer;
 #endif
 
 std::vector<double> fcolor_r, fcolor_b, fcolor_g;
@@ -220,7 +220,7 @@ main (int argc, char** argv)
   }
 
   EventHelper h;
-  boost::function<void(const pcl::PointCloud<pcl::PointXYZRGBA>::ConstPtr&) > f = boost::bind (&EventHelper::cloud_cb, &h, _1);
+  std::function<void(const pcl::PointCloud<pcl::PointXYZRGBA>::ConstPtr&) > f = std::bind (&EventHelper::cloud_cb, &h, std::placeholders::_1);
   boost::signals2::connection c1 = grabber->registerCallback (f);
 
   std::string mouse_msg_3D ("Mouse coordinates in PCL Visualizer");
@@ -248,7 +248,7 @@ main (int argc, char** argv)
 
     if (!cloud_)
     {
-      boost::this_thread::sleep(boost::posix_time::microseconds(10000));
+      std::this_thread::sleep_for(std::chrono::microseconds(10000));
       continue;
     }
     else if (mutex_.try_lock ())

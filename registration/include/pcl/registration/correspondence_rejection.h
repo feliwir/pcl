@@ -59,8 +59,8 @@ namespace pcl
     class CorrespondenceRejector
     {
       public:
-        typedef boost::shared_ptr<CorrespondenceRejector> Ptr;
-        typedef boost::shared_ptr<const CorrespondenceRejector> ConstPtr;
+        typedef std::shared_ptr<CorrespondenceRejector> Ptr;
+        typedef std::shared_ptr<const CorrespondenceRejector> ConstPtr;
 
         /** \brief Empty constructor. */
         CorrespondenceRejector () 

@@ -51,10 +51,10 @@ namespace openni_wrapper
 class PCL_EXPORTS IRImage
 {
 public:
-  typedef boost::shared_ptr<IRImage> Ptr;
-  typedef boost::shared_ptr<const IRImage> ConstPtr;
+  typedef std::shared_ptr<IRImage> Ptr;
+  typedef std::shared_ptr<const IRImage> ConstPtr;
 
-  inline IRImage (boost::shared_ptr<xn::IRMetaData> ir_meta_data) throw ();
+  inline IRImage (std::shared_ptr<xn::IRMetaData> ir_meta_data) throw ();
   inline virtual ~IRImage () throw ();
 
   void fillRaw (unsigned width, unsigned height, unsigned short* ir_buffer, unsigned line_step = 0) const;
@@ -66,10 +66,10 @@ public:
   inline const xn::IRMetaData& getMetaData () const throw ();
 
 protected:
-  boost::shared_ptr<xn::IRMetaData> ir_md_;
+  std::shared_ptr<xn::IRMetaData> ir_md_;
 };
 
-IRImage::IRImage (boost::shared_ptr<xn::IRMetaData> ir_meta_data) throw ()
+IRImage::IRImage (std::shared_ptr<xn::IRMetaData> ir_meta_data) throw ()
 : ir_md_ (ir_meta_data)
 {
 }

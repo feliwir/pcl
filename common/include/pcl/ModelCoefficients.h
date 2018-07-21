@@ -20,12 +20,12 @@ namespace pcl
     std::vector<float> values;
 
   public:
-    typedef boost::shared_ptr< ::pcl::ModelCoefficients> Ptr;
-    typedef boost::shared_ptr< ::pcl::ModelCoefficients  const> ConstPtr;
+    typedef std::shared_ptr< ::pcl::ModelCoefficients> Ptr;
+    typedef std::shared_ptr< ::pcl::ModelCoefficients  const> ConstPtr;
   }; // struct ModelCoefficients
 
-  typedef boost::shared_ptr< ::pcl::ModelCoefficients> ModelCoefficientsPtr;
-  typedef boost::shared_ptr< ::pcl::ModelCoefficients const> ModelCoefficientsConstPtr;
+  typedef std::shared_ptr< ::pcl::ModelCoefficients> ModelCoefficientsPtr;
+  typedef std::shared_ptr< ::pcl::ModelCoefficients const> ModelCoefficientsConstPtr;
 
   inline std::ostream& operator<<(std::ostream& s, const  ::pcl::ModelCoefficients & v)
   {

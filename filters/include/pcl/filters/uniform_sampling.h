@@ -68,8 +68,8 @@ namespace pcl
     using Filter<PointT>::getClassName;
 
     public:
-      typedef boost::shared_ptr<UniformSampling<PointT> > Ptr;
-      typedef boost::shared_ptr<const UniformSampling<PointT> > ConstPtr;
+      typedef std::shared_ptr<UniformSampling<PointT> > Ptr;
+      typedef std::shared_ptr<const UniformSampling<PointT> > ConstPtr;
 
       /** \brief Empty constructor. */
       UniformSampling (bool extract_removed_indices = false) :

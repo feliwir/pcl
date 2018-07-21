@@ -50,8 +50,8 @@ namespace pcl
   class HarrisKeypoint6D : public Keypoint<PointInT, PointOutT>
   {
     public:
-      typedef boost::shared_ptr<HarrisKeypoint6D<PointInT, PointOutT, NormalT> > Ptr;
-      typedef boost::shared_ptr<const HarrisKeypoint6D<PointInT, PointOutT, NormalT> > ConstPtr;
+      typedef std::shared_ptr<HarrisKeypoint6D<PointInT, PointOutT, NormalT> > Ptr;
+      typedef std::shared_ptr<const HarrisKeypoint6D<PointInT, PointOutT, NormalT> > ConstPtr;
 
       typedef typename Keypoint<PointInT, PointOutT>::PointCloudIn PointCloudIn;
       typedef typename Keypoint<PointInT, PointOutT>::PointCloudOut PointCloudOut;
@@ -133,8 +133,8 @@ namespace pcl
       bool refine_;
       bool nonmax_;
       unsigned int threads_;    
-      boost::shared_ptr<pcl::PointCloud<NormalT> > normals_;
-      boost::shared_ptr<pcl::PointCloud<pcl::IntensityGradient> > intensity_gradients_;
+      std::shared_ptr<pcl::PointCloud<NormalT> > normals_;
+      std::shared_ptr<pcl::PointCloud<pcl::IntensityGradient> > intensity_gradients_;
   } ;
 }
 

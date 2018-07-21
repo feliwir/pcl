@@ -52,12 +52,12 @@ namespace pcl
       typedef typename PointCloudState::ConstPtr PointCloudStateConstPtr;
 
       typedef PointCoherence<PointInT> Coherence;
-      typedef boost::shared_ptr< Coherence > CoherencePtr;
-      typedef boost::shared_ptr< const Coherence > CoherenceConstPtr;
+      typedef std::shared_ptr< Coherence > CoherencePtr;
+      typedef std::shared_ptr< const Coherence > CoherenceConstPtr;
 
       typedef PointCloudCoherence<PointInT> CloudCoherence;
-      typedef boost::shared_ptr< CloudCoherence > CloudCoherencePtr;
-      typedef boost::shared_ptr< const CloudCoherence > CloudCoherenceConstPtr;
+      typedef std::shared_ptr< CloudCoherence > CloudCoherencePtr;
+      typedef std::shared_ptr< const CloudCoherence > CloudCoherenceConstPtr;
 
       /** \brief Initialize the scheduler and set the number of threads to use.
         * \param nr_threads the number of hardware threads to use (0 sets the value back to automatic)

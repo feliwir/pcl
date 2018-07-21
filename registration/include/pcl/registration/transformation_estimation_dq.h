@@ -57,8 +57,8 @@ namespace pcl
     class TransformationEstimationDQ : public TransformationEstimation<PointSource, PointTarget, Scalar>
     {
       public:
-        typedef boost::shared_ptr<TransformationEstimationDQ<PointSource, PointTarget, Scalar> > Ptr;
-        typedef boost::shared_ptr<const TransformationEstimationDQ<PointSource, PointTarget, Scalar> > ConstPtr;
+        typedef std::shared_ptr<TransformationEstimationDQ<PointSource, PointTarget, Scalar> > Ptr;
+        typedef std::shared_ptr<const TransformationEstimationDQ<PointSource, PointTarget, Scalar> > ConstPtr;
 
         typedef typename TransformationEstimation<PointSource, PointTarget, Scalar>::Matrix4 Matrix4;
 

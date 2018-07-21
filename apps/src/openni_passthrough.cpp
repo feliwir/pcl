@@ -72,7 +72,7 @@ OpenNIPassthrough::OpenNIPassthrough (pcl::OpenNIGrabber& grabber)
   ui_->qvtk_widget->update (); 
 
   // Start the OpenNI data acquision
-  boost::function<void (const CloudConstPtr&)> f = boost::bind (&OpenNIPassthrough::cloud_cb, this, _1);
+  std::function<void (const CloudConstPtr&)> f = std::bind (&OpenNIPassthrough::cloud_cb, this, std::placeholders::_1);
   boost::signals2::connection c = grabber_.registerCallback (f);
 
   grabber_.start ();
@@ -105,7 +105,7 @@ OpenNIPassthrough::timeoutSlot ()
 {
   if (!cloud_pass_)
   {
-    boost::this_thread::sleep (boost::posix_time::milliseconds (1));
+    std::this_thread::sleep_for (std::chrono::milliseconds (1));
     return;
   }
 

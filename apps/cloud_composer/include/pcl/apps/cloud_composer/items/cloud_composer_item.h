@@ -119,11 +119,11 @@ namespace pcl
         
         /** \brief Paint View function - reimpliment in item subclass if it can be displayed in PCLVisualizer*/
         virtual void
-        paintView (boost::shared_ptr<pcl::visualization::PCLVisualizer> vis) const;
+        paintView (std::shared_ptr<pcl::visualization::PCLVisualizer> vis) const;
         
         /** \brief Remove from View function - reimpliment in item subclass if it can be displayed in PCLVisualizer*/
         virtual void
-        removeFromView (boost::shared_ptr<pcl::visualization::PCLVisualizer> vis) const;
+        removeFromView (std::shared_ptr<pcl::visualization::PCLVisualizer> vis) const;
         
         /** \brief Inspector additional tabs paint function - reimpliment in item subclass if item has additional tabs to show in Inspector*/
         virtual QMap <QString, QWidget*>

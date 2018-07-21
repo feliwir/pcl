@@ -193,7 +193,7 @@ pcl::CPCSegmentation<PointT>::applyCuttingPlane (uint32_t depth_levels_left)
       euclidean_clusterer.setMaxClusterSize (25000);
       euclidean_clusterer.setSearchMethod (tree);
       euclidean_clusterer.setInputCloud (edge_cloud_cluster);
-      euclidean_clusterer.setIndices (boost::make_shared <std::vector <int> > (support_indices));
+      euclidean_clusterer.setIndices (std::make_shared <std::vector <int> > (support_indices));
       euclidean_clusterer.extract (cluster_indices);
 //       sv_adjacency_list_[seg_to_edgeID_map[itr->first][point_index]].used_for_cutting = true;
 
@@ -329,7 +329,7 @@ pcl::CPCSegmentation<PointT>::WeightedRandomSampleConsensus::computeModel (int)
     // weight distances to get the score (only using connected inliers)
     sac_model_->setIndices (full_cloud_pt_indices_);
 
-    boost::shared_ptr<std::vector<int> > current_inliers (new std::vector<int>);
+    std::shared_ptr<std::vector<int> > current_inliers (new std::vector<int>);
     sac_model_->selectWithinDistance (model_coefficients, threshold_, *current_inliers);
     double current_score = 0;
     Eigen::Vector3f plane_normal (model_coefficients[0], model_coefficients[1], model_coefficients[2]);

@@ -136,12 +136,12 @@ keyboardEventOccurred (const pcl::visualization::KeyboardEvent& event_arg,
 /** \brief Displays info text in the specified PCLVisualizer
  *  \param[in] viewer_arg The PCLVisualizer to modify  */
 void
-printText (boost::shared_ptr<pcl::visualization::PCLVisualizer> viewer_arg);
+printText (std::shared_ptr<pcl::visualization::PCLVisualizer> viewer_arg);
 
 /** \brief Removes info text in the specified PCLVisualizer
  *  \param[in] viewer_arg The PCLVisualizer to modify  */
 void
-removeText (boost::shared_ptr<pcl::visualization::PCLVisualizer> viewer_arg);
+removeText (std::shared_ptr<pcl::visualization::PCLVisualizer> viewer_arg);
 
 /// ---- main ---- ///
 int
@@ -594,7 +594,7 @@ CPCSegmentation Parameters: \n\
           viewer->addText ("Press d to show help", 5, 10, 12, textcolor, textcolor, textcolor, "help_text");
       }
 
-      boost::this_thread::sleep (boost::posix_time::microseconds (100000));
+      std::this_thread::sleep_for (std::chrono::microseconds (100000));
     }
   }  /// END if (show_visualization)
 
@@ -605,7 +605,7 @@ CPCSegmentation Parameters: \n\
 /// -------------------------| Definitions of helper functions|-------------------------
 
 void
-printText (boost::shared_ptr<pcl::visualization::PCLVisualizer> viewer_arg)
+printText (std::shared_ptr<pcl::visualization::PCLVisualizer> viewer_arg)
 {
   std::string on_str = "ON";
   std::string off_str = "OFF";  
@@ -644,7 +644,7 @@ printText (boost::shared_ptr<pcl::visualization::PCLVisualizer> viewer_arg)
 }
 
 void
-removeText (boost::shared_ptr<pcl::visualization::PCLVisualizer> viewer_arg)
+removeText (std::shared_ptr<pcl::visualization::PCLVisualizer> viewer_arg)
 {
   viewer_arg->removeShape ("hud_text");
   viewer_arg->removeShape ("normals_text");

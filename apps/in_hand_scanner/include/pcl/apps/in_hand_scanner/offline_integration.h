@@ -121,12 +121,12 @@ namespace pcl
         typedef pcl::ihs::MeshConstPtr MeshConstPtr;
 
         typedef pcl::ihs::Integration                 Integration;
-        typedef boost::shared_ptr <Integration>       IntegrationPtr;
-        typedef boost::shared_ptr <const Integration> IntegrationConstPtr;
+        typedef std::shared_ptr <Integration>       IntegrationPtr;
+        typedef std::shared_ptr <const Integration> IntegrationConstPtr;
 
         typedef pcl::IntegralImageNormalEstimation <PointXYZRGBA, PointXYZRGBNormal> NormalEstimation;
-        typedef boost::shared_ptr <NormalEstimation>                                 NormalEstimationPtr;
-        typedef boost::shared_ptr <const NormalEstimation>                           NormalEstimationConstPtr;
+        typedef std::shared_ptr <NormalEstimation>                                 NormalEstimationPtr;
+        typedef std::shared_ptr <const NormalEstimation>                           NormalEstimationConstPtr;
 
         /** \brief Helper object for the computation thread. Please have a look at the documentation of calcFPS. */
         class ComputationFPS : public Base::FPS
@@ -191,10 +191,10 @@ namespace pcl
         //////////////////////////////////////////////////////////////////////////
 
         /** \brief Synchronization. */
-        boost::mutex mutex_;
+        std::mutex mutex_;
 
         /** \brief Wait until the data finished processing. */
-        boost::mutex mutex_quit_;
+        std::mutex mutex_quit_;
 
         /** \brief Please have a look at the documentation of ComputationFPS. */
         ComputationFPS computation_fps_;

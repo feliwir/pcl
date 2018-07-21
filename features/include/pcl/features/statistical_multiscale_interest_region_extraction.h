@@ -65,9 +65,9 @@ namespace pcl
   class StatisticalMultiscaleInterestRegionExtraction : public PCLBase<PointT>
   {
     public:
-      typedef boost::shared_ptr <std::vector<int> > IndicesPtr;
-      typedef typename boost::shared_ptr<StatisticalMultiscaleInterestRegionExtraction<PointT> > Ptr;
-      typedef typename boost::shared_ptr<const StatisticalMultiscaleInterestRegionExtraction<PointT> > ConstPtr;
+      typedef std::shared_ptr <std::vector<int> > IndicesPtr;
+      typedef typename std::shared_ptr<StatisticalMultiscaleInterestRegionExtraction<PointT> > Ptr;
+      typedef typename std::shared_ptr<const StatisticalMultiscaleInterestRegionExtraction<PointT> > ConstPtr;
 
 
       /** \brief Empty constructor */

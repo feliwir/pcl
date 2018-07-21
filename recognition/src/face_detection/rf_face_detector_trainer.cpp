@@ -49,7 +49,7 @@ void pcl::RFFaceDetectorTrainer::trainWithDataProvider()
   dft.setRandomFeaturesAtSplitNode (true);
   dft.setThresholds (thresholds_);
 
-  boost::shared_ptr < face_detection::FaceDetectorDataProvider<face_detection::FeatureType, std::vector<face_detection::TrainingExample>, float, int, NodeType>
+  std::shared_ptr < face_detection::FaceDetectorDataProvider<face_detection::FeatureType, std::vector<face_detection::TrainingExample>, float, int, NodeType>
       > dtdp;
   dtdp.reset (new face_detection::FaceDetectorDataProvider<face_detection::FeatureType, std::vector<face_detection::TrainingExample>, float, int, NodeType>);
   dtdp->setUseNormals (use_normals_);
@@ -59,7 +59,7 @@ void pcl::RFFaceDetectorTrainer::trainWithDataProvider()
 
   dtdp->initialize (directory_);
 
-  boost::shared_ptr < pcl::DecisionTreeTrainerDataProvider<face_detection::FeatureType, std::vector<face_detection::TrainingExample>, float, int, NodeType>
+  std::shared_ptr < pcl::DecisionTreeTrainerDataProvider<face_detection::FeatureType, std::vector<face_detection::TrainingExample>, float, int, NodeType>
       > cast_dtdp;
   cast_dtdp = boost::dynamic_pointer_cast
       < pcl::DecisionTreeTrainerDataProvider<face_detection::FeatureType, std::vector<face_detection::TrainingExample>, float, int, NodeType> > (dtdp);
@@ -196,7 +196,7 @@ void pcl::RFFaceDetectorTrainer::faceVotesClustering()
         uncertainty.push_back (std::make_pair (votes_indices[i][j], uncertainties_[votes_indices[i][j]]));
       }
 
-      std::sort (uncertainty.begin (), uncertainty.end (), boost::bind (&std::pair<int, float>::second, _1) < boost::bind (&std::pair<int, float>::second, _2));
+      std::sort (uncertainty.begin (), uncertainty.end (), std::bind (&std::pair<int, float>::second, std::placeholders::_1) < std::bind (&std::pair<int, float>::second, std::placeholders::_2));
 
       Eigen::Vector3f rot;
       rot.setZero ();
@@ -273,7 +273,7 @@ void pcl::RFFaceDetectorTrainer::detectFaces()
   pass_.filter (*cloud);
 
   //compute depth integral image
-  boost::shared_ptr<pcl::IntegralImage2D<float, 1> > integral_image_depth;
+  std::shared_ptr<pcl::IntegralImage2D<float, 1> > integral_image_depth;
   integral_image_depth.reset (new pcl::IntegralImage2D<float, 1> (false));
 
   int element_stride = sizeof(pcl::PointXYZ) / sizeof(float);
@@ -297,9 +297,9 @@ void pcl::RFFaceDetectorTrainer::detectFaces()
 
   int element_stride_normal = sizeof(pcl::Normal) / sizeof(float);
   int row_stride_normal = element_stride_normal * normals->width;
-  boost::shared_ptr<pcl::IntegralImage2D<float, 1> > integral_image_normal_x;
-  boost::shared_ptr<pcl::IntegralImage2D<float, 1> > integral_image_normal_y;
-  boost::shared_ptr<pcl::IntegralImage2D<float, 1> > integral_image_normal_z;
+  std::shared_ptr<pcl::IntegralImage2D<float, 1> > integral_image_normal_x;
+  std::shared_ptr<pcl::IntegralImage2D<float, 1> > integral_image_normal_y;
+  std::shared_ptr<pcl::IntegralImage2D<float, 1> > integral_image_normal_z;
 
   if (use_normals_)
   {

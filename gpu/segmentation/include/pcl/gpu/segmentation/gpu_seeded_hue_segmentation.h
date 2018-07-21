@@ -52,7 +52,7 @@ namespace pcl
   namespace gpu
   {
     void
-    seededHueSegmentation (const boost::shared_ptr<pcl::PointCloud<pcl::PointXYZRGB> >  &host_cloud_,
+    seededHueSegmentation (const std::shared_ptr<pcl::PointCloud<pcl::PointXYZRGB> >  &host_cloud_,
                            const pcl::gpu::Octree::Ptr                                  &tree,
                            float                                                        tolerance,
                            PointIndices                                                 &clusters_in,

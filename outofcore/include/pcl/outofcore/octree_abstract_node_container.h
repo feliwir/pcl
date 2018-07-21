@@ -96,7 +96,7 @@ namespace pcl
 
         AlignedPointTVector container_;
         
-        static boost::mutex rng_mutex_;
+        static std::mutex rng_mutex_;
         static boost::mt19937 rand_gen_;
     };
   }//namespace outofcore

@@ -99,24 +99,24 @@ class SimpleOpenNIViewer
     cloud_callback (const CloudConstPtr& cloud)
     {
       FPS_CALC ("cloud callback");
-      boost::mutex::scoped_lock lock (cloud_mutex_);
+      std::lock_guard<std::mutex> lock (cloud_mutex_);
       cloud_ = cloud;
     }
 
 #if !((VTK_MAJOR_VERSION == 5)&&(VTK_MINOR_VERSION <= 4))
     void
-    image_callback (const boost::shared_ptr<openni_wrapper::Image>& image)
+    image_callback (const std::shared_ptr<openni_wrapper::Image>& image)
     {
       FPS_CALC ("image callback");
-      boost::mutex::scoped_lock lock (image_mutex_);
+      std::lock_guard<std::mutex> lock (image_mutex_);
       image_ = image;
     }
     
-    boost::shared_ptr<openni_wrapper::Image>
+    std::shared_ptr<openni_wrapper::Image>
     getLatestImage ()
     {
-      boost::mutex::scoped_lock lock(image_mutex_);
-      boost::shared_ptr<openni_wrapper::Image> temp_image;
+      std::lock_guard<std::mutex> lock(image_mutex_);
+      std::shared_ptr<openni_wrapper::Image> temp_image;
       temp_image.swap (image_);
       return (temp_image);
     }    
@@ -153,7 +153,7 @@ class SimpleOpenNIViewer
     getLatestCloud ()
     {
       //lock while we swap our cloud and reset it.
-      boost::mutex::scoped_lock lock(cloud_mutex_);
+      std::lock_guard<std::mutex> lock(cloud_mutex_);
       CloudConstPtr temp_cloud;
       temp_cloud.swap (cloud_); //here we set cloud_ to null, so that
       //it is safe to set it again from our
@@ -173,18 +173,18 @@ class SimpleOpenNIViewer
       string keyMsg3D("Key event for PCL Visualizer");
       cloud_viewer_.registerMouseCallback (&SimpleOpenNIViewer::mouse_callback, *this, (void*)(&mouseMsg3D));    
       cloud_viewer_.registerKeyboardCallback(&SimpleOpenNIViewer::keyboard_callback, *this, (void*)(&keyMsg3D));
-      boost::function<void (const CloudConstPtr&) > cloud_cb = boost::bind (&SimpleOpenNIViewer::cloud_callback, this, _1);
+      std::function<void (const CloudConstPtr&) > cloud_cb = std::bind (&SimpleOpenNIViewer::cloud_callback, this, std::placeholders::_1);
       boost::signals2::connection cloud_connection = grabber_.registerCallback (cloud_cb);
       
 #if !((VTK_MAJOR_VERSION == 5)&&(VTK_MINOR_VERSION <= 4))
       boost::signals2::connection image_connection;
-      if (grabber_.providesCallback<void (const boost::shared_ptr<openni_wrapper::Image>&)>())
+      if (grabber_.providesCallback<void (const std::shared_ptr<openni_wrapper::Image>&)>())
       {
           string mouseMsg2D("Mouse coordinates in image viewer");
           string keyMsg2D("Key event for image viewer");
           image_viewer_.registerMouseCallback (&SimpleOpenNIViewer::mouse_callback, *this, (void*)(&mouseMsg2D));
           image_viewer_.registerKeyboardCallback(&SimpleOpenNIViewer::keyboard_callback, *this, (void*)(&keyMsg2D));
-          boost::function<void (const boost::shared_ptr<openni_wrapper::Image>&) > image_cb = boost::bind (&SimpleOpenNIViewer::image_callback, this, _1);
+          std::function<void (const std::shared_ptr<openni_wrapper::Image>&) > image_cb = std::bind (&SimpleOpenNIViewer::image_callback, this, std::placeholders::_1);
           image_connection = grabber_.registerCallback (image_cb);
       }
       unsigned char* rgb_data = 0;
@@ -204,7 +204,7 @@ class SimpleOpenNIViewer
 #if !((VTK_MAJOR_VERSION == 5)&&(VTK_MINOR_VERSION <= 4))        
         if (image_)
         {
-          boost::shared_ptr<openni_wrapper::Image> image = getLatestImage ();
+          std::shared_ptr<openni_wrapper::Image> image = getLatestImage ();
           
           if (image->getEncoding() == openni_wrapper::Image::RGB)
           {
@@ -237,12 +237,12 @@ class SimpleOpenNIViewer
 
     pcl::visualization::CloudViewer cloud_viewer_;
     pcl::OpenNIGrabber& grabber_;
-    boost::mutex cloud_mutex_;
+    std::mutex cloud_mutex_;
     CloudConstPtr cloud_;
     
 #if !((VTK_MAJOR_VERSION == 5)&&(VTK_MINOR_VERSION <= 4))    
-    boost::mutex image_mutex_;
-    boost::shared_ptr<openni_wrapper::Image> image_;
+    std::mutex image_mutex_;
+    std::shared_ptr<openni_wrapper::Image> image_;
     pcl::visualization::ImageViewer image_viewer_;
 #endif    
 };
@@ -302,7 +302,7 @@ main(int argc, char ** argv)
       if (argc >= 3)
       {
         pcl::OpenNIGrabber grabber(argv[2]);
-        boost::shared_ptr<openni_wrapper::OpenNIDevice> device = grabber.getDevice();
+        std::shared_ptr<openni_wrapper::OpenNIDevice> device = grabber.getDevice();
         cout << "Supported depth modes for device: " << device->getVendorName() << " , " << device->getProductName() << endl;
         std::vector<std::pair<int, XnMapOutputMode > > modes = grabber.getAvailableDepthModes();
         for (std::vector<std::pair<int, XnMapOutputMode > >::const_iterator it = modes.begin(); it != modes.end(); ++it)

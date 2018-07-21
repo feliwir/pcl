@@ -64,8 +64,8 @@ namespace pcl
       public:
         typedef typename PointCloud<PointT>::Ptr PointCloudPtr;
         typedef typename PointCloud<PointT>::ConstPtr PointCloudConstPtr;
-        typedef boost::shared_ptr< Pyramid<PointT> > Ptr;
-        typedef boost::shared_ptr< const Pyramid<PointT> > ConstPtr;
+        typedef std::shared_ptr< Pyramid<PointT> > Ptr;
+        typedef std::shared_ptr< const Pyramid<PointT> > ConstPtr;
  
         Pyramid (int levels = 4)
           : levels_ (levels)

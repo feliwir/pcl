@@ -197,7 +197,7 @@ namespace pcl
       std::vector<int> explained_by_RM_; //represents the points of scene_cloud_ that are explained by the recognition models
       std::vector<float> explained_by_RM_distance_weighted; //represents the points of scene_cloud_ that are explained by the recognition models
       std::vector<float> unexplained_by_RM_neighboorhods; //represents the points of scene_cloud_ that are not explained by the active hypotheses in the neighboorhod of the recognition models
-      std::vector<boost::shared_ptr<RecognitionModel> > recognition_models_;
+      std::vector<std::shared_ptr<RecognitionModel> > recognition_models_;
       std::vector<size_t> indices_;
 
       float regularizer_;
@@ -392,7 +392,7 @@ namespace pcl
         return explained_info;
       }
 
-      float getTotalBadInformation(std::vector<boost::shared_ptr<RecognitionModel> > & recog_models)
+      float getTotalBadInformation(std::vector<std::shared_ptr<RecognitionModel> > & recog_models)
       {
         float bad_info = 0;
         for (size_t i = 0; i < recog_models.size (); i++)
@@ -422,10 +422,10 @@ namespace pcl
 
       bool
       addModel(typename pcl::PointCloud<ModelT>::ConstPtr & model, typename pcl::PointCloud<ModelT>::ConstPtr & complete_model,
-          boost::shared_ptr<RecognitionModel> & recog_model);
+          std::shared_ptr<RecognitionModel> & recog_model);
 
       void
-      computeClutterCue(boost::shared_ptr<RecognitionModel> & recog_model);
+      computeClutterCue(std::shared_ptr<RecognitionModel> & recog_model);
 
       void
       SAOptimize(std::vector<int> & cc_indices, std::vector<bool> & sub_solution);

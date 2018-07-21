@@ -54,8 +54,8 @@ namespace pcl
   class PlanarPolygon
   {
     public:
-      typedef boost::shared_ptr<PlanarPolygon<PointT> > Ptr;
-      typedef boost::shared_ptr<const PlanarPolygon<PointT> > ConstPtr;
+      typedef std::shared_ptr<PlanarPolygon<PointT> > Ptr;
+      typedef std::shared_ptr<const PlanarPolygon<PointT> > ConstPtr;
 
        /** \brief Empty constructor for PlanarPolygon */
       PlanarPolygon () : contour_ (), coefficients_ ()

@@ -242,21 +242,21 @@ openni_wrapper::OpenNIDriver::~OpenNIDriver () throw ()
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-boost::shared_ptr<openni_wrapper::OpenNIDevice> 
+std::shared_ptr<openni_wrapper::OpenNIDevice> 
 openni_wrapper::OpenNIDriver::createVirtualDevice (const std::string& path, bool repeat, bool stream) const
 {
-  return (boost::shared_ptr<OpenNIDevice> (new DeviceONI (context_, path, repeat, stream)));
+  return (std::shared_ptr<OpenNIDevice> (new DeviceONI (context_, path, repeat, stream)));
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-boost::shared_ptr<openni_wrapper::OpenNIDevice> 
+std::shared_ptr<openni_wrapper::OpenNIDevice> 
 openni_wrapper::OpenNIDriver::getDeviceByIndex (unsigned index) const
 {
   using namespace std;
 
   if (index >= device_context_.size ())
     THROW_OPENNI_EXCEPTION ("Device index out of range. Only %d devices connected but device %d requested.", device_context_.size (), index);
-  boost::shared_ptr<openni_wrapper::OpenNIDevice> device = device_context_[index].device.lock ();
+  std::shared_ptr<openni_wrapper::OpenNIDevice> device = device_context_[index].device.lock ();
   if (!device)
   {
     unsigned short vendor_id;
@@ -297,7 +297,7 @@ openni_wrapper::OpenNIDriver::getDeviceByIndex (unsigned index) const
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-boost::shared_ptr<openni_wrapper::OpenNIDevice>
+std::shared_ptr<openni_wrapper::OpenNIDevice>
 openni_wrapper::OpenNIDriver::getDeviceBySerialNumber (const std::string& serial_number) const
 {
   std::map<std::string, unsigned>::const_iterator it = serial_map_.find (serial_number);
@@ -310,12 +310,12 @@ openni_wrapper::OpenNIDriver::getDeviceBySerialNumber (const std::string& serial
   THROW_OPENNI_EXCEPTION ("No device with serial number \'%s\' found", serial_number.c_str ());
 
   // because of warnings!!!
-  return (boost::shared_ptr<openni_wrapper::OpenNIDevice> (static_cast<OpenNIDevice*> (NULL)));
+  return (std::shared_ptr<openni_wrapper::OpenNIDevice> (static_cast<OpenNIDevice*> (NULL)));
 }
 
 #ifndef _WIN32
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-boost::shared_ptr<openni_wrapper::OpenNIDevice>
+std::shared_ptr<openni_wrapper::OpenNIDevice>
 openni_wrapper::OpenNIDriver::getDeviceByAddress (unsigned char bus, unsigned char address) const
 {
   std::map<unsigned char, std::map<unsigned char, unsigned> >::const_iterator busIt = bus_map_.find (bus);
@@ -331,7 +331,7 @@ openni_wrapper::OpenNIDriver::getDeviceByAddress (unsigned char bus, unsigned ch
   THROW_OPENNI_EXCEPTION ("No device on bus: %d @ %d found", bus, address);
 
   // because of warnings!!!
-  return (boost::shared_ptr<OpenNIDevice > (static_cast<OpenNIDevice*> (NULL)));
+  return (std::shared_ptr<OpenNIDevice > (static_cast<OpenNIDevice*> (NULL)));
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

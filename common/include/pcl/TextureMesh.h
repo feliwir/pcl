@@ -102,12 +102,12 @@ namespace pcl
     std::vector<pcl::TexMaterial>               tex_materials;    // define texture material
 
     public:
-      typedef boost::shared_ptr<pcl::TextureMesh> Ptr;
-      typedef boost::shared_ptr<pcl::TextureMesh const> ConstPtr;
+      typedef std::shared_ptr<pcl::TextureMesh> Ptr;
+      typedef std::shared_ptr<pcl::TextureMesh const> ConstPtr;
    }; // struct TextureMesh
 
-   typedef boost::shared_ptr<pcl::TextureMesh> TextureMeshPtr;
-   typedef boost::shared_ptr<pcl::TextureMesh const> TextureMeshConstPtr;
+   typedef std::shared_ptr<pcl::TextureMesh> TextureMeshPtr;
+   typedef std::shared_ptr<pcl::TextureMesh const> TextureMeshConstPtr;
 } // namespace pcl
 
 #endif /* PCL_TEXTUREMESH_H_ */

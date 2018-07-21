@@ -75,8 +75,8 @@ namespace pcl
       typedef typename PointCloudN::ConstPtr PointCloudNConstPtr;
       typedef typename Feature<PointInT, PointOutT>::PointCloudOut PointCloudOut;
     public:
-      typedef boost::shared_ptr<DifferenceOfNormalsEstimation<PointInT, PointNT, PointOutT> > Ptr;
-      typedef boost::shared_ptr<const DifferenceOfNormalsEstimation<PointInT, PointNT, PointOutT> > ConstPtr;
+      typedef std::shared_ptr<DifferenceOfNormalsEstimation<PointInT, PointNT, PointOutT> > Ptr;
+      typedef std::shared_ptr<const DifferenceOfNormalsEstimation<PointInT, PointNT, PointOutT> > ConstPtr;
 
       /**
         * Creates a new Difference of Normals filter.

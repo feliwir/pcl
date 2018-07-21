@@ -76,8 +76,8 @@ namespace pcl
       public:
         typedef typename TransformationValidation<PointSource, PointTarget, Scalar>::Matrix4 Matrix4;
         
-        typedef boost::shared_ptr<TransformationValidation<PointSource, PointTarget, Scalar> > Ptr;
-        typedef boost::shared_ptr<const TransformationValidation<PointSource, PointTarget, Scalar> > ConstPtr;
+        typedef std::shared_ptr<TransformationValidation<PointSource, PointTarget, Scalar> > Ptr;
+        typedef std::shared_ptr<const TransformationValidation<PointSource, PointTarget, Scalar> > ConstPtr;
 
         typedef typename pcl::search::KdTree<PointTarget> KdTree;
         typedef typename pcl::search::KdTree<PointTarget>::Ptr KdTreePtr;
@@ -237,8 +237,8 @@ namespace pcl
           using pcl::PointRepresentation<PointTarget>::nr_dimensions_;
           using pcl::PointRepresentation<PointTarget>::trivial_;
           public:
-            typedef boost::shared_ptr<MyPointRepresentation> Ptr;
-            typedef boost::shared_ptr<const MyPointRepresentation> ConstPtr;
+            typedef std::shared_ptr<MyPointRepresentation> Ptr;
+            typedef std::shared_ptr<const MyPointRepresentation> ConstPtr;
             
             MyPointRepresentation ()
             {

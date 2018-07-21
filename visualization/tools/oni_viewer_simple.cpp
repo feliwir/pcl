@@ -93,7 +93,7 @@ public:
   cloud_cb_ (const CloudConstPtr& cloud)
   {
     FPS_CALC ("callback");
-    boost::mutex::scoped_lock lock (mtx_);
+    std::lock_guard<std::mutex> lock (mtx_);
     cloud_ = cloud;
   }
 
@@ -105,7 +105,7 @@ public:
   getLatestCloud ()
   {
     //lock while we swap our cloud and reset it.
-    boost::mutex::scoped_lock lock(mtx_);
+    std::lock_guard<std::mutex> lock(mtx_);
     CloudConstPtr temp_cloud;
     temp_cloud.swap (cloud_); //here we set cloud_ to null, so that
     //it is safe to set it again from our
@@ -121,7 +121,7 @@ public:
   {
     //pcl::Grabber* interface = new pcl::OpenNIGrabber(device_id_, pcl::OpenNIGrabber::OpenNI_QQVGA_30Hz, pcl::OpenNIGrabber::OpenNI_VGA_30Hz);
 
-    boost::function<void (const CloudConstPtr&) > f = boost::bind (&SimpleONIViewer::cloud_cb_, this, _1);
+    std::function<void (const CloudConstPtr&) > f = std::bind (&SimpleONIViewer::cloud_cb_, this, std::placeholders::_1);
 
     boost::signals2::connection c = grabber_.registerCallback (f);
 
@@ -142,7 +142,7 @@ public:
 
   pcl::visualization::CloudViewer viewer;
   pcl::ONIGrabber& grabber_;
-  boost::mutex mtx_;
+  std::mutex mtx_;
   CloudConstPtr cloud_;
 };
 
@@ -191,7 +191,7 @@ main(int argc, char ** argv)
   {
     grabber = new  pcl::ONIGrabber(arg, true, false);
     trigger.setInterval (1.0 / static_cast<double> (frame_rate));
-    trigger.registerCallback (boost::bind(&pcl::ONIGrabber::start, grabber));
+    trigger.registerCallback (std::bind(&pcl::ONIGrabber::start, grabber));
     trigger.start();
   }
   if (grabber->providesCallback<pcl::ONIGrabber::sig_cb_openni_point_cloud_rgb > () && !pcl::console::find_switch (argc, argv, "-xyz"))

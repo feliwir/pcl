@@ -40,7 +40,7 @@
 #include <Eigen/Dense>
 #include <cmath>
 #include <iostream>
-#include <boost/shared_ptr.hpp>
+#include <memory>
 #ifdef _WIN32
 # define WIN32_LEAN_AND_MEAN
 # include <windows.h>
@@ -85,7 +85,7 @@
 
 // Pop-up viewer
 #include <pcl/visualization/cloud_viewer.h>
-#include <boost/thread/thread.hpp>
+#include <thread>
 
 
 #include <pcl/common/common.h>
@@ -185,7 +185,7 @@ printHelp (int, char **argv)
 
 // Global visualizer object
 pcl::visualization::PCLHistogramVisualizer ph_global;
-boost::shared_ptr<pcl::visualization::PCLVisualizer> p;
+std::shared_ptr<pcl::visualization::PCLVisualizer> p;
 
 void
 pp_callback (const pcl::visualization::PointPickingEvent& event, void* cookie)
@@ -372,10 +372,10 @@ void write_rgb_image(const uint8_t* rgb_buffer)
 }
 
 
-boost::shared_ptr<pcl::visualization::PCLVisualizer> simpleVis (pcl::PointCloud<pcl::PointXYZRGB>::ConstPtr cloud)
+std::shared_ptr<pcl::visualization::PCLVisualizer> simpleVis (pcl::PointCloud<pcl::PointXYZRGB>::ConstPtr cloud)
 {
   // Snippet taken from PCLVisualizer tutorial:
-  boost::shared_ptr<pcl::visualization::PCLVisualizer> viewer (new pcl::visualization::PCLVisualizer ("3D Viewer"));
+  std::shared_ptr<pcl::visualization::PCLVisualizer> viewer (new pcl::visualization::PCLVisualizer ("3D Viewer"));
   viewer->setBackgroundColor (0, 0, 0);
   pcl::visualization::PointCloudColorHandlerRGBField<pcl::PointXYZRGB> rgb(cloud);
   viewer->addPointCloud<pcl::PointXYZRGB> (cloud, rgb, "sample cloud");
@@ -486,12 +486,12 @@ void capture (Eigen::Isometry3d pose_in, string point_cloud_fname)
  
     // display viewer: (currently seqfaults on exit of viewer)
     if (1==0){
-      boost::shared_ptr<pcl::visualization::PCLVisualizer> viewer;
+      std::shared_ptr<pcl::visualization::PCLVisualizer> viewer;
       viewer = simpleVis(pc_out);
     
       while (!viewer->wasStopped ()){
 	viewer->spinOnce (100);
-	boost::this_thread::sleep (boost::posix_time::microseconds (100000));
+	std::this_thread::sleep_for (std::chrono::microseconds (100000));
       }
     }
   }
@@ -540,7 +540,7 @@ void print_Isometry3d(Eigen::Isometry3d pose, std::stringstream &ss){
 void simulate_callback (const pcl::visualization::KeyboardEvent &event,
                         void* viewer_void)
 {
-  boost::shared_ptr<pcl::visualization::PCLVisualizer> viewer = *static_cast<boost::shared_ptr<pcl::visualization::PCLVisualizer> *> (viewer_void);
+  std::shared_ptr<pcl::visualization::PCLVisualizer> viewer = *static_cast<std::shared_ptr<pcl::visualization::PCLVisualizer> *> (viewer_void);
   // I choose v for virtual as s for simulate is takwen
   if (event.getKeySym () == "v" && event.keyDown ())
   {
@@ -772,7 +772,7 @@ main (int argc, char** argv)
       opaque.push_back (1.0);
 
   // Create the PCLVisualizer object
-  boost::shared_ptr<pcl::visualization::PCLHistogramVisualizer> ph;
+  std::shared_ptr<pcl::visualization::PCLHistogramVisualizer> ph;
 
   // Using min_p, max_p to set the global Y min/max range for the histogram
   float min_p = FLT_MAX; float max_p = -FLT_MAX;

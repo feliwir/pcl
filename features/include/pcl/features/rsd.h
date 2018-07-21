@@ -84,7 +84,7 @@ namespace pcl
     * \ingroup features
     */
   template <typename PointInT, typename PointNT, typename PointOutT> Eigen::MatrixXf
-  computeRSD (boost::shared_ptr<const pcl::PointCloud<PointInT> > &surface, boost::shared_ptr<const pcl::PointCloud<PointNT> > &normals,
+  computeRSD (std::shared_ptr<const pcl::PointCloud<PointInT> > &surface, std::shared_ptr<const pcl::PointCloud<PointNT> > &normals,
              const std::vector<int> &indices, double max_dist,
              int nr_subdiv, double plane_radius, PointOutT &radii, bool compute_histogram = false);
 
@@ -100,7 +100,7 @@ namespace pcl
     * \ingroup features
     */
   template <typename PointNT, typename PointOutT> Eigen::MatrixXf
-  computeRSD (boost::shared_ptr<const pcl::PointCloud<PointNT> > &normals,
+  computeRSD (std::shared_ptr<const pcl::PointCloud<PointNT> > &normals,
              const std::vector<int> &indices, const std::vector<float> &sqr_dists, double max_dist,
              int nr_subdiv, double plane_radius, PointOutT &radii, bool compute_histogram = false);
 
@@ -141,8 +141,8 @@ namespace pcl
       typedef typename Feature<PointInT, PointOutT>::PointCloudOut PointCloudOut;
       typedef typename Feature<PointInT, PointOutT>::PointCloudIn  PointCloudIn;
 
-      typedef typename boost::shared_ptr<RSDEstimation<PointInT, PointNT, PointOutT> > Ptr;
-      typedef typename boost::shared_ptr<const RSDEstimation<PointInT, PointNT, PointOutT> > ConstPtr;
+      typedef typename std::shared_ptr<RSDEstimation<PointInT, PointNT, PointOutT> > Ptr;
+      typedef typename std::shared_ptr<const RSDEstimation<PointInT, PointNT, PointOutT> > ConstPtr;
 
 
       /** \brief Empty constructor. */
@@ -200,7 +200,7 @@ namespace pcl
       /** \brief Returns a pointer to the list of full distance-angle histograms for all points.
         * \return the histogram being saved when computing RSD
 	*/
-      inline boost::shared_ptr<std::vector<Eigen::MatrixXf, Eigen::aligned_allocator<Eigen::MatrixXf> > >
+      inline std::shared_ptr<std::vector<Eigen::MatrixXf, Eigen::aligned_allocator<Eigen::MatrixXf> > >
       getHistograms () const { return (histograms_); }
 
     protected:
@@ -214,7 +214,7 @@ namespace pcl
       computeFeature (PointCloudOut &output);
 
       /** \brief The list of full distance-angle histograms for all points. */
-      boost::shared_ptr<std::vector<Eigen::MatrixXf, Eigen::aligned_allocator<Eigen::MatrixXf> > > histograms_;
+      std::shared_ptr<std::vector<Eigen::MatrixXf, Eigen::aligned_allocator<Eigen::MatrixXf> > > histograms_;
 
     private:
       /** \brief The number of subdivisions for the considered distance interval. */

@@ -39,7 +39,7 @@ pcl::cloud_composer::InteractorStyleSwitch::~InteractorStyleSwitch ()
 }
 
 void
-pcl::cloud_composer::InteractorStyleSwitch::initializeInteractorStyles (boost::shared_ptr<pcl::visualization::PCLVisualizer> vis, ProjectModel* model)
+pcl::cloud_composer::InteractorStyleSwitch::initializeInteractorStyles (std::shared_ptr<pcl::visualization::PCLVisualizer> vis, ProjectModel* model)
 {
   qDebug () << "Initializing Interactor Styles";
   vis_ = vis;

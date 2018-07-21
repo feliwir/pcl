@@ -65,8 +65,8 @@ namespace pcl
       using CorrespondenceRejector::getClassName;
 
       public:
-        typedef boost::shared_ptr<CorrespondenceRejectorDistance> Ptr;
-        typedef boost::shared_ptr<const CorrespondenceRejectorDistance> ConstPtr;
+        typedef std::shared_ptr<CorrespondenceRejectorDistance> Ptr;
+        typedef std::shared_ptr<const CorrespondenceRejectorDistance> ConstPtr;
 
         /** \brief Empty constructor. */
         CorrespondenceRejectorDistance () : max_distance_(std::numeric_limits<float>::max ()),
@@ -108,7 +108,7 @@ namespace pcl
           PCL_WARN ("[pcl::registration::%s::setInputCloud] setInputCloud is deprecated. Please use setInputSource instead.\n", getClassName ().c_str ());
           if (!data_container_)
             data_container_.reset (new DataContainer<PointT>);
-          boost::static_pointer_cast<DataContainer<PointT> > (data_container_)->setInputSource (cloud);
+          std::static_pointer_cast<DataContainer<PointT> > (data_container_)->setInputSource (cloud);
         }
 
         /** \brief Provide a source point cloud dataset (must contain XYZ
@@ -120,7 +120,7 @@ namespace pcl
         {
           if (!data_container_)
             data_container_.reset (new DataContainer<PointT>);
-          boost::static_pointer_cast<DataContainer<PointT> > (data_container_)->setInputSource (cloud);
+          std::static_pointer_cast<DataContainer<PointT> > (data_container_)->setInputSource (cloud);
         }
 
         /** \brief Provide a target point cloud dataset (must contain XYZ
@@ -132,7 +132,7 @@ namespace pcl
         {
           if (!data_container_)
             data_container_.reset (new DataContainer<PointT>);
-          boost::static_pointer_cast<DataContainer<PointT> > (data_container_)->setInputTarget (target);
+          std::static_pointer_cast<DataContainer<PointT> > (data_container_)->setInputTarget (target);
         }
 
 
@@ -172,10 +172,10 @@ namespace pcl
           * confident that the tree will be set correctly.
           */
         template <typename PointT> inline void
-        setSearchMethodTarget (const boost::shared_ptr<pcl::search::KdTree<PointT> > &tree, 
+        setSearchMethodTarget (const std::shared_ptr<pcl::search::KdTree<PointT> > &tree, 
                                bool force_no_recompute = false) 
         { 
-          boost::static_pointer_cast< DataContainer<PointT> > 
+          std::static_pointer_cast< DataContainer<PointT> > 
             (data_container_)->setSearchMethodTarget (tree, force_no_recompute );
         }
 
@@ -196,7 +196,7 @@ namespace pcl
           */
         float max_distance_;
 
-        typedef boost::shared_ptr<DataContainerInterface> DataContainerPtr;
+        typedef std::shared_ptr<DataContainerInterface> DataContainerPtr;
 
         /** \brief A pointer to the DataContainer object containing the input and target point clouds */
         DataContainerPtr data_container_;

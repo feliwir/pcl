@@ -37,6 +37,7 @@
 
 #include <pcl/io/robot_eye_grabber.h>
 #include <pcl/console/print.h>
+#include <boost/bind.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 pcl::RobotEyeGrabber::RobotEyeGrabber ()
@@ -131,7 +132,7 @@ pcl::RobotEyeGrabber::setSignalPointCloudSize (std::size_t numberOfPoints)
 }
 
 /////////////////////////////////////////////////////////////////////////////
-boost::shared_ptr<pcl::PointCloud<pcl::PointXYZI> >
+std::shared_ptr<pcl::PointCloud<pcl::PointXYZI> >
 pcl::RobotEyeGrabber::getPointCloud () const
 {
   return point_cloud_xyzi_;
@@ -326,8 +327,8 @@ pcl::RobotEyeGrabber::start ()
 
   terminate_thread_ = false;
   resetPointCloud ();
-  consumer_thread_.reset(new boost::thread (boost::bind (&RobotEyeGrabber::consumerThreadLoop, this)));
-  socket_thread_.reset(new boost::thread (boost::bind (&RobotEyeGrabber::socketThreadLoop, this)));
+  consumer_thread_.reset(new std::thread (std::bind (&RobotEyeGrabber::consumerThreadLoop, this)));
+  socket_thread_.reset(new std::thread (std::bind (&RobotEyeGrabber::socketThreadLoop, this)));
 }
 
 /////////////////////////////////////////////////////////////////////////////

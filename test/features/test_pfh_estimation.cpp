@@ -61,7 +61,7 @@ KdTreePtr tree;
 template <typename FeatureEstimation, typename PointT, typename NormalT, typename OutputT> void
 testIndicesAndSearchSurface (const typename PointCloud<PointT>::Ptr & points,
                              const typename PointCloud<NormalT>::Ptr & normals,
-                             const boost::shared_ptr<vector<int> > & indices, int ndims)
+                             const std::shared_ptr<vector<int> > & indices, int ndims)
 {
   //
   // Test setIndices and setSearchSurface
@@ -114,7 +114,7 @@ testIndicesAndSearchSurface (const typename PointCloud<PointT>::Ptr & points,
   //
   PointCloud<OutputT> output3, output4;
 
-  boost::shared_ptr<vector<int> > indices2 (new vector<int> (0));
+  std::shared_ptr<vector<int> > indices2 (new vector<int> (0));
   for (size_t i = 0; i < (indices->size ()/2); ++i)
     indices2->push_back (static_cast<int> (i));
 
@@ -152,7 +152,7 @@ TEST (PCL, PFHEstimation)
   PointCloud<Normal>::Ptr normals (new PointCloud<Normal> ());
   // set parameters
   n.setInputCloud (cloud.makeShared ());
-  boost::shared_ptr<vector<int> > indicesptr (new vector<int> (indices));
+  std::shared_ptr<vector<int> > indicesptr (new vector<int> (indices));
   n.setIndices (indicesptr);
   n.setSearchMethod (tree);
   n.setKSearch (10); // Use 10 nearest neighbors to estimate the normals
@@ -254,7 +254,7 @@ TEST (PCL, PFHEstimation)
 
   // Test results when setIndices and/or setSearchSurface are used
 
-  boost::shared_ptr<vector<int> > test_indices (new vector<int> (0));
+  std::shared_ptr<vector<int> > test_indices (new vector<int> (0));
   for (size_t i = 0; i < cloud.size (); i+=3)
     test_indices->push_back (static_cast<int> (i));
 
@@ -270,7 +270,7 @@ TEST (PCL, FPFHEstimation)
   PointCloud<Normal>::Ptr normals (new PointCloud<Normal> ());
   // set parameters
   n.setInputCloud (cloud.makeShared ());
-  boost::shared_ptr<vector<int> > indicesptr (new vector<int> (indices));
+  std::shared_ptr<vector<int> > indicesptr (new vector<int> (indices));
   n.setIndices (indicesptr);
   n.setSearchMethod (tree);
   n.setKSearch (10); // Use 10 nearest neighbors to estimate the normals
@@ -415,7 +415,7 @@ TEST (PCL, FPFHEstimation)
 
   // Test results when setIndices and/or setSearchSurface are used
 
-  boost::shared_ptr<vector<int> > test_indices (new vector<int> (0));
+  std::shared_ptr<vector<int> > test_indices (new vector<int> (0));
   for (size_t i = 0; i < cloud.size (); i+=3)
     test_indices->push_back (static_cast<int> (i));
 
@@ -432,7 +432,7 @@ TEST (PCL, FPFHEstimationOpenMP)
   PointCloud<Normal>::Ptr normals (new PointCloud<Normal> ());
   // set parameters
   n.setInputCloud (cloud.makeShared ());
-  boost::shared_ptr<vector<int> > indicesptr (new vector<int> (indices));
+  std::shared_ptr<vector<int> > indicesptr (new vector<int> (indices));
   n.setIndices (indicesptr);
   n.setSearchMethod (tree);
   n.setKSearch (10); // Use 10 nearest neighbors to estimate the normals
@@ -491,7 +491,7 @@ TEST (PCL, FPFHEstimationOpenMP)
 
   // Test results when setIndices and/or setSearchSurface are used
 
-  boost::shared_ptr<vector<int> > test_indices (new vector<int> (0));
+  std::shared_ptr<vector<int> > test_indices (new vector<int> (0));
   for (size_t i = 0; i < cloud.size (); i+=3)
     test_indices->push_back (static_cast<int> (i));
 
@@ -507,7 +507,7 @@ TEST (PCL, VFHEstimation)
   PointCloud<Normal>::Ptr normals (new PointCloud<Normal> ());
   // set parameters
   n.setInputCloud (cloud.makeShared ());
-  boost::shared_ptr<vector<int> > indicesptr (new vector<int> (indices));
+  std::shared_ptr<vector<int> > indicesptr (new vector<int> (indices));
   n.setIndices (indicesptr);
   n.setSearchMethod (tree);
   n.setKSearch (10); // Use 10 nearest neighbors to estimate the normals

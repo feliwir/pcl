@@ -19,12 +19,12 @@ namespace pcl
     std::vector<int> indices;
 
     public:
-      typedef boost::shared_ptr< ::pcl::PointIndices> Ptr;
-      typedef boost::shared_ptr< ::pcl::PointIndices const> ConstPtr;
+      typedef std::shared_ptr< ::pcl::PointIndices> Ptr;
+      typedef std::shared_ptr< ::pcl::PointIndices const> ConstPtr;
   }; // struct PointIndices
 
-  typedef boost::shared_ptr< ::pcl::PointIndices> PointIndicesPtr;
-  typedef boost::shared_ptr< ::pcl::PointIndices const> PointIndicesConstPtr;
+  typedef std::shared_ptr< ::pcl::PointIndices> PointIndicesPtr;
+  typedef std::shared_ptr< ::pcl::PointIndices const> PointIndicesConstPtr;
 
   inline std::ostream& operator << (std::ostream& s, const ::pcl::PointIndices &v)
   {

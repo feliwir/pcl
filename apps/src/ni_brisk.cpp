@@ -77,7 +77,7 @@ class BRISKDemo
     cloud_callback (const CloudConstPtr& cloud)
     {
       FPS_CALC ("cloud callback");
-      boost::mutex::scoped_lock lock (cloud_mutex_);
+      std::lock_guard<std::mutex> lock (cloud_mutex_);
       cloud_ = cloud;
 
       // Compute BRISK keypoints 
@@ -94,7 +94,7 @@ class BRISKDemo
     void
     init ()
     {
-      boost::function<void (const CloudConstPtr&) > cloud_cb = boost::bind (&BRISKDemo::cloud_callback, this, _1);
+      std::function<void (const CloudConstPtr&) > cloud_cb = std::bind (&BRISKDemo::cloud_callback, this, std::placeholders::_1);
       cloud_connection = grabber_.registerCallback (cloud_cb);
     }
 
@@ -268,7 +268,7 @@ class BRISKDemo
 
         cloud_viewer_.spinOnce ();
         image_viewer_.spinOnce ();
-        boost::this_thread::sleep (boost::posix_time::microseconds (100));
+        std::this_thread::sleep_for (std::chrono::microseconds (100));
       }
 
       grabber_.stop ();
@@ -278,7 +278,7 @@ class BRISKDemo
     
     visualization::PCLVisualizer cloud_viewer_;
     Grabber& grabber_;
-    boost::mutex cloud_mutex_;
+    std::mutex cloud_mutex_;
     CloudConstPtr cloud_;
     
     visualization::ImageViewer image_viewer_;

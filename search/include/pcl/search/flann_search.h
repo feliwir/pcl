@@ -105,24 +105,24 @@ namespace pcl
       using Search<PointT>::sorted_results_;
 
       public:
-        typedef boost::shared_ptr<FlannSearch<PointT, FlannDistance> > Ptr;
-        typedef boost::shared_ptr<const FlannSearch<PointT, FlannDistance> > ConstPtr;
+        typedef std::shared_ptr<FlannSearch<PointT, FlannDistance> > Ptr;
+        typedef std::shared_ptr<const FlannSearch<PointT, FlannDistance> > ConstPtr;
         
         typedef typename Search<PointT>::PointCloud PointCloud;
         typedef typename Search<PointT>::PointCloudConstPtr PointCloudConstPtr;
 
-        typedef boost::shared_ptr<std::vector<int> > IndicesPtr;
-        typedef boost::shared_ptr<const std::vector<int> > IndicesConstPtr;
+        typedef std::shared_ptr<std::vector<int> > IndicesPtr;
+        typedef std::shared_ptr<const std::vector<int> > IndicesConstPtr;
 
-        typedef boost::shared_ptr<flann::Matrix <float> > MatrixPtr;
-        typedef boost::shared_ptr<const flann::Matrix <float> > MatrixConstPtr;
+        typedef std::shared_ptr<flann::Matrix <float> > MatrixPtr;
+        typedef std::shared_ptr<const flann::Matrix <float> > MatrixConstPtr;
 
         typedef flann::NNIndex< FlannDistance > Index;
-        typedef boost::shared_ptr<flann::NNIndex <FlannDistance > > IndexPtr;
+        typedef std::shared_ptr<flann::NNIndex <FlannDistance > > IndexPtr;
 
         typedef pcl::PointRepresentation<PointT> PointRepresentation;
-        typedef boost::shared_ptr<PointRepresentation> PointRepresentationPtr;
-        typedef boost::shared_ptr<const PointRepresentation> PointRepresentationConstPtr;
+        typedef std::shared_ptr<PointRepresentation> PointRepresentationPtr;
+        typedef std::shared_ptr<const PointRepresentation> PointRepresentationConstPtr;
 
         /** \brief Helper class that creates a FLANN index from a given FLANN matrix. To
           * use a FLANN index type with FlannSearch, implement this interface and
@@ -142,7 +142,7 @@ namespace pcl
             */
             virtual ~FlannIndexCreator () {}
         };
-        typedef boost::shared_ptr<FlannIndexCreator> FlannIndexCreatorPtr;
+        typedef std::shared_ptr<FlannIndexCreator> FlannIndexCreatorPtr;
 
         /** \brief Creates a FLANN KdTreeSingleIndex from the given input data.
           */

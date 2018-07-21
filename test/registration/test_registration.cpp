@@ -404,7 +404,7 @@ TEST (PCL, IterativeClosestPoint_PointToPlane)
 
   IterativeClosestPoint<PointT, PointT> reg;
   typedef registration::TransformationEstimationPointToPlane<PointT, PointT> PointToPlane;
-  boost::shared_ptr<PointToPlane> point_to_plane (new PointToPlane);
+  std::shared_ptr<PointToPlane> point_to_plane (new PointToPlane);
   reg.setTransformationEstimation (point_to_plane);
   reg.setInputSource (src);
   reg.setInputTarget (tgt);

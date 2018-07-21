@@ -63,13 +63,13 @@ namespace pcl
       /*
       struct OtherDetector
       {
-          typedef boost::shared_ptr<OtherDetector> Ptr;
+          typedef std::shared_ptr<OtherDetector> Ptr;
       };
       */
       class PCL_EXPORTS PeopleDetector
       {
         public:
-          typedef boost::shared_ptr<PeopleDetector> Ptr;                              
+          typedef std::shared_ptr<PeopleDetector> Ptr;                              
 
           typedef pcl::PointXYZRGBA               PointTC;
           typedef pcl::PointXYZ                   PointT;

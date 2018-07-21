@@ -203,7 +203,7 @@ namespace pcl
       getMaxFlow () const;
 
       /** \brief Returns the graph that was build for finding the minimum cut. */
-      typename boost::shared_ptr<typename pcl::MinCutSegmentation<PointT>::mGraph>
+      typename std::shared_ptr<typename pcl::MinCutSegmentation<PointT>::mGraph>
       getGraph () const;
 
       /** \brief Returns the colored cloud. Points that belong to the object have the same color. */
@@ -294,13 +294,13 @@ namespace pcl
       std::vector <pcl::PointIndices> clusters_;
 
       /** \brief Stores the graph for finding the maximum flow. */
-      boost::shared_ptr<mGraph> graph_;
+      std::shared_ptr<mGraph> graph_;
 
       /** \brief Stores the capacity of every edge in the graph. */
-      boost::shared_ptr<CapacityMap> capacity_;
+      std::shared_ptr<CapacityMap> capacity_;
 
       /** \brief Stores reverse edges for every edge in the graph. */
-      boost::shared_ptr<ReverseEdgeMap> reverse_edges_;
+      std::shared_ptr<ReverseEdgeMap> reverse_edges_;
 
       /** \brief Stores the vertices of the graph. */
       std::vector< VertexDescriptor > vertices_;

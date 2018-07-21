@@ -42,12 +42,12 @@ namespace pcl
         typedef typename PointCloudState::ConstPtr PointCloudStateConstPtr;
 
         typedef PointCoherence<PointInT> Coherence;
-        typedef boost::shared_ptr< Coherence > CoherencePtr;
-        typedef boost::shared_ptr< const Coherence > CoherenceConstPtr;
+        typedef std::shared_ptr< Coherence > CoherencePtr;
+        typedef std::shared_ptr< const Coherence > CoherenceConstPtr;
 
         typedef PointCloudCoherence<PointInT> CloudCoherence;
-        typedef boost::shared_ptr< CloudCoherence > CloudCoherencePtr;
-        typedef boost::shared_ptr< const CloudCoherence > CloudCoherenceConstPtr;
+        typedef std::shared_ptr< CloudCoherence > CloudCoherencePtr;
+        typedef std::shared_ptr< const CloudCoherence > CloudCoherenceConstPtr;
         
         /** \brief Empty constructor. */
         ParticleFilterTracker ()
@@ -480,7 +480,7 @@ namespace pcl
         std::vector<PointCloudInPtr> transed_reference_vector_;
 
         /** \brief Change detector used as a trigger to track. */
-        boost::shared_ptr<pcl::octree::OctreePointCloudChangeDetector<PointInT> > change_detector_;
+        std::shared_ptr<pcl::octree::OctreePointCloudChangeDetector<PointInT> > change_detector_;
 
         /** \brief A flag to be true when change of pointclouds is detected. */
         bool changed_;

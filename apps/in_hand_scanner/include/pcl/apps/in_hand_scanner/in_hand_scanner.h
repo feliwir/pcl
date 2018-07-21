@@ -88,20 +88,20 @@ namespace pcl
         typedef pcl::ihs::InHandScanner Self;
 
         typedef pcl::ihs::InputDataProcessing                 InputDataProcessing;
-        typedef boost::shared_ptr <InputDataProcessing>       InputDataProcessingPtr;
-        typedef boost::shared_ptr <const InputDataProcessing> InputDataProcessingConstPtr;
+        typedef std::shared_ptr <InputDataProcessing>       InputDataProcessingPtr;
+        typedef std::shared_ptr <const InputDataProcessing> InputDataProcessingConstPtr;
 
         typedef pcl::ihs::ICP                 ICP;
-        typedef boost::shared_ptr <ICP>       ICPPtr;
-        typedef boost::shared_ptr <const ICP> ICPConstPtr;
+        typedef std::shared_ptr <ICP>       ICPPtr;
+        typedef std::shared_ptr <const ICP> ICPConstPtr;
 
         typedef pcl::ihs::Integration                 Integration;
-        typedef boost::shared_ptr <Integration>       IntegrationPtr;
-        typedef boost::shared_ptr <const Integration> IntegrationConstPtr;
+        typedef std::shared_ptr <Integration>       IntegrationPtr;
+        typedef std::shared_ptr <const Integration> IntegrationConstPtr;
 
         typedef pcl::ihs::MeshProcessing                 MeshProcessing;
-        typedef boost::shared_ptr <MeshProcessing>       MeshProcessingPtr;
-        typedef boost::shared_ptr <const MeshProcessing> MeshProcessingConstPtr;
+        typedef std::shared_ptr <MeshProcessing>       MeshProcessingPtr;
+        typedef std::shared_ptr <const MeshProcessing> MeshProcessingConstPtr;
 
         /** \brief Switch between different branches of the scanning pipeline. */
         typedef enum RunningMode
@@ -210,8 +210,8 @@ namespace pcl
         typedef pcl::ihs::MeshConstPtr MeshConstPtr;
 
         typedef pcl::OpenNIGrabber                Grabber;
-        typedef boost::shared_ptr <Grabber>       GrabberPtr;
-        typedef boost::shared_ptr <const Grabber> GrabberConstPtr;
+        typedef std::shared_ptr <Grabber>       GrabberPtr;
+        typedef std::shared_ptr <const Grabber> GrabberConstPtr;
 
         /** \brief Helper object for the computation thread. Please have a look at the documentation of calcFPS. */
         class ComputationFPS : public Base::FPS
@@ -254,7 +254,7 @@ namespace pcl
         ////////////////////////////////////////////////////////////////////////
 
         /** \brief Synchronization. */
-        boost::mutex mutex_;
+        std::mutex mutex_;
 
         /** \brief Please have a look at the documentation of ComputationFPS. */
         ComputationFPS computation_fps_;

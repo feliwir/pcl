@@ -74,15 +74,15 @@ namespace pcl
   {
     public:
       //define callback signature typedefs
-      typedef void (sig_cb_openni_image) (const boost::shared_ptr<openni_wrapper::Image>&);
-      typedef void (sig_cb_openni_depth_image) (const boost::shared_ptr<openni_wrapper::DepthImage>&);
-      typedef void (sig_cb_openni_ir_image) (const boost::shared_ptr<openni_wrapper::IRImage>&);
-      typedef void (sig_cb_openni_image_depth_image) (const boost::shared_ptr<openni_wrapper::Image>&, const boost::shared_ptr<openni_wrapper::DepthImage>&, float constant) ;
-      typedef void (sig_cb_openni_ir_depth_image) (const boost::shared_ptr<openni_wrapper::IRImage>&, const boost::shared_ptr<openni_wrapper::DepthImage>&, float constant) ;
-      typedef void (sig_cb_openni_point_cloud) (const boost::shared_ptr<const pcl::PointCloud<pcl::PointXYZ> >&);
-      typedef void (sig_cb_openni_point_cloud_rgb) (const boost::shared_ptr<const pcl::PointCloud<pcl::PointXYZRGB> >&);
-      typedef void (sig_cb_openni_point_cloud_rgba) (const boost::shared_ptr<const pcl::PointCloud<pcl::PointXYZRGBA> >&);
-      typedef void (sig_cb_openni_point_cloud_i) (const boost::shared_ptr<const pcl::PointCloud<pcl::PointXYZI> >&);
+      typedef void (sig_cb_openni_image) (const std::shared_ptr<openni_wrapper::Image>&);
+      typedef void (sig_cb_openni_depth_image) (const std::shared_ptr<openni_wrapper::DepthImage>&);
+      typedef void (sig_cb_openni_ir_image) (const std::shared_ptr<openni_wrapper::IRImage>&);
+      typedef void (sig_cb_openni_image_depth_image) (const std::shared_ptr<openni_wrapper::Image>&, const std::shared_ptr<openni_wrapper::DepthImage>&, float constant) ;
+      typedef void (sig_cb_openni_ir_depth_image) (const std::shared_ptr<openni_wrapper::IRImage>&, const std::shared_ptr<openni_wrapper::DepthImage>&, float constant) ;
+      typedef void (sig_cb_openni_point_cloud) (const std::shared_ptr<const pcl::PointCloud<pcl::PointXYZ> >&);
+      typedef void (sig_cb_openni_point_cloud_rgb) (const std::shared_ptr<const pcl::PointCloud<pcl::PointXYZRGB> >&);
+      typedef void (sig_cb_openni_point_cloud_rgba) (const std::shared_ptr<const pcl::PointCloud<pcl::PointXYZRGBA> >&);
+      typedef void (sig_cb_openni_point_cloud_i) (const std::shared_ptr<const pcl::PointCloud<pcl::PointXYZI> >&);
 
       /** \brief constructor
         * \param[in] file_name the path to the ONI file
@@ -132,53 +132,53 @@ namespace pcl
      protected:
       /** \brief internal OpenNI (openni_wrapper) callback that handles image streams */
       void
-      imageCallback (boost::shared_ptr<openni_wrapper::Image> image, void* cookie);
+      imageCallback (std::shared_ptr<openni_wrapper::Image> image, void* cookie);
 
       /** \brief internal OpenNI (openni_wrapper) callback that handles depth streams */
       void
-      depthCallback (boost::shared_ptr<openni_wrapper::DepthImage> depth_image, void* cookie);
+      depthCallback (std::shared_ptr<openni_wrapper::DepthImage> depth_image, void* cookie);
 
       /** \brief internal OpenNI (openni_wrapper) callback that handles IR streams */
       void
-      irCallback (boost::shared_ptr<openni_wrapper::IRImage> ir_image, void* cookie);
+      irCallback (std::shared_ptr<openni_wrapper::IRImage> ir_image, void* cookie);
 
       /** \brief internal callback that handles synchronized image + depth streams */
       void
-      imageDepthImageCallback (const boost::shared_ptr<openni_wrapper::Image> &image,
-                               const boost::shared_ptr<openni_wrapper::DepthImage> &depth_image);
+      imageDepthImageCallback (const std::shared_ptr<openni_wrapper::Image> &image,
+                               const std::shared_ptr<openni_wrapper::DepthImage> &depth_image);
 
       /** \brief internal callback that handles synchronized IR + depth streams */
       void
-      irDepthImageCallback (const boost::shared_ptr<openni_wrapper::IRImage> &image,
-                            const boost::shared_ptr<openni_wrapper::DepthImage> &depth_image);
+      irDepthImageCallback (const std::shared_ptr<openni_wrapper::IRImage> &image,
+                            const std::shared_ptr<openni_wrapper::DepthImage> &depth_image);
 
       /** \brief internal method to assemble a point cloud object */
-      boost::shared_ptr<pcl::PointCloud<pcl::PointXYZ> >
-      convertToXYZPointCloud (const boost::shared_ptr<openni_wrapper::DepthImage> &depth) const;
+      std::shared_ptr<pcl::PointCloud<pcl::PointXYZ> >
+      convertToXYZPointCloud (const std::shared_ptr<openni_wrapper::DepthImage> &depth) const;
 
       /** \brief internal method to assemble a point cloud object */
-      boost::shared_ptr<pcl::PointCloud<pcl::PointXYZRGB> >
-      convertToXYZRGBPointCloud (const boost::shared_ptr<openni_wrapper::Image> &image,
-                                 const boost::shared_ptr<openni_wrapper::DepthImage> &depth_image) const;
+      std::shared_ptr<pcl::PointCloud<pcl::PointXYZRGB> >
+      convertToXYZRGBPointCloud (const std::shared_ptr<openni_wrapper::Image> &image,
+                                 const std::shared_ptr<openni_wrapper::DepthImage> &depth_image) const;
 
       /** \brief internal method to assemble a point cloud object */
-      boost::shared_ptr<pcl::PointCloud<pcl::PointXYZRGBA> >
-      convertToXYZRGBAPointCloud (const boost::shared_ptr<openni_wrapper::Image> &image,
-                                  const boost::shared_ptr<openni_wrapper::DepthImage> &depth_image) const;
+      std::shared_ptr<pcl::PointCloud<pcl::PointXYZRGBA> >
+      convertToXYZRGBAPointCloud (const std::shared_ptr<openni_wrapper::Image> &image,
+                                  const std::shared_ptr<openni_wrapper::DepthImage> &depth_image) const;
 
       /** \brief internal method to assemble a point cloud object */
-      boost::shared_ptr<pcl::PointCloud<pcl::PointXYZI> >
-      convertToXYZIPointCloud (const boost::shared_ptr<openni_wrapper::IRImage> &image,
-                               const boost::shared_ptr<openni_wrapper::DepthImage> &depth_image) const;
+      std::shared_ptr<pcl::PointCloud<pcl::PointXYZI> >
+      convertToXYZIPointCloud (const std::shared_ptr<openni_wrapper::IRImage> &image,
+                               const std::shared_ptr<openni_wrapper::DepthImage> &depth_image) const;
 
       /** \brief synchronizer object to synchronize image and depth streams*/
-      Synchronizer<boost::shared_ptr<openni_wrapper::Image>, boost::shared_ptr<openni_wrapper::DepthImage> > rgb_sync_;
+      Synchronizer<std::shared_ptr<openni_wrapper::Image>, std::shared_ptr<openni_wrapper::DepthImage> > rgb_sync_;
 
       /** \brief synchronizer object to synchronize IR and depth streams*/
-      Synchronizer<boost::shared_ptr<openni_wrapper::IRImage>, boost::shared_ptr<openni_wrapper::DepthImage> > ir_sync_;
+      Synchronizer<std::shared_ptr<openni_wrapper::IRImage>, std::shared_ptr<openni_wrapper::DepthImage> > ir_sync_;
 
       /** \brief the actual openni device*/
-      boost::shared_ptr<openni_wrapper::DeviceONI> device_;
+      std::shared_ptr<openni_wrapper::DeviceONI> device_;
       std::string rgb_frame_id_;
       std::string depth_frame_id_;
       bool running_;

@@ -78,7 +78,7 @@ TEST (BoxClipper3D, Filters)
   PointCloud<PointXYZ> cloud_out;
 
   extract_indices.setInputCloud (input);
-  extract_indices.setIndices (boost::make_shared<vector<int> > (indices));
+  extract_indices.setIndices (std::make_shared<vector<int> > (indices));
   extract_indices.filter (cloud_out);
 
   EXPECT_EQ (int (indices.size ()), 9);

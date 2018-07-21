@@ -83,8 +83,8 @@ namespace pcl
 
     public:
 
-      typedef boost::shared_ptr< FrustumCulling<PointT> > Ptr;
-      typedef boost::shared_ptr< const FrustumCulling<PointT> > ConstPtr;
+      typedef std::shared_ptr< FrustumCulling<PointT> > Ptr;
+      typedef std::shared_ptr< const FrustumCulling<PointT> > ConstPtr;
 
 
       using Filter<PointT>::getClassName;

@@ -66,7 +66,7 @@ namespace pcl
       typedef pcl::PointXYZ PointType;
       
       /** \brief Smart pointer. */
-      typedef boost::shared_ptr<MarchingCubes> Ptr;
+      typedef std::shared_ptr<MarchingCubes> Ptr;
       
       /** \brief Default constructor */
       MarchingCubes();

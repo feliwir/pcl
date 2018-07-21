@@ -44,8 +44,8 @@ CloudPtr cloud_pass_;
 CloudPtr cloud_pass_downsampled_;
 CloudPtr target_cloud;
 
-boost::mutex mtx_;
-boost::shared_ptr<ParticleFilter> tracker_;
+std::mutex mtx_;
+std::shared_ptr<ParticleFilter> tracker_;
 bool new_cloud_;
 double downsampling_grid_size_;
 int counter;
@@ -131,11 +131,11 @@ drawResult (pcl::visualization::PCLVisualizer& viz)
 void
 viz_cb (pcl::visualization::PCLVisualizer& viz)
 {
-  boost::mutex::scoped_lock lock (mtx_);
+  std::lock_guard<std::mutex> lock (mtx_);
     
   if (!cloud_pass_)
     {
-      boost::this_thread::sleep (boost::posix_time::seconds (1));
+      std::this_thread::sleep_for (std::chrono::seconds (1));
       return;
    }
 
@@ -161,7 +161,7 @@ viz_cb (pcl::visualization::PCLVisualizer& viz)
 void
 cloud_cb (const CloudConstPtr &cloud)
 {
-  boost::mutex::scoped_lock lock (mtx_);
+  std::lock_guard<std::mutex> lock (mtx_);
   cloud_pass_.reset (new Cloud);
   cloud_pass_downsampled_.reset (new Cloud);
   filterPassThrough (cloud, *cloud_pass_);
@@ -209,7 +209,7 @@ main (int argc, char** argv)
   std::vector<double> initial_noise_covariance = std::vector<double> (6, 0.00001);
   std::vector<double> default_initial_mean = std::vector<double> (6, 0.0);
 
-  boost::shared_ptr<KLDAdaptiveParticleFilterOMPTracker<RefPointType, ParticleT> > tracker
+  std::shared_ptr<KLDAdaptiveParticleFilterOMPTracker<RefPointType, ParticleT> > tracker
     (new KLDAdaptiveParticleFilterOMPTracker<RefPointType, ParticleT> (8));
 
   ParticleT bin_size;
@@ -243,11 +243,11 @@ main (int argc, char** argv)
   ApproxNearestPairPointCloudCoherence<RefPointType>::Ptr coherence = ApproxNearestPairPointCloudCoherence<RefPointType>::Ptr
     (new ApproxNearestPairPointCloudCoherence<RefPointType> ());
     
-  boost::shared_ptr<DistanceCoherence<RefPointType> > distance_coherence
-    = boost::shared_ptr<DistanceCoherence<RefPointType> > (new DistanceCoherence<RefPointType> ());
+  std::shared_ptr<DistanceCoherence<RefPointType> > distance_coherence
+    = std::shared_ptr<DistanceCoherence<RefPointType> > (new DistanceCoherence<RefPointType> ());
   coherence->addPointCoherence (distance_coherence);
 
-  boost::shared_ptr<pcl::search::Octree<RefPointType> > search (new pcl::search::Octree<RefPointType> (0.01));
+  std::shared_ptr<pcl::search::Octree<RefPointType> > search (new pcl::search::Octree<RefPointType> (0.01));
   coherence->setSearchMethod (search);
   coherence->setMaximumDistance (0.01);
 
@@ -271,15 +271,15 @@ main (int argc, char** argv)
   //Setup OpenNIGrabber and viewer
   pcl::visualization::CloudViewer* viewer_ = new pcl::visualization::CloudViewer("PCL OpenNI Tracking Viewer");
   pcl::Grabber* interface = new pcl::OpenNIGrabber (device_id);
-  boost::function<void (const CloudConstPtr&)> f =
-    boost::bind (&cloud_cb, _1);
+  std::function<void (const CloudConstPtr&)> f =
+    std::bind (&cloud_cb, std::placeholders::_1);
   interface->registerCallback (f);
     
-  viewer_->runOnVisualizationThread (boost::bind(&viz_cb, _1), "viz_cb");
+  viewer_->runOnVisualizationThread (std::bind(&viz_cb, std::placeholders::_1), "viz_cb");
 
   //Start viewer and object tracking
   interface->start();
   while (!viewer_->wasStopped ())
-    boost::this_thread::sleep(boost::posix_time::seconds(1));
+    std::this_thread::sleep_for(std::chrono::seconds(1));
   interface->stop();
 }

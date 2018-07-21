@@ -81,7 +81,7 @@ namespace pcl
       {
         if (!data_container_)
           data_container_.reset (new pcl::registration::DataContainer<PointT>);
-        boost::static_pointer_cast<pcl::registration::DataContainer<PointT> > (data_container_)->setInputSource (cloud);
+        std::static_pointer_cast<pcl::registration::DataContainer<PointT> > (data_container_)->setInputSource (cloud);
       }
 
       template <typename PointT> inline void
@@ -89,7 +89,7 @@ namespace pcl
       {
         if (!data_container_)
           data_container_.reset (new pcl::registration::DataContainer<PointT>);
-        boost::static_pointer_cast<pcl::registration::DataContainer<PointT> > (data_container_)->setInputTarget (cloud);
+        std::static_pointer_cast<pcl::registration::DataContainer<PointT> > (data_container_)->setInputTarget (cloud);
       }
 
       /** \brief See if this rejector requires source points */
@@ -137,7 +137,7 @@ namespace pcl
       int window_size_;
       float depth_step_threshold_;
 
-      typedef boost::shared_ptr<pcl::registration::DataContainerInterface> DataContainerPtr;
+      typedef std::shared_ptr<pcl::registration::DataContainerInterface> DataContainerPtr;
       DataContainerPtr data_container_;
     };
   }

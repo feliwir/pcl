@@ -87,8 +87,8 @@ namespace pcl
       using PCLBase<PointT>::indices_;
       using PCLBase<PointT>::input_;
 
-      typedef boost::shared_ptr< Filter<PointT> > Ptr;
-      typedef boost::shared_ptr< const Filter<PointT> > ConstPtr;
+      typedef std::shared_ptr< Filter<PointT> > Ptr;
+      typedef std::shared_ptr< const Filter<PointT> > ConstPtr;
 
 
       typedef pcl::PointCloud<PointT> PointCloud;
@@ -194,8 +194,8 @@ namespace pcl
   class PCL_EXPORTS Filter<pcl::PCLPointCloud2> : public PCLBase<pcl::PCLPointCloud2>
   {
     public:
-      typedef boost::shared_ptr< Filter<pcl::PCLPointCloud2> > Ptr;
-      typedef boost::shared_ptr< const Filter<pcl::PCLPointCloud2> > ConstPtr;
+      typedef std::shared_ptr< Filter<pcl::PCLPointCloud2> > Ptr;
+      typedef std::shared_ptr< const Filter<pcl::PCLPointCloud2> > ConstPtr;
 
       typedef pcl::PCLPointCloud2 PCLPointCloud2;
       typedef PCLPointCloud2::Ptr PCLPointCloud2Ptr;

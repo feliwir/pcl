@@ -67,8 +67,8 @@ namespace pcl
         using CorrespondenceRejector::rejection_name_;
         using CorrespondenceRejector::getClassName;
 
-        typedef boost::shared_ptr<CorrespondenceRejectorSampleConsensus> Ptr;
-        typedef boost::shared_ptr<const CorrespondenceRejectorSampleConsensus> ConstPtr;
+        typedef std::shared_ptr<CorrespondenceRejectorSampleConsensus> Ptr;
+        typedef std::shared_ptr<const CorrespondenceRejectorSampleConsensus> ConstPtr;
 
         /** \brief Empty constructor. Sets the inlier threshold to 5cm (0.05m), 
           * and the maximum number of iterations to 1000. 

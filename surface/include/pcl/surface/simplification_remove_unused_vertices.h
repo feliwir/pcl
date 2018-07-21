@@ -49,8 +49,8 @@ namespace pcl
     class PCL_EXPORTS SimplificationRemoveUnusedVertices
     {
       public:
-        typedef boost::shared_ptr<SimplificationRemoveUnusedVertices> Ptr;
-        typedef boost::shared_ptr<const SimplificationRemoveUnusedVertices> ConstPtr;
+        typedef std::shared_ptr<SimplificationRemoveUnusedVertices> Ptr;
+        typedef std::shared_ptr<const SimplificationRemoveUnusedVertices> ConstPtr;
 
         /** \brief Constructor. */
         SimplificationRemoveUnusedVertices () {};

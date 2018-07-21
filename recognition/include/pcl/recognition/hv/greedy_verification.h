@@ -79,7 +79,7 @@ namespace pcl
       struct sortModelsClass
       {
         bool
-        operator() (const boost::shared_ptr<RecognitionModel> & n1, const boost::shared_ptr<RecognitionModel> & n2)
+        operator() (const std::shared_ptr<RecognitionModel> & n1, const std::shared_ptr<RecognitionModel> & n2)
         {
           float val1 = static_cast<float>(n1->good_information_) - static_cast<float>(n1->bad_information_) * n1->regularizer_;
           float val2 = static_cast<float>(n2->good_information_) - static_cast<float>(n2->bad_information_) * n2->regularizer_;
@@ -94,7 +94,7 @@ namespace pcl
       struct modelIndices
       {
         int index_;
-        boost::shared_ptr<RecognitionModel> model_;
+        std::shared_ptr<RecognitionModel> model_;
       };
 
       /*
@@ -115,10 +115,10 @@ namespace pcl
       std::vector<modelIndices> indices_models_;
 
       /** \brief Recognition models (hypotheses to be verified) */
-      std::vector<boost::shared_ptr<RecognitionModel> > recognition_models_;
+      std::vector<std::shared_ptr<RecognitionModel> > recognition_models_;
 
       /** \brief Recognition models that explain a scene points. */
-      std::vector<std::vector<boost::shared_ptr<RecognitionModel> > > points_explained_by_rm_;
+      std::vector<std::vector<std::shared_ptr<RecognitionModel> > > points_explained_by_rm_;
 
       /** \brief Weighting for outliers */
       float regularizer_;

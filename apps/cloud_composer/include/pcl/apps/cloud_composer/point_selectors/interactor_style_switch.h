@@ -93,7 +93,7 @@ namespace pcl
         vtkGetObjectMacro(current_style_, vtkInteractorStyle);
         
         void 
-        initializeInteractorStyles (boost::shared_ptr<pcl::visualization::PCLVisualizer> vis, ProjectModel* model);
+        initializeInteractorStyles (std::shared_ptr<pcl::visualization::PCLVisualizer> vis, ProjectModel* model);
         
         inline void 
         setQVTKWidget (QVTKWidget* qvtk) { qvtk_ = qvtk; }
@@ -139,7 +139,7 @@ namespace pcl
         /** \brief Internal pointer to QVTKWidget that this Switch works with */
         QVTKWidget* qvtk_;
         /** \brief Internal pointer to PCLVisualizer that this Switch works with */
-        boost::shared_ptr<pcl::visualization::PCLVisualizer> vis_;
+        std::shared_ptr<pcl::visualization::PCLVisualizer> vis_;
       private:
         InteractorStyleSwitch(const InteractorStyleSwitch&);  // Not implemented.
         void operator=(const InteractorStyleSwitch&);  // Not implemented.

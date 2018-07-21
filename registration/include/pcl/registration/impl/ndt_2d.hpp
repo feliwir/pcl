@@ -322,10 +322,10 @@ namespace pcl
         {
           Eigen::Vector2f dx (step[0]/2, 0);
           Eigen::Vector2f dy (0, step[1]/2);
-          single_grids_[0] = boost::make_shared<SingleGrid> (cloud, about,        extent, step);
-          single_grids_[1] = boost::make_shared<SingleGrid> (cloud, about +dx,    extent, step);
-          single_grids_[2] = boost::make_shared<SingleGrid> (cloud, about +dy,    extent, step);
-          single_grids_[3] = boost::make_shared<SingleGrid> (cloud, about +dx+dy, extent, step);
+          single_grids_[0] = std::make_shared<SingleGrid> (cloud, about,        extent, step);
+          single_grids_[1] = std::make_shared<SingleGrid> (cloud, about +dx,    extent, step);
+          single_grids_[2] = std::make_shared<SingleGrid> (cloud, about +dy,    extent, step);
+          single_grids_[3] = std::make_shared<SingleGrid> (cloud, about +dx+dy, extent, step);
         }
         
         /** \brief Return the 'score' (denormalised likelihood) and derivatives of score of the point p given this distribution.
@@ -343,7 +343,7 @@ namespace pcl
         }
 
       protected:
-        boost::shared_ptr<SingleGrid> single_grids_[4];
+        std::shared_ptr<SingleGrid> single_grids_[4];
     };
 
   } // namespace ndt2d

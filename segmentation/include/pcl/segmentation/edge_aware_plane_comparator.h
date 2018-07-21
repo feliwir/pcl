@@ -62,8 +62,8 @@ namespace pcl
       typedef typename PointCloudN::Ptr PointCloudNPtr;
       typedef typename PointCloudN::ConstPtr PointCloudNConstPtr;
       
-      typedef boost::shared_ptr<EdgeAwarePlaneComparator<PointT, PointNT> > Ptr;
-      typedef boost::shared_ptr<const EdgeAwarePlaneComparator<PointT, PointNT> > ConstPtr;
+      typedef std::shared_ptr<EdgeAwarePlaneComparator<PointT, PointNT> > Ptr;
+      typedef std::shared_ptr<const EdgeAwarePlaneComparator<PointT, PointNT> > ConstPtr;
 
       using pcl::PlaneCoefficientComparator<PointT, PointNT>::input_;
       using pcl::PlaneCoefficientComparator<PointT, PointNT>::normals_;

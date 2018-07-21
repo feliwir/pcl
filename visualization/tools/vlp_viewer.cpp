@@ -103,7 +103,7 @@ class SimpleVLPViewer
     cloud_callback (const CloudConstPtr& cloud)
     {
       FPS_CALC("cloud callback");
-      boost::mutex::scoped_lock lock (cloud_mutex_);
+      std::lock_guard<std::mutex> lock (cloud_mutex_);
       cloud_ = cloud;
     }
 
@@ -156,8 +156,8 @@ class SimpleVLPViewer
       cloud_viewer_->setCameraClipDistances (0.0, 50.0);
       cloud_viewer_->registerKeyboardCallback (&SimpleVLPViewer::keyboard_callback, *this);
 
-      boost::function<void
-      (const CloudConstPtr&)> cloud_cb = boost::bind (&SimpleVLPViewer::cloud_callback, this, _1);
+      std::function<void
+      (const CloudConstPtr&)> cloud_cb = std::bind (&SimpleVLPViewer::cloud_callback, this, std::placeholders::_1);
       boost::signals2::connection cloud_connection = grabber_.registerCallback (cloud_cb);
 
       grabber_.start ();
@@ -185,7 +185,7 @@ class SimpleVLPViewer
         if (!grabber_.isRunning ())
           cloud_viewer_->spin ();
 
-        boost::this_thread::sleep (boost::posix_time::microseconds (100));
+        std::this_thread::sleep_for (std::chrono::microseconds (100));
       }
 
       grabber_.stop ();
@@ -193,12 +193,12 @@ class SimpleVLPViewer
       cloud_connection.disconnect ();
     }
 
-    boost::shared_ptr<PCLVisualizer> cloud_viewer_;
-    boost::shared_ptr<ImageViewer> image_viewer_;
+    std::shared_ptr<PCLVisualizer> cloud_viewer_;
+    std::shared_ptr<ImageViewer> image_viewer_;
 
     Grabber& grabber_;
-    boost::mutex cloud_mutex_;
-    boost::mutex image_mutex_;
+    std::mutex cloud_mutex_;
+    std::mutex image_mutex_;
 
     CloudConstPtr cloud_;
     PointCloudColorHandler<PointType> *handler_;

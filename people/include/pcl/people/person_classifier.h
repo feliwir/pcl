@@ -70,7 +70,7 @@ namespace pcl
     public:
 
       typedef pcl::PointCloud<PointT> PointCloud;
-      typedef boost::shared_ptr<PointCloud> PointCloudPtr;
+      typedef std::shared_ptr<PointCloud> PointCloudPtr;
 
       /** \brief Constructor. */
       PersonClassifier ();

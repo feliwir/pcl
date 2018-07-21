@@ -35,9 +35,9 @@
 #include <pcl/pcl_exports.h>
 #include "pcl/io/openni2/openni2_device_info.h"
 
-#include <boost/thread/mutex.hpp>
-#include <boost/shared_ptr.hpp>
-#include <boost/make_shared.hpp>
+#include <mutex>
+#include <memory>
+
 
 #include <vector>
 #include <string>
@@ -61,35 +61,35 @@ namespace pcl
 
         // This may not actually be a sigleton yet. Need to work out cross-dll incerface.
         // Based on http://stackoverflow.com/a/13431981/1789618
-        static boost::shared_ptr<OpenNI2DeviceManager> getInstance ()
+        static std::shared_ptr<OpenNI2DeviceManager> getInstance ()
         {
-          static boost::shared_ptr<OpenNI2DeviceManager> instance = boost::make_shared<OpenNI2DeviceManager>();
+          static std::shared_ptr<OpenNI2DeviceManager> instance = std::make_shared<OpenNI2DeviceManager>();
           return (instance);
         }
 
-        boost::shared_ptr<std::vector<OpenNI2DeviceInfo> >
+        std::shared_ptr<std::vector<OpenNI2DeviceInfo> >
         getConnectedDeviceInfos () const;
 
-        boost::shared_ptr<std::vector<std::string> >
+        std::shared_ptr<std::vector<std::string> >
         getConnectedDeviceURIs () const;
 
         std::size_t
         getNumOfConnectedDevices () const;
 
-        boost::shared_ptr<OpenNI2Device>
+        std::shared_ptr<OpenNI2Device>
         getAnyDevice ();
 
-        boost::shared_ptr<OpenNI2Device>
+        std::shared_ptr<OpenNI2Device>
         getDevice (const std::string& device_URI);
 
-        boost::shared_ptr<OpenNI2Device>
+        std::shared_ptr<OpenNI2Device>
         getDeviceByIndex (int index);
 
-        boost::shared_ptr<OpenNI2Device>
+        std::shared_ptr<OpenNI2Device>
         getFileDevice (const std::string& path);
 
       protected:
-        boost::shared_ptr<OpenNI2DeviceListener> device_listener_;
+        std::shared_ptr<OpenNI2DeviceListener> device_listener_;
       };
 
       std::ostream&

@@ -39,7 +39,7 @@
 
 #include <pcl/io/real_sense/real_sense_device_manager.h>
 
-boost::mutex pcl::io::real_sense::RealSenseDeviceManager::mutex_;
+std::mutex pcl::io::real_sense::RealSenseDeviceManager::mutex_;
 
 using namespace pcl::io;
 
@@ -55,13 +55,13 @@ releasePXCResource (T* resource)
   }
 }
 
-template <typename T> boost::shared_ptr<T>
+template <typename T> std::shared_ptr<T>
 makePXCSharedPtr (T* resource)
 {
-  return boost::shared_ptr<T> (resource, releasePXCResource<T>);
+  return std::shared_ptr<T> (resource, releasePXCResource<T>);
 }
 
-boost::shared_ptr<PXCSession>
+std::shared_ptr<PXCSession>
 createPXCSession ()
 {
   PXCSession* s = PXCSession::CreateInstance ();
@@ -70,7 +70,7 @@ createPXCSession ()
   return makePXCSharedPtr (s);
 }
 
-boost::shared_ptr<PXCCaptureManager>
+std::shared_ptr<PXCCaptureManager>
 createPXCCaptureManager (PXCSession& session)
 {
   PXCCaptureManager* cm = session.CreateCaptureManager ();
@@ -79,7 +79,7 @@ createPXCCaptureManager (PXCSession& session)
   return makePXCSharedPtr (cm);
 }
 
-boost::shared_ptr<PXCCapture>
+std::shared_ptr<PXCCapture>
 createPXCCapture (PXCSession& session, pxcUID iuid)
 {
   PXCCapture* c;
@@ -88,7 +88,7 @@ createPXCCapture (PXCSession& session, pxcUID iuid)
   return makePXCSharedPtr (c);
 }
 
-boost::shared_ptr<PXCCapture::Device>
+std::shared_ptr<PXCCapture::Device>
 createPXCCaptureDevice (PXCCapture& capture, pxcI32 didx)
 {
   PXCCapture::Device* d;
@@ -126,7 +126,7 @@ pcl::io::real_sense::RealSenseDeviceManager::~RealSenseDeviceManager ()
 pcl::io::real_sense::RealSenseDevice::Ptr
 pcl::io::real_sense::RealSenseDeviceManager::captureDevice ()
 {
-  boost::mutex::scoped_lock lock (mutex_);
+  std::lock_guard<std::mutex> lock (mutex_);
   if (device_list_.size () == 0)
     THROW_IO_EXCEPTION ("no connected devices");
   for (size_t i = 0; i < device_list_.size (); ++i)
@@ -139,7 +139,7 @@ pcl::io::real_sense::RealSenseDeviceManager::captureDevice ()
 pcl::io::real_sense::RealSenseDevice::Ptr
 pcl::io::real_sense::RealSenseDeviceManager::captureDevice (size_t index)
 {
-  boost::mutex::scoped_lock lock (mutex_);
+  std::lock_guard<std::mutex> lock (mutex_);
   if (index >= device_list_.size ())
     THROW_IO_EXCEPTION ("device with index %i is not connected", index + 1);
   if (device_list_[index].isCaptured ())
@@ -150,7 +150,7 @@ pcl::io::real_sense::RealSenseDeviceManager::captureDevice (size_t index)
 pcl::io::real_sense::RealSenseDevice::Ptr
 pcl::io::real_sense::RealSenseDeviceManager::captureDevice (const std::string& sn)
 {
-  boost::mutex::scoped_lock lock (mutex_);
+  std::lock_guard<std::mutex> lock (mutex_);
   for (size_t i = 0; i < device_list_.size (); ++i)
   {
     if (device_list_[i].serial == sn)

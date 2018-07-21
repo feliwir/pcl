@@ -55,8 +55,8 @@ namespace pcl
   class TrajkovicKeypoint2D : public Keypoint<PointInT, PointOutT>
   {
     public:
-      typedef boost::shared_ptr<TrajkovicKeypoint2D<PointInT, PointOutT, IntensityT> > Ptr;
-      typedef boost::shared_ptr<const TrajkovicKeypoint2D<PointInT, PointOutT, IntensityT> > ConstPtr;
+      typedef std::shared_ptr<TrajkovicKeypoint2D<PointInT, PointOutT, IntensityT> > Ptr;
+      typedef std::shared_ptr<const TrajkovicKeypoint2D<PointInT, PointOutT, IntensityT> > ConstPtr;
       typedef typename Keypoint<PointInT, PointOutT>::PointCloudIn PointCloudIn;
       typedef typename Keypoint<PointInT, PointOutT>::PointCloudOut PointCloudOut;
       typedef typename PointCloudIn::ConstPtr PointCloudInConstPtr;

@@ -63,8 +63,8 @@ namespace pcl
 
     public:
 
-      typedef boost::shared_ptr< BilateralFilter<PointT> > Ptr;
-      typedef boost::shared_ptr< const BilateralFilter<PointT> > ConstPtr;
+      typedef std::shared_ptr< BilateralFilter<PointT> > Ptr;
+      typedef std::shared_ptr< const BilateralFilter<PointT> > ConstPtr;
  
 
       /** \brief Constructor. 

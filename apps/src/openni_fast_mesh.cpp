@@ -87,13 +87,13 @@ class OpenNIFastMesh
       ofm.setInputCloud (cloud);
 
       // Store the results in a temporary object
-      boost::shared_ptr<std::vector<pcl::Vertices> > temp_verts (new std::vector<pcl::Vertices>);
+      std::shared_ptr<std::vector<pcl::Vertices> > temp_verts (new std::vector<pcl::Vertices>);
       ofm.reconstruct (*temp_verts);
 
       // Lock and copy
       {
-        boost::mutex::scoped_lock lock (mtx_);
-        //boost::unique_lock<boost::shared_mutex> lock (mtx_);
+        std::lock_guard<std::mutex> lock (mtx_);
+        //std::unique_lock<std::shared_mutex> lock (mtx_);
 
 //        if (!vertices_)
 //          vertices_.reset (new std::vector<pcl::Vertices>);
@@ -108,7 +108,7 @@ class OpenNIFastMesh
     {
       pcl::Grabber* interface = new pcl::OpenNIGrabber (device_id_);
 
-      boost::function<void (const CloudConstPtr&)> f = boost::bind (&OpenNIFastMesh::cloud_cb, this, _1);
+      std::function<void (const CloudConstPtr&)> f = std::bind (&OpenNIFastMesh::cloud_cb, this, std::placeholders::_1);
       boost::signals2::connection c = interface->registerCallback (f);
      
       view.reset (new pcl::visualization::PCLVisualizer (argc, argv, "PCL OpenNI Mesh Viewer"));
@@ -116,16 +116,16 @@ class OpenNIFastMesh
       interface->start ();
       
       CloudConstPtr temp_cloud;
-      boost::shared_ptr<std::vector<pcl::Vertices> > temp_verts;
+      std::shared_ptr<std::vector<pcl::Vertices> > temp_verts;
       pcl::console::TicToc t1;
 
       while (!view->wasStopped ())
       //while (!viewer.wasStopped ())
       {
-        //boost::this_thread::sleep (boost::posix_time::milliseconds (1));
+        //std::this_thread::sleep_for (std::chrono::milliseconds (1));
         if (!cloud_ || !mtx_.try_lock ())
         {
-          boost::this_thread::sleep (boost::posix_time::milliseconds (1));
+          std::this_thread::sleep_for (std::chrono::milliseconds (1));
           continue;
         }
 
@@ -152,14 +152,14 @@ class OpenNIFastMesh
 
     pcl::OrganizedFastMesh<PointType> ofm;
     std::string device_id_;
-    //boost::shared_mutex mtx_;
-    boost::mutex mtx_;
+    //std::shared_mutex mtx_;
+    std::mutex mtx_;
     // Data
     CloudConstPtr cloud_;
-    boost::shared_ptr<std::vector<pcl::Vertices> > vertices_;
+    std::shared_ptr<std::vector<pcl::Vertices> > vertices_;
     pcl::PolygonMesh::Ptr mesh_;
 
-    boost::shared_ptr<pcl::visualization::PCLVisualizer> view;
+    std::shared_ptr<pcl::visualization::PCLVisualizer> view;
 };
 
 void

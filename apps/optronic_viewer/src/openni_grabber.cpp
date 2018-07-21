@@ -39,7 +39,6 @@
 
 #include <pcl/io/openni_grabber.h>
 
-
 //////////////////////////////////////////////////////////////////////////////////////////////
 pcl::apps::optronic_viewer::
 OpenNIGrabber::
@@ -64,8 +63,8 @@ OpenNIGrabber::
 run ()
 {
   std::cerr << "run grabber thread..." << std::endl;
-  boost::function<void(const pcl::PointCloud<pcl::PointXYZRGBA>::ConstPtr & cloud) > f = 
-    boost::bind (&pcl::apps::optronic_viewer::OpenNIGrabber::cloudCallback, this, _1);
+  std::function<void(const pcl::PointCloud<pcl::PointXYZRGBA>::ConstPtr & cloud) > f = 
+    std::bind (&pcl::apps::optronic_viewer::OpenNIGrabber::cloudCallback, this, std::placeholders::_1);
   boost::signals2::connection c1 = grabber_->registerCallback (f);
   grabber_->start ();
 }

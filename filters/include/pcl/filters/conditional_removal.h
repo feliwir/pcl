@@ -88,8 +88,8 @@ namespace pcl
   class ComparisonBase
   {
     public:
-      typedef boost::shared_ptr< ComparisonBase<PointT> > Ptr;
-      typedef boost::shared_ptr< const ComparisonBase<PointT> > ConstPtr;
+      typedef std::shared_ptr< ComparisonBase<PointT> > Ptr;
+      typedef std::shared_ptr< const ComparisonBase<PointT> > ConstPtr;
 
       /** \brief Constructor. */
       ComparisonBase () : capable_ (false), field_name_ (), offset_ (), op_ () {}
@@ -132,8 +132,8 @@ namespace pcl
     using ComparisonBase<PointT>::capable_;
 
     public:
-      typedef boost::shared_ptr< FieldComparison<PointT> > Ptr;
-      typedef boost::shared_ptr< const FieldComparison<PointT> > ConstPtr;
+      typedef std::shared_ptr< FieldComparison<PointT> > Ptr;
+      typedef std::shared_ptr< const FieldComparison<PointT> > ConstPtr;
 
 
       /** \brief Construct a FieldComparison
@@ -196,8 +196,8 @@ namespace pcl
     using ComparisonBase<PointT>::op_;
 
     public:
-      typedef boost::shared_ptr< PackedRGBComparison<PointT> > Ptr;
-      typedef boost::shared_ptr< const PackedRGBComparison<PointT> > ConstPtr;
+      typedef std::shared_ptr< PackedRGBComparison<PointT> > Ptr;
+      typedef std::shared_ptr< const PackedRGBComparison<PointT> > ConstPtr;
 
       /** \brief Construct a PackedRGBComparison
         * \param component_name either "r", "g" or "b"
@@ -243,8 +243,8 @@ namespace pcl
     using ComparisonBase<PointT>::op_;
 
     public:
-      typedef boost::shared_ptr< PackedHSIComparison<PointT> > Ptr;
-      typedef boost::shared_ptr< const PackedHSIComparison<PointT> > ConstPtr;
+      typedef std::shared_ptr< PackedHSIComparison<PointT> > Ptr;
+      typedef std::shared_ptr< const PackedHSIComparison<PointT> > ConstPtr;
  
       /** \brief Construct a PackedHSIComparison 
         * \param component_name either "h", "s" or "i"
@@ -311,8 +311,8 @@ namespace pcl
     public:
       EIGEN_MAKE_ALIGNED_OPERATOR_NEW     //needed whenever there is a fixed size Eigen:: vector or matrix in a class
 
-      typedef boost::shared_ptr<TfQuadraticXYZComparison<PointT> > Ptr;
-      typedef boost::shared_ptr<const TfQuadraticXYZComparison<PointT> > ConstPtr;
+      typedef std::shared_ptr<TfQuadraticXYZComparison<PointT> > Ptr;
+      typedef std::shared_ptr<const TfQuadraticXYZComparison<PointT> > ConstPtr;
 
       /** \brief Constructor.
        */
@@ -449,8 +449,8 @@ namespace pcl
       typedef typename ComparisonBase::Ptr ComparisonBasePtr;
       typedef typename ComparisonBase::ConstPtr ComparisonBaseConstPtr;
 
-      typedef boost::shared_ptr<ConditionBase<PointT> > Ptr;
-      typedef boost::shared_ptr<const ConditionBase<PointT> > ConstPtr;
+      typedef std::shared_ptr<ConditionBase<PointT> > Ptr;
+      typedef std::shared_ptr<const ConditionBase<PointT> > ConstPtr;
 
       /** \brief Constructor. */
       ConditionBase () : capable_ (true), comparisons_ (), conditions_ ()
@@ -460,10 +460,10 @@ namespace pcl
       /** \brief Destructor. */
       virtual ~ConditionBase ()
       {
-        // comparisons are boost::shared_ptr.will take care of themselves
+        // comparisons are std::shared_ptr.will take care of themselves
         comparisons_.clear ();
 
-        // conditions are boost::shared_ptr. will take care of themselves
+        // conditions are std::shared_ptr. will take care of themselves
         conditions_.clear ();
       }
 
@@ -512,8 +512,8 @@ namespace pcl
     using ConditionBase<PointT>::comparisons_;
 
     public:
-      typedef boost::shared_ptr<ConditionAnd<PointT> > Ptr;
-      typedef boost::shared_ptr<const ConditionAnd<PointT> > ConstPtr;
+      typedef std::shared_ptr<ConditionAnd<PointT> > Ptr;
+      typedef std::shared_ptr<const ConditionAnd<PointT> > ConstPtr;
 
       /** \brief Constructor. */
       ConditionAnd () :
@@ -540,8 +540,8 @@ namespace pcl
     using ConditionBase<PointT>::comparisons_;
 
     public:
-      typedef boost::shared_ptr<ConditionOr<PointT> > Ptr;
-      typedef boost::shared_ptr<const ConditionOr<PointT> > ConstPtr;
+      typedef std::shared_ptr<ConditionOr<PointT> > Ptr;
+      typedef std::shared_ptr<const ConditionOr<PointT> > ConstPtr;
 
       /** \brief Constructor. */
       ConditionOr () :

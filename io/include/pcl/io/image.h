@@ -56,8 +56,8 @@ namespace pcl
     class PCL_EXPORTS Image
     {
       public:
-        typedef boost::shared_ptr<Image> Ptr;
-        typedef boost::shared_ptr<const Image> ConstPtr;
+        typedef std::shared_ptr<Image> Ptr;
+        typedef std::shared_ptr<const Image> ConstPtr;
 
         typedef boost::chrono::high_resolution_clock Clock;
         typedef boost::chrono::high_resolution_clock::time_point Timestamp;

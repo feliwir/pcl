@@ -82,10 +82,10 @@ namespace pcl
     class GraphHandler
     {
       public:
-        typedef boost::shared_ptr<GraphHandler<GraphT> > Ptr;
-        typedef boost::shared_ptr<const GraphHandler<GraphT> > ConstPtr;
-        typedef boost::shared_ptr<GraphT> GraphPtr;
-        typedef boost::shared_ptr<const GraphT> GraphConstPtr;
+        typedef std::shared_ptr<GraphHandler<GraphT> > Ptr;
+        typedef std::shared_ptr<const GraphHandler<GraphT> > ConstPtr;
+        typedef std::shared_ptr<GraphT> GraphPtr;
+        typedef std::shared_ptr<const GraphT> GraphConstPtr;
 
         typedef typename boost::graph_traits<GraphT>::vertex_descriptor Vertex;
         typedef typename boost::graph_traits<GraphT>::edge_descriptor Edge;

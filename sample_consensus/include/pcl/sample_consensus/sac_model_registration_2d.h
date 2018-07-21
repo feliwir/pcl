@@ -66,8 +66,8 @@ namespace pcl
       typedef typename pcl::SampleConsensusModel<PointT>::PointCloudPtr PointCloudPtr;
       typedef typename pcl::SampleConsensusModel<PointT>::PointCloudConstPtr PointCloudConstPtr;
 
-      typedef boost::shared_ptr<SampleConsensusModelRegistration2D> Ptr;
-      typedef boost::shared_ptr<const SampleConsensusModelRegistration2D> ConstPtr;
+      typedef std::shared_ptr<SampleConsensusModelRegistration2D> Ptr;
+      typedef std::shared_ptr<const SampleConsensusModelRegistration2D> ConstPtr;
 
       /** \brief Constructor for base SampleConsensusModelRegistration2D.
         * \param[in] cloud the input point cloud dataset

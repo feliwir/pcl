@@ -59,8 +59,8 @@ namespace pcl
     typedef typename SampleConsensusModel<PointT>::Ptr SampleConsensusModelPtr;
 
     public:
-      typedef boost::shared_ptr<RandomizedRandomSampleConsensus> Ptr;
-      typedef boost::shared_ptr<const RandomizedRandomSampleConsensus> ConstPtr;
+      typedef std::shared_ptr<RandomizedRandomSampleConsensus> Ptr;
+      typedef std::shared_ptr<const RandomizedRandomSampleConsensus> ConstPtr;
 
       using SampleConsensus<PointT>::max_iterations_;
       using SampleConsensus<PointT>::threshold_;

@@ -160,7 +160,7 @@ namespace pcl
     // ...and build 6d-tree
     target_tree_lab_.setInputCloud (target_lab_);
     target_tree_lab_.setPointRepresentation (
-        boost::make_shared<MyPointRepresentation> (point_rep_));
+        std::make_shared<MyPointRepresentation> (point_rep_));
   }
 
   bool

@@ -99,7 +99,7 @@ struct pcl::PCDGrabberBase::PCDGrabberImpl
 
   // Mutex to ensure that two quick consecutive triggers do not cause
   // simultaneous asynchronous read-aheads
-  boost::mutex read_ahead_mutex_;
+  std::mutex read_ahead_mutex_;
 
   EIGEN_MAKE_ALIGNED_OPERATOR_NEW 
 };
@@ -112,7 +112,7 @@ pcl::PCDGrabberBase::PCDGrabberImpl::PCDGrabberImpl (pcl::PCDGrabberBase& grabbe
   , running_ (false)
   , pcd_files_ ()
   , pcd_iterator_ ()
-  , time_trigger_ (1.0 / static_cast<double> (std::max (frames_per_second, 0.001f)), boost::bind (&PCDGrabberImpl::trigger, this))
+  , time_trigger_ (1.0 / static_cast<double> (std::max (frames_per_second, 0.001f)), std::bind (&PCDGrabberImpl::trigger, this))
   , next_cloud_ ()
   , origin_ ()
   , orientation_ ()
@@ -138,7 +138,7 @@ pcl::PCDGrabberBase::PCDGrabberImpl::PCDGrabberImpl (pcl::PCDGrabberBase& grabbe
   , running_ (false)
   , pcd_files_ ()
   , pcd_iterator_ ()
-  , time_trigger_ (1.0 / static_cast<double> (std::max (frames_per_second, 0.001f)), boost::bind (&PCDGrabberImpl::trigger, this))
+  , time_trigger_ (1.0 / static_cast<double> (std::max (frames_per_second, 0.001f)), std::bind (&PCDGrabberImpl::trigger, this))
   , next_cloud_ ()
   , origin_ ()
   , orientation_ ()
@@ -280,7 +280,7 @@ pcl::PCDGrabberBase::PCDGrabberImpl::openTARFile (const std::string &file_name)
 void 
 pcl::PCDGrabberBase::PCDGrabberImpl::trigger ()
 {
-  boost::mutex::scoped_lock read_ahead_lock(read_ahead_mutex_);
+  std::lock_guard<std::mutex> read_ahead_lock(read_ahead_mutex_);
   if (valid_)
     grabber_.publish (next_cloud_,origin_,orientation_, next_file_name_);
 
@@ -395,7 +395,7 @@ pcl::PCDGrabberBase::start ()
   }
   else // manual trigger
   {
-    boost::thread non_blocking_call (boost::bind (&PCDGrabberBase::PCDGrabberImpl::trigger, impl_));
+    std::thread non_blocking_call (std::bind (&PCDGrabberBase::PCDGrabberImpl::trigger, impl_));
   }
 }
 
@@ -416,7 +416,7 @@ pcl::PCDGrabberBase::trigger ()
 {
   if (impl_->frames_per_second_ > 0)
     return;
-  boost::thread non_blocking_call (boost::bind (&PCDGrabberBase::PCDGrabberImpl::trigger, impl_));
+  std::thread non_blocking_call (std::bind (&PCDGrabberBase::PCDGrabberImpl::trigger, impl_));
 
 //  impl_->trigger ();
 }

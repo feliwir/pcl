@@ -138,7 +138,7 @@ namespace pcl
     OutofcoreOctreeBaseMetadata::serializeMetadataToDisk ()
     {
       // Create JSON object
-      boost::shared_ptr<cJSON> idx (cJSON_CreateObject (), cJSON_Delete);
+      std::shared_ptr<cJSON> idx (cJSON_CreateObject (), cJSON_Delete);
   
       cJSON* name = cJSON_CreateString (tree_name_.c_str ());
       cJSON* version = cJSON_CreateNumber ( __PCL_OUTOFCORE_VERSION__ );
@@ -184,7 +184,7 @@ namespace pcl
       idx_input.back () = '\0';
 
       // Parse JSON
-      boost::shared_ptr<cJSON> idx (cJSON_Parse (&(idx_input.front ())), cJSON_Delete);
+      std::shared_ptr<cJSON> idx (cJSON_Parse (&(idx_input.front ())), cJSON_Delete);
       cJSON* name = cJSON_GetObjectItem (idx.get (), "name");
       cJSON* version = cJSON_GetObjectItem (idx.get (), "version");
       cJSON* pointtype = cJSON_GetObjectItem (idx.get (), "pointtype");

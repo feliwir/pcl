@@ -48,7 +48,7 @@
 #ifndef Q_MOC_RUN
 // Marking all Boost headers as system headers to remove warnings
 #include <boost/version.hpp>
-#include <boost/make_shared.hpp>
+
 #include <boost/graph/adjacency_list.hpp>
 #include <boost/multi_array.hpp>
 #include <boost/ptr_container/ptr_list.hpp>

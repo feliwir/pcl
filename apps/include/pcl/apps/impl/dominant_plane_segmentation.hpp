@@ -293,7 +293,7 @@ pcl::apps::DominantPlaneSegmentation<PointType>::compute_fast (std::vector<Cloud
 
   pcl::ExtractIndices<PointType> extract_object_indices;
   extract_object_indices.setInputCloud (input_);
-  extract_object_indices.setIndices (boost::make_shared<const pcl::PointIndices> (cloud_object_indices));
+  extract_object_indices.setIndices (std::make_shared<const pcl::PointIndices> (cloud_object_indices));
   extract_object_indices.filter (*cloud_objects_);
 
   //create new binary pointcloud with intensity values (0 and 1), 0 for non-object pixels and 1 otherwise
@@ -669,7 +669,7 @@ pcl::apps::DominantPlaneSegmentation<PointType>::compute (std::vector<CloudPtr> 
 
   pcl::ExtractIndices<PointType> extract_object_indices;
   extract_object_indices.setInputCloud (cloud_downsampled_);
-  extract_object_indices.setIndices (boost::make_shared<const pcl::PointIndices> (cloud_object_indices));
+  extract_object_indices.setIndices (std::make_shared<const pcl::PointIndices> (cloud_object_indices));
   extract_object_indices.filter (*cloud_objects_);
 
   if (cloud_objects_->points.size () == 0)
@@ -680,7 +680,7 @@ pcl::apps::DominantPlaneSegmentation<PointType>::compute (std::vector<CloudPtr> 
   // ---[ Split the objects into Euclidean clusters
   std::vector<pcl::PointIndices> clusters2;
   cluster_.setInputCloud (cloud_downsampled_);
-  cluster_.setIndices (boost::make_shared<const pcl::PointIndices> (cloud_object_indices));
+  cluster_.setIndices (std::make_shared<const pcl::PointIndices> (cloud_object_indices));
   cluster_.extract (clusters2);
 
   PCL_INFO ("[DominantPlaneSegmentation::compute()] Number of clusters found matching the given constraints: %lu.\n",
@@ -832,7 +832,7 @@ pcl::apps::DominantPlaneSegmentation<PointType>::compute_full (std::vector<Cloud
 
   pcl::ExtractIndices<PointType> extract_object_indices;
   extract_object_indices.setInputCloud (cloud_downsampled_);
-  extract_object_indices.setIndices (boost::make_shared<const pcl::PointIndices> (cloud_object_indices));
+  extract_object_indices.setIndices (std::make_shared<const pcl::PointIndices> (cloud_object_indices));
   extract_object_indices.filter (*cloud_objects_);
 
   if (cloud_objects_->points.size () == 0)
@@ -841,7 +841,7 @@ pcl::apps::DominantPlaneSegmentation<PointType>::compute_full (std::vector<Cloud
   // ---[ Split the objects into Euclidean clusters
   std::vector<pcl::PointIndices> clusters2;
   cluster_.setInputCloud (cloud_filtered_);
-  cluster_.setIndices (boost::make_shared<const pcl::PointIndices> (cloud_object_indices));
+  cluster_.setIndices (std::make_shared<const pcl::PointIndices> (cloud_object_indices));
   cluster_.extract (clusters2);
 
   PCL_INFO ("[DominantPlaneSegmentation::compute_full()] Number of clusters found matching the given constraints: %lu.\n",

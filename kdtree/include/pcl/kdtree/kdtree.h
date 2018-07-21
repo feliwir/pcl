@@ -56,20 +56,20 @@ namespace pcl
   class KdTree
   {
     public:
-      typedef boost::shared_ptr <std::vector<int> > IndicesPtr;
-      typedef boost::shared_ptr <const std::vector<int> > IndicesConstPtr;
+      typedef std::shared_ptr <std::vector<int> > IndicesPtr;
+      typedef std::shared_ptr <const std::vector<int> > IndicesConstPtr;
 
       typedef pcl::PointCloud<PointT> PointCloud;
-      typedef boost::shared_ptr<PointCloud> PointCloudPtr;
-      typedef boost::shared_ptr<const PointCloud> PointCloudConstPtr;
+      typedef std::shared_ptr<PointCloud> PointCloudPtr;
+      typedef std::shared_ptr<const PointCloud> PointCloudConstPtr;
 
       typedef pcl::PointRepresentation<PointT> PointRepresentation;
-      //typedef boost::shared_ptr<PointRepresentation> PointRepresentationPtr;
-      typedef boost::shared_ptr<const PointRepresentation> PointRepresentationConstPtr;
+      //typedef std::shared_ptr<PointRepresentation> PointRepresentationPtr;
+      typedef std::shared_ptr<const PointRepresentation> PointRepresentationConstPtr;
 
       // Boost shared pointers
-      typedef boost::shared_ptr<KdTree<PointT> > Ptr;
-      typedef boost::shared_ptr<const KdTree<PointT> > ConstPtr;
+      typedef std::shared_ptr<KdTree<PointT> > Ptr;
+      typedef std::shared_ptr<const KdTree<PointT> > ConstPtr;
 
       /** \brief Empty constructor for KdTree. Sets some internal values to their defaults. 
         * \param[in] sorted set to true if the application that the tree will be used for requires sorted nearest neighbor indices (default). False otherwise. 

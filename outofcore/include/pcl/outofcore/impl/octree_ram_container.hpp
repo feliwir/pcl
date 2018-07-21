@@ -52,7 +52,7 @@ namespace pcl
   {
 
     template<typename PointT>
-    boost::mutex OutofcoreOctreeRamContainer<PointT>::rng_mutex_;
+    std::mutex OutofcoreOctreeRamContainer<PointT>::rng_mutex_;
 
     template<typename PointT> 
     boost::mt19937 OutofcoreOctreeRamContainer<PointT>::rand_gen_ (static_cast<unsigned int>(std::time( NULL)));
@@ -123,7 +123,7 @@ namespace pcl
     {
       boost::uint64_t samplesize = static_cast<boost::uint64_t> (percent * static_cast<double> (count));
 
-      boost::mutex::scoped_lock lock (rng_mutex_);
+      std::lock_guard<std::mutex> lock (rng_mutex_);
 
       boost::uniform_int < boost::uint64_t > buffdist (start, start + count);
       boost::variate_generator<boost::mt19937&, boost::uniform_int<boost::uint64_t> > buffdie (rand_gen_, buffdist);

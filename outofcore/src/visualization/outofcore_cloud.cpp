@@ -36,19 +36,19 @@
 // Boost
 //#include <boost/date_time.hpp>
 //#include <boost/filesystem.hpp>
-#include <boost/thread.hpp>
+#include <thread>
 
 // Forward Declarations
 
-boost::condition OutofcoreCloud::pcd_queue_ready;
-boost::mutex OutofcoreCloud::pcd_queue_mutex;
+std::condition_variable OutofcoreCloud::pcd_queue_ready;
+std::mutex OutofcoreCloud::pcd_queue_mutex;
 
-boost::shared_ptr<boost::thread> OutofcoreCloud::pcd_reader_thread;
+std::shared_ptr<std::thread> OutofcoreCloud::pcd_reader_thread;
 //MonitorQueue<std::string> OutofcoreCloud::pcd_queue;
 
 //std::map<std::string, vtkSmartPointer<vtkPolyData> > OutofcoreCloud::cloud_data_cache;
 OutofcoreCloud::CloudDataCache OutofcoreCloud::cloud_data_cache(524288);
-boost::mutex OutofcoreCloud::cloud_data_cache_mutex;
+std::mutex OutofcoreCloud::cloud_data_cache_mutex;
 
 OutofcoreCloud::PcdQueue OutofcoreCloud::pcd_queue;
 
@@ -62,7 +62,7 @@ OutofcoreCloud::pcdReaderThread ()
   while (true)
   {
     //{
-      //boost::mutex::scoped_lock lock (pcd_queue_mutex);
+      //std::lock_guard<std::mutex> lock (pcd_queue_mutex);
       //pcd_queue_mutex.wait (lock);
       pcd_queue_ready.wait(pcd_queue_mutex);
     //}
@@ -124,8 +124,8 @@ OutofcoreCloud::OutofcoreCloud (std::string name, boost::filesystem::path& tree_
   // Create the pcd reader thread once for all outofcore nodes
   if (OutofcoreCloud::pcd_reader_thread.get() == NULL)
   {
-//    OutofcoreCloud::pcd_reader_thread = boost::shared_ptr<boost::thread>(new boost::thread(&OutofcoreCloud::pcdReaderThread, this));
-    OutofcoreCloud::pcd_reader_thread = boost::shared_ptr<boost::thread>(new boost::thread(&OutofcoreCloud::pcdReaderThread));
+//    OutofcoreCloud::pcd_reader_thread = std::shared_ptr<std::thread>(new std::thread(&OutofcoreCloud::pcdReaderThread, this));
+    OutofcoreCloud::pcd_reader_thread = std::shared_ptr<std::thread>(new std::thread(&OutofcoreCloud::pcdReaderThread));
   }
 
 

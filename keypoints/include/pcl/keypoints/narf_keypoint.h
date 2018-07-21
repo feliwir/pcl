@@ -60,8 +60,8 @@ class RangeImageBorderExtractor;
 class PCL_EXPORTS NarfKeypoint : public Keypoint<PointWithRange, int>
 {
   public:
-    typedef boost::shared_ptr<NarfKeypoint> Ptr;
-    typedef boost::shared_ptr<const NarfKeypoint> ConstPtr;
+    typedef std::shared_ptr<NarfKeypoint> Ptr;
+    typedef std::shared_ptr<const NarfKeypoint> ConstPtr;
 
     // =====TYPEDEFS=====
     typedef Keypoint<PointWithRange, int> BaseClass;

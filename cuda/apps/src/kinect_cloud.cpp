@@ -110,14 +110,14 @@ main (int argc, char **argv)
   {
     ROS_INFO ("[disparity_to_cloud] Using RGB to color the points.");
     sync_rgb.connectInput (sub_depth, sub_rgb, sub_info);
-    //sync_rgb.registerCallback (bind (&pcl_cuda::DisparityToCloud::callback, k, _1, _2, _3));
-    sync_rgb.registerCallback (boost::bind (&EventHelper::callback, &h, _1, _2, _3));
+    //sync_rgb.registerCallback (bind (&pcl_cuda::DisparityToCloud::callback, k, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3));
+    sync_rgb.registerCallback (std::bind (&EventHelper::callback, &h, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3));
   }
   else
   {
     sync.connectInput (sub_depth, sub_info);
-    //sync.registerCallback (bind (&pcl_cuda::DisparityToCloud::callback, k, _1, PCLImageConstPtr (), _2));
-    sync.registerCallback (boost::bind (&EventHelper::callback, &h, _1, PCLImageConstPtr (), _2));
+    //sync.registerCallback (bind (&pcl_cuda::DisparityToCloud::callback, k, std::placeholders::_1, PCLImageConstPtr (), std::placeholders::_2));
+    sync.registerCallback (std::bind (&EventHelper::callback, &h, std::placeholders::_1, PCLImageConstPtr (), std::placeholders::_2));
   }
 
   // Do this indefinitely

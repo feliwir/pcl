@@ -67,8 +67,8 @@ namespace pcl
 
     public:
       
-      typedef boost::shared_ptr<NormalSpaceSampling<PointT, NormalT> > Ptr;
-      typedef boost::shared_ptr<const NormalSpaceSampling<PointT, NormalT> > ConstPtr;
+      typedef std::shared_ptr<NormalSpaceSampling<PointT, NormalT> > Ptr;
+      typedef std::shared_ptr<const NormalSpaceSampling<PointT, NormalT> > ConstPtr;
 
       /** \brief Empty constructor. */
       NormalSpaceSampling ()

@@ -69,8 +69,8 @@ namespace pcl
 
     public:
 
-      typedef boost::shared_ptr< ShadowPoints<PointT, NormalT> > Ptr;
-      typedef boost::shared_ptr< const ShadowPoints<PointT, NormalT> > ConstPtr;
+      typedef std::shared_ptr< ShadowPoints<PointT, NormalT> > Ptr;
+      typedef std::shared_ptr< const ShadowPoints<PointT, NormalT> > ConstPtr;
 
       /** \brief Empty constructor. */
       ShadowPoints (bool extract_removed_indices = false) : 

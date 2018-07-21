@@ -39,7 +39,7 @@
 #include <pcl/gpu/containers/device_array.h>
 #include <pcl/gpu/containers/kernel_containers.h>
 
-#include <boost/shared_ptr.hpp>
+#include <memory>
 #include <string>
 
 #include <pcl/gpu/kinfu/kinfu.h>
@@ -80,7 +80,7 @@ public:
     bool setRegistration (bool value = false);
 private:
     struct Impl;
-    boost::shared_ptr<Impl> impl_;
+    std::shared_ptr<Impl> impl_;
     void getParams ();
 
     };

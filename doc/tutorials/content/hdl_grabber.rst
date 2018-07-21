@@ -113,7 +113,7 @@ So let's look at the code. The following represents a simplified version of *vis
 
        void cloud_callback (const CloudConstPtr& cloud)
        {
-         boost::mutex::scoped_lock lock (cloud_mutex_);
+         std::lock_guard<std::mutex> lock (cloud_mutex_);
          cloud_ = cloud;
        }
 
@@ -125,8 +125,8 @@ So let's look at the code. The following represents a simplified version of *vis
          cloud_viewer_->setCameraPosition (0.0, 0.0, 30.0, 0.0, 1.0, 0.0, 0);
          cloud_viewer_->setCameraClipDistances (0.0, 50.0);
 
-         boost::function<void (const CloudConstPtr&)> cloud_cb = boost::bind (
-             &SimpleHDLViewer::cloud_callback, this, _1);
+         std::function<void (const CloudConstPtr&)> cloud_cb = std::bind (
+             &SimpleHDLViewer::cloud_callback, this, std::placeholders::_1);
          boost::signals2::connection cloud_connection = grabber_.registerCallback (
              cloud_cb);
 
@@ -155,7 +155,7 @@ So let's look at the code. The following represents a simplified version of *vis
            if (!grabber_.isRunning ())
              cloud_viewer_->spin ();
 
-           boost::this_thread::sleep (boost::posix_time::microseconds (100));
+           std::this_thread::sleep_for (std::chrono::microseconds (100));
          }
 
          grabber_.stop ();
@@ -163,10 +163,10 @@ So let's look at the code. The following represents a simplified version of *vis
          cloud_connection.disconnect ();
        }
 
-       boost::shared_ptr<pcl::visualization::PCLVisualizer> cloud_viewer_;
+       std::shared_ptr<pcl::visualization::PCLVisualizer> cloud_viewer_;
 
        pcl::Grabber& grabber_;
-       boost::mutex cloud_mutex_;
+       std::mutex cloud_mutex_;
 
        CloudConstPtr cloud_;
        pcl::visualization::PointCloudColorHandler<pcl::PointXYZI> &handler_;
@@ -194,10 +194,10 @@ Additional Details
 
 The *HDL Grabber* offers more than one datatype, which is the reason we made
 the *Grabber* interface so generic, leading to the relatively complicated
-*boost::bind* line. In fact, we can register the following callback types as of
+*std::bind* line. In fact, we can register the following callback types as of
 this writing:
 
-* `void (const boost::shared_ptr<const pcl::PointCloud<pcl::PointXYZRGB> >&)`
+* `void (const std::shared_ptr<const pcl::PointCloud<pcl::PointXYZRGB> >&)`
 
 Compiling and running the program
 ---------------------------------

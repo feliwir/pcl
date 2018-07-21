@@ -44,14 +44,14 @@
 #include <pcl/common/time.h>
 
 #include <boost/asio.hpp>
-#include <boost/thread/thread.hpp>
+#include <thread>
 
 using boost::asio::ip::tcp;
 
 
 struct PointCloudBuffers
 {
-  typedef boost::shared_ptr<PointCloudBuffers> Ptr;
+  typedef std::shared_ptr<PointCloudBuffers> Ptr;
   std::vector<short> points;
   std::vector<unsigned char> rgb;
 };
@@ -132,7 +132,7 @@ class PCLMobileServer
       PointCloudBuffers::Ptr new_buffers = PointCloudBuffers::Ptr (new PointCloudBuffers);
       CopyPointCloudToBuffers (temp_cloud, *new_buffers);
 
-      boost::mutex::scoped_lock lock (mutex_);
+      std::lock_guard<std::mutex> lock (mutex_);
       filtered_cloud_ = temp_cloud;
       buffers_ = new_buffers;
     }
@@ -140,14 +140,14 @@ class PCLMobileServer
     PointCloudBuffers::Ptr
     getLatestBuffers ()
     {
-      boost::mutex::scoped_lock lock (mutex_);
+      std::lock_guard<std::mutex> lock (mutex_);
       return (buffers_);
     }
 
     CloudPtr
     getLatestPointCloud ()
     {
-      boost::mutex::scoped_lock lock (mutex_);
+      std::lock_guard<std::mutex> lock (mutex_);
       return (filtered_cloud_);
     }
 
@@ -155,13 +155,13 @@ class PCLMobileServer
     run ()
     {
       pcl::OpenNIGrabber grabber (device_id_);
-      boost::function<void (const CloudConstPtr&)> handler_function = boost::bind (&PCLMobileServer::handleIncomingCloud, this, _1);
+      std::function<void (const CloudConstPtr&)> handler_function = std::bind (&PCLMobileServer::handleIncomingCloud, this, std::placeholders::_1);
       grabber.registerCallback (handler_function);
       grabber.start ();
 
       // wait for first cloud
       while (!getLatestPointCloud ())
-        boost::this_thread::sleep (boost::posix_time::milliseconds (10));
+        std::this_thread::sleep_for (std::chrono::milliseconds (10));
 
       viewer_.showCloud (getLatestPointCloud ());
 
@@ -217,7 +217,7 @@ class PCLMobileServer
 
     int port_;
     std::string device_id_;
-    boost::mutex mutex_;
+    std::mutex mutex_;
 
     pcl::VoxelGrid<PointType> voxel_grid_filter_;
     pcl::visualization::CloudViewer viewer_;

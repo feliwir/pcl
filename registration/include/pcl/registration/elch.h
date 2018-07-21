@@ -62,8 +62,8 @@ namespace pcl
     class ELCH : public PCLBase<PointT>
     {
       public:
-        typedef boost::shared_ptr< ELCH<PointT> > Ptr;
-        typedef boost::shared_ptr< const ELCH<PointT> > ConstPtr;
+        typedef std::shared_ptr< ELCH<PointT> > Ptr;
+        typedef std::shared_ptr< const ELCH<PointT> > ConstPtr;
 
         typedef pcl::PointCloud<PointT> PointCloud;
         typedef typename PointCloud::Ptr PointCloudPtr;
@@ -83,7 +83,7 @@ namespace pcl
           boost::no_property>
         LoopGraph;
 
-        typedef boost::shared_ptr< LoopGraph > LoopGraphPtr;
+        typedef std::shared_ptr< LoopGraph > LoopGraphPtr;
 
         typedef typename pcl::Registration<PointT, PointT> Registration;
         typedef typename Registration::Ptr RegistrationPtr;

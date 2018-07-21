@@ -59,7 +59,7 @@ namespace pcl
     */
   template <typename PointT> void 
   extractEuclideanClusters (
-      const PointCloud<PointT> &cloud, const boost::shared_ptr<search::Search<PointT> > &tree, 
+      const PointCloud<PointT> &cloud, const std::shared_ptr<search::Search<PointT> > &tree, 
       float tolerance, std::vector<PointIndices> &clusters, 
       unsigned int min_pts_per_cluster = 1, unsigned int max_pts_per_cluster = (std::numeric_limits<int>::max) ());
 
@@ -78,7 +78,7 @@ namespace pcl
   template <typename PointT> void 
   extractEuclideanClusters (
       const PointCloud<PointT> &cloud, const std::vector<int> &indices, 
-      const boost::shared_ptr<search::Search<PointT> > &tree, float tolerance, std::vector<PointIndices> &clusters, 
+      const std::shared_ptr<search::Search<PointT> > &tree, float tolerance, std::vector<PointIndices> &clusters, 
       unsigned int min_pts_per_cluster = 1, unsigned int max_pts_per_cluster = (std::numeric_limits<int>::max) ());
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -98,7 +98,7 @@ namespace pcl
   template <typename PointT, typename Normal> void 
   extractEuclideanClusters (
       const PointCloud<PointT> &cloud, const PointCloud<Normal> &normals, 
-      float tolerance, const boost::shared_ptr<KdTree<PointT> > &tree, 
+      float tolerance, const std::shared_ptr<KdTree<PointT> > &tree, 
       std::vector<PointIndices> &clusters, double eps_angle, 
       unsigned int min_pts_per_cluster = 1, 
       unsigned int max_pts_per_cluster = (std::numeric_limits<int>::max) ())
@@ -197,7 +197,7 @@ namespace pcl
   template <typename PointT, typename Normal> 
   void extractEuclideanClusters (
       const PointCloud<PointT> &cloud, const PointCloud<Normal> &normals, 
-      const std::vector<int> &indices, const boost::shared_ptr<KdTree<PointT> > &tree, 
+      const std::vector<int> &indices, const std::shared_ptr<KdTree<PointT> > &tree, 
       float tolerance, std::vector<PointIndices> &clusters, double eps_angle, 
       unsigned int min_pts_per_cluster = 1, 
       unsigned int max_pts_per_cluster = (std::numeric_limits<int>::max) ())

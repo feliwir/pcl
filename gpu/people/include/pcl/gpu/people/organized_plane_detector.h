@@ -46,7 +46,7 @@
 #include <pcl/common/transforms.h>
 #include <pcl/gpu/people/label_common.h>
 
-#include <boost/shared_ptr.hpp>
+#include <memory>
 #include <string>
 #include <vector>
 
@@ -59,7 +59,7 @@ namespace pcl
       class OrganizedPlaneDetector
       {
         public:
-          typedef boost::shared_ptr<OrganizedPlaneDetector> Ptr;
+          typedef std::shared_ptr<OrganizedPlaneDetector> Ptr;
 
           typedef pcl::PointXYZRGBA                         PointTC;
           typedef pcl::PointXYZ                             PointT;

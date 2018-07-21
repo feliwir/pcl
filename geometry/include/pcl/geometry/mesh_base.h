@@ -100,8 +100,8 @@ namespace pcl
       public:
 
         typedef MeshBase <DerivedT, MeshTraitsT, MeshTagT> Self;
-        typedef boost::shared_ptr <Self>                   Ptr;
-        typedef boost::shared_ptr <const Self>             ConstPtr;
+        typedef std::shared_ptr <Self>                   Ptr;
+        typedef std::shared_ptr <const Self>             ConstPtr;
 
         typedef DerivedT Derived;
 

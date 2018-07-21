@@ -59,8 +59,8 @@ namespace pcl
   {
   public:
 
-    typedef boost::shared_ptr<TSDFVolume<VoxelT, WeightT> > Ptr;
-    typedef boost::shared_ptr<const TSDFVolume<VoxelT, WeightT> > ConstPtr;
+    typedef std::shared_ptr<TSDFVolume<VoxelT, WeightT> > Ptr;
+    typedef std::shared_ptr<const TSDFVolume<VoxelT, WeightT> > ConstPtr;
 
     // typedef Eigen::Matrix<VoxelT, Eigen::Dynamic, 1> VoxelTVec;
     typedef Eigen::VectorXf VoxelTVec;
@@ -284,8 +284,8 @@ EIGEN_MAKE_ALIGNED_OPERATOR_NEW
   //  void
   //  integrateVolume (const Eigen::MatrixXf &depth_scaled, float tranc_dist, const Eigen::Matrix3f &R_inv, const Eigen::Vector3f &t, const Intr &intr);
 
-    typedef boost::shared_ptr<std::vector<VoxelT> > VolumePtr;
-    typedef boost::shared_ptr<std::vector<WeightT> > WeightsPtr;
+    typedef std::shared_ptr<std::vector<VoxelT> > VolumePtr;
+    typedef std::shared_ptr<std::vector<WeightT> > WeightsPtr;
 
     Header header_;
     VolumePtr volume_;

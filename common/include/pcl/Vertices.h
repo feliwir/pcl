@@ -3,7 +3,7 @@
 #include <string>
 #include <vector>
 #include <ostream>
-#include <boost/shared_ptr.hpp>
+#include <memory>
 #include <pcl/pcl_macros.h>
 
 namespace pcl
@@ -19,13 +19,13 @@ namespace pcl
     std::vector<uint32_t> vertices;
 
   public:
-    typedef boost::shared_ptr<Vertices> Ptr;
-    typedef boost::shared_ptr<Vertices const> ConstPtr;
+    typedef std::shared_ptr<Vertices> Ptr;
+    typedef std::shared_ptr<Vertices const> ConstPtr;
   }; // struct Vertices
 
 
-  typedef boost::shared_ptr<Vertices> VerticesPtr;
-  typedef boost::shared_ptr<Vertices const> VerticesConstPtr;
+  typedef std::shared_ptr<Vertices> VerticesPtr;
+  typedef std::shared_ptr<Vertices const> VerticesConstPtr;
 
   inline std::ostream& operator<<(std::ostream& s, const  ::pcl::Vertices & v)
   {

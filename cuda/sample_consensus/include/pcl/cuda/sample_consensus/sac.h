@@ -63,11 +63,11 @@ namespace pcl
 
       public:
         typedef typename Storage<float>::type Coefficients;
-        typedef boost::shared_ptr <Coefficients> CoefficientsPtr;
-        typedef boost::shared_ptr <const Coefficients> CoefficientsConstPtr;
+        typedef std::shared_ptr <Coefficients> CoefficientsPtr;
+        typedef std::shared_ptr <const Coefficients> CoefficientsConstPtr;
 
-        typedef boost::shared_ptr<SampleConsensus> Ptr;
-        typedef boost::shared_ptr<const SampleConsensus> ConstPtr;
+        typedef std::shared_ptr<SampleConsensus> Ptr;
+        typedef std::shared_ptr<const SampleConsensus> ConstPtr;
 
         /** \brief Constructor for base SAC.
           * \param model a Sample Consensus model

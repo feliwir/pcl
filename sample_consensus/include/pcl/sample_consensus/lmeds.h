@@ -59,8 +59,8 @@ namespace pcl
     typedef typename SampleConsensusModel<PointT>::Ptr SampleConsensusModelPtr;
 
     public:
-      typedef boost::shared_ptr<LeastMedianSquares> Ptr;
-      typedef boost::shared_ptr<const LeastMedianSquares> ConstPtr;
+      typedef std::shared_ptr<LeastMedianSquares> Ptr;
+      typedef std::shared_ptr<const LeastMedianSquares> ConstPtr;
 
       using SampleConsensus<PointT>::max_iterations_;
       using SampleConsensus<PointT>::threshold_;

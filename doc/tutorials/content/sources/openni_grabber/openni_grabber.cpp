@@ -25,8 +25,8 @@ public:
     pcl::Grabber* interface = new pcl::OpenNIGrabber();
 
     // make callback function from member function
-    boost::function<void (const pcl::PointCloud<pcl::PointXYZRGBA>::ConstPtr&)> f =
-      boost::bind (&SimpleOpenNIProcessor::cloud_cb_, this, _1);
+    std::function<void (const pcl::PointCloud<pcl::PointXYZRGBA>::ConstPtr&)> f =
+      std::bind (&SimpleOpenNIProcessor::cloud_cb_, this, std::placeholders::_1);
 
     // connect callback function for desired signal. In this case its a point cloud with color values
     boost::signals2::connection c = interface->registerCallback (f);
@@ -36,7 +36,7 @@ public:
 
     // wait until user quits program with Ctrl-C, but no busy-waiting -> sleep (1);
     while (true)
-      boost::this_thread::sleep (boost::posix_time::seconds (1));
+      std::this_thread::sleep_for (std::chrono::seconds (1));
 
     // stop the grabber
     interface->stop ();

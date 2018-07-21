@@ -11,7 +11,7 @@
 #include <vtkSmartPointer.h>
 #include <vtkPolyData.h>
 #include <pcl/common/common.h>
-#include <boost/function.hpp>
+#include 
 
 namespace pcl
 {
@@ -38,7 +38,7 @@ namespace pcl
       bool compute_entropy_;
       vtkSmartPointer<vtkPolyData> polydata_;
       bool gen_organized_;
-      boost::function<bool
+      std::function<bool
       (const Eigen::Vector3f &)> campos_constraints_func_;
 
       struct camPosConstraintsAllTrue
@@ -65,7 +65,7 @@ namespace pcl
       }
 
       void
-      setCamPosConstraints (boost::function<bool (const Eigen::Vector3f &)> & bb)
+      setCamPosConstraints (std::function<bool (const Eigen::Vector3f &)> & bb)
       {
         campos_constraints_func_ = bb;
       }

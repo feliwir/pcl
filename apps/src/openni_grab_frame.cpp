@@ -99,7 +99,7 @@ class OpenNIGrabFrame
       if (quit_)
         return;
       
-      boost::mutex::scoped_lock lock (cloud_mutex_);
+      std::lock_guard<std::mutex> lock (cloud_mutex_);
         cloud_ = cloud;
         
       if (continuous_ || trigger_)
@@ -141,7 +141,7 @@ class OpenNIGrabFrame
     getLatestCloud ()
     {
       //lock while we swap our cloud and reset it.
-      boost::mutex::scoped_lock lock(cloud_mutex_);
+      std::lock_guard<std::mutex> lock(cloud_mutex_);
       CloudConstPtr temp_cloud;
       temp_cloud.swap (cloud_); //here we set cloud_ to null, so that
       //it is safe to set it again from our
@@ -183,7 +183,7 @@ class OpenNIGrabFrame
       
 
       // make callback function from member function
-      boost::function<void (const CloudConstPtr&)> f = boost::bind (&OpenNIGrabFrame::cloud_cb_, this, _1);
+      std::function<void (const CloudConstPtr&)> f = std::bind (&OpenNIGrabFrame::cloud_cb_, this, std::placeholders::_1);
 
       // connect callback function for desired signal. In this case its a point cloud with color values
       boost::signals2::connection c = grabber_.registerCallback (f);
@@ -194,7 +194,7 @@ class OpenNIGrabFrame
       // wait until user quits program with Ctrl-C, but no busy-waiting -> sleep (1);
       while (!visualizer_->wasStopped())
       {
-        boost::this_thread::sleep (boost::posix_time::microseconds (100));
+        std::this_thread::sleep_for (std::chrono::microseconds (100));
 
         visualizer_->spinOnce ();
         
@@ -213,7 +213,7 @@ class OpenNIGrabFrame
       }
       
       //while (!quit_)
-        //boost::this_thread::sleep (boost::posix_time::seconds (1));
+        //std::this_thread::sleep_for (std::chrono::seconds (1));
    
       // stop the grabber
       grabber_.stop ();
@@ -263,7 +263,7 @@ class OpenNIGrabFrame
       visualizer_enable_ = visualizer;
     }
 
-    boost::shared_ptr<pcl::visualization::PCLVisualizer> visualizer_;
+    std::shared_ptr<pcl::visualization::PCLVisualizer> visualizer_;
     pcl::PCDWriter writer_;
     bool quit_;
     bool continuous_;
@@ -272,7 +272,7 @@ class OpenNIGrabFrame
     std::string dir_name_;
     unsigned format_;
     CloudConstPtr cloud_;
-    mutable boost::mutex cloud_mutex_;
+    mutable std::mutex cloud_mutex_;
     pcl::OpenNIGrabber &grabber_;
     bool visualizer_enable_;
 };

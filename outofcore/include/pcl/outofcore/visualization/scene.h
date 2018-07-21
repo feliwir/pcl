@@ -83,7 +83,7 @@ private:
   std::vector<Viewport*> viewports_;
   std::vector<Object*> objects_;
 
-  boost::mutex render_mutex_;
+  std::mutex render_mutex_;
 
 };
 

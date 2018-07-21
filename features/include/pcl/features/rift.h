@@ -76,8 +76,8 @@ namespace pcl
       typedef typename PointCloudGradient::Ptr PointCloudGradientPtr;
       typedef typename PointCloudGradient::ConstPtr PointCloudGradientConstPtr;
 
-      typedef typename boost::shared_ptr<RIFTEstimation<PointInT, GradientT, PointOutT> > Ptr;
-      typedef typename boost::shared_ptr<const RIFTEstimation<PointInT, GradientT, PointOutT> > ConstPtr;
+      typedef typename std::shared_ptr<RIFTEstimation<PointInT, GradientT, PointOutT> > Ptr;
+      typedef typename std::shared_ptr<const RIFTEstimation<PointInT, GradientT, PointOutT> > ConstPtr;
 
 
       /** \brief Empty constructor. */

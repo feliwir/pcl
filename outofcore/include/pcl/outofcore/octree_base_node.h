@@ -555,10 +555,10 @@ namespace pcl
         /** \brief what holds the points. currently a custom class, but in theory
          * you could use an stl container if you rewrote some of this class. I used
          * to use deques for this... */
-        boost::shared_ptr<ContainerT> payload_;
+        std::shared_ptr<ContainerT> payload_;
 
         /** \brief Random number generator mutex */
-        static boost::mutex rng_mutex_;
+        static std::mutex rng_mutex_;
 
         /** \brief Mersenne Twister: A 623-dimensionally equidistributed uniform
          * pseudo-random number generator */

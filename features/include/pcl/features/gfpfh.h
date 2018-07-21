@@ -65,8 +65,8 @@ namespace pcl
   class GFPFHEstimation : public FeatureFromLabels<PointInT, PointLT, PointOutT>
   {
     public:
-      typedef boost::shared_ptr<GFPFHEstimation<PointInT, PointLT, PointOutT> > Ptr;
-      typedef boost::shared_ptr<const GFPFHEstimation<PointInT, PointLT, PointOutT> > ConstPtr;
+      typedef std::shared_ptr<GFPFHEstimation<PointInT, PointLT, PointOutT> > Ptr;
+      typedef std::shared_ptr<const GFPFHEstimation<PointInT, PointLT, PointOutT> > ConstPtr;
       using FeatureFromLabels<PointInT, PointLT, PointOutT>::feature_name_;
       using FeatureFromLabels<PointInT, PointLT, PointOutT>::getClassName;
       using FeatureFromLabels<PointInT, PointLT, PointOutT>::indices_;

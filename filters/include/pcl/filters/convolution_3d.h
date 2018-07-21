@@ -55,8 +55,8 @@ namespace pcl
     class ConvolvingKernel
     {
       public:
-        typedef boost::shared_ptr<ConvolvingKernel<PointInT, PointOutT> > Ptr;
-        typedef boost::shared_ptr<const ConvolvingKernel<PointInT, PointOutT> > ConstPtr;
+        typedef std::shared_ptr<ConvolvingKernel<PointInT, PointOutT> > Ptr;
+        typedef std::shared_ptr<const ConvolvingKernel<PointInT, PointOutT> > ConstPtr;
  
         typedef typename PointCloud<PointInT>::ConstPtr PointCloudInConstPtr;
 
@@ -119,8 +119,8 @@ namespace pcl
         using ConvolvingKernel<PointInT, PointOutT>::input_;
         using ConvolvingKernel<PointInT, PointOutT>::operator ();
         using ConvolvingKernel<PointInT, PointOutT>::makeInfinite;
-        typedef boost::shared_ptr<GaussianKernel<PointInT, PointOutT> > Ptr;
-        typedef boost::shared_ptr<GaussianKernel<PointInT, PointOutT> > ConstPtr;
+        typedef std::shared_ptr<GaussianKernel<PointInT, PointOutT> > Ptr;
+        typedef std::shared_ptr<GaussianKernel<PointInT, PointOutT> > ConstPtr;
 
         /** Default constructor */
         GaussianKernel ()
@@ -177,8 +177,8 @@ namespace pcl
         using GaussianKernel<PointInT, PointOutT>::makeInfinite;
         using GaussianKernel<PointInT, PointOutT>::sigma_sqr_;
         using GaussianKernel<PointInT, PointOutT>::threshold_;
-        typedef boost::shared_ptr<GaussianKernelRGB<PointInT, PointOutT> > Ptr;
-        typedef boost::shared_ptr<GaussianKernelRGB<PointInT, PointOutT> > ConstPtr;
+        typedef std::shared_ptr<GaussianKernelRGB<PointInT, PointOutT> > Ptr;
+        typedef std::shared_ptr<GaussianKernelRGB<PointInT, PointOutT> > ConstPtr;
 
         /** Default constructor */
         GaussianKernelRGB ()
@@ -205,8 +205,8 @@ namespace pcl
         typedef typename pcl::search::Search<PointIn> KdTree;
         typedef typename pcl::search::Search<PointIn>::Ptr KdTreePtr;
         typedef typename pcl::PointCloud<PointOut> PointCloudOut;
-        typedef boost::shared_ptr<Convolution3D<PointIn, PointOut, KernelT> > Ptr;
-        typedef boost::shared_ptr<Convolution3D<PointIn, PointOut, KernelT> > ConstPtr;
+        typedef std::shared_ptr<Convolution3D<PointIn, PointOut, KernelT> > Ptr;
+        typedef std::shared_ptr<Convolution3D<PointIn, PointOut, KernelT> > ConstPtr;
 
         using pcl::PCLBase<PointIn>::indices_;
         using pcl::PCLBase<PointIn>::input_;

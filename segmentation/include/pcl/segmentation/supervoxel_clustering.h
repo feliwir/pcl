@@ -69,8 +69,8 @@ namespace pcl
         normals_ (new pcl::PointCloud<Normal> ())
         {  } 
 
-      typedef boost::shared_ptr<Supervoxel<PointT> > Ptr;
-      typedef boost::shared_ptr<const Supervoxel<PointT> > ConstPtr;
+      typedef std::shared_ptr<Supervoxel<PointT> > Ptr;
+      typedef std::shared_ptr<const Supervoxel<PointT> > ConstPtr;
 
       /** \brief Gets the centroid of the supervoxel
        *  \param[out] centroid_arg centroid of the supervoxel
@@ -172,7 +172,7 @@ namespace pcl
       typedef typename pcl::octree::OctreePointCloudAdjacency<PointT, LeafContainerT> OctreeAdjacencyT;
       typedef typename pcl::octree::OctreePointCloudSearch <PointT> OctreeSearchT;
       typedef typename pcl::search::KdTree<PointT> KdTreeT;
-      typedef boost::shared_ptr<std::vector<int> > IndicesPtr;
+      typedef std::shared_ptr<std::vector<int> > IndicesPtr;
 
       using PCLBase <PointT>::initCompute;
       using PCLBase <PointT>::deinitCompute;
@@ -278,7 +278,7 @@ namespace pcl
       typename pcl::PointCloud<PointXYZRGBA>::Ptr
       getColoredCloud () const
       { 
-        return boost::shared_ptr<pcl::PointCloud<PointXYZRGBA> > (new pcl::PointCloud<PointXYZRGBA>);
+        return std::shared_ptr<pcl::PointCloud<PointXYZRGBA> > (new pcl::PointCloud<PointXYZRGBA>);
       }
 
       /** \brief Returns a deep copy of the voxel centroid cloud */
@@ -303,7 +303,7 @@ namespace pcl
       pcl::PointCloud<pcl::PointXYZRGBA>::Ptr
       getColoredVoxelCloud () const
       {
-        return boost::shared_ptr<pcl::PointCloud<PointXYZRGBA> > (new pcl::PointCloud<PointXYZRGBA>);
+        return std::shared_ptr<pcl::PointCloud<PointXYZRGBA> > (new pcl::PointCloud<PointXYZRGBA>);
       }
 
       /** \brief Returns labeled voxelized cloud

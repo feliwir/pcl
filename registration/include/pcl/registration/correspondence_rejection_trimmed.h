@@ -67,8 +67,8 @@ namespace pcl
       using CorrespondenceRejector::getClassName;
 
       public:
-        typedef boost::shared_ptr<CorrespondenceRejectorTrimmed> Ptr;
-        typedef boost::shared_ptr<const CorrespondenceRejectorTrimmed> ConstPtr;
+        typedef std::shared_ptr<CorrespondenceRejectorTrimmed> Ptr;
+        typedef std::shared_ptr<const CorrespondenceRejectorTrimmed> ConstPtr;
 
         /** \brief Empty constructor. */
         CorrespondenceRejectorTrimmed () : 

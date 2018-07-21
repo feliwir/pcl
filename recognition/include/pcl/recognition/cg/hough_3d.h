@@ -469,7 +469,7 @@ namespace pcl
       float local_rf_search_radius_;
 
       /** \brief The Hough space. */
-      boost::shared_ptr<pcl::recognition::HoughSpace3D> hough_space_;
+      std::shared_ptr<pcl::recognition::HoughSpace3D> hough_space_;
 
       /** \brief Transformations found by clusterCorrespondences method. */
       std::vector<Eigen::Matrix4f, Eigen::aligned_allocator<Eigen::Matrix4f> > found_transformations_;
@@ -507,7 +507,7 @@ namespace pcl
         * \param[out] rf the resulting reference frame.
         */
       template<typename PointType, typename PointRfType> void
-      computeRf (const boost::shared_ptr<const pcl::PointCloud<PointType> > &input, pcl::PointCloud<PointRfType> &rf);
+      computeRf (const std::shared_ptr<const pcl::PointCloud<PointType> > &input, pcl::PointCloud<PointRfType> &rf);
   };
 }
 

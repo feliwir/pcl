@@ -41,7 +41,7 @@
 #include <pcl/point_types.h>
 #include <pcl/point_cloud.h>
 
-#include <boost/shared_ptr.hpp>
+#include <memory>
 #include <string>
 #include <vector>
 
@@ -58,7 +58,7 @@ namespace pcl
       class FaceDetector
       {
         public:
-          typedef boost::shared_ptr<FaceDetector> Ptr;
+          typedef std::shared_ptr<FaceDetector> Ptr;
           //typedef DeviceArray2D<unsigned char> Labels;
           //typedef DeviceArray2D<unsigned short> Depth;
           //typedef DeviceArray2D<pcl::RGB> Image;

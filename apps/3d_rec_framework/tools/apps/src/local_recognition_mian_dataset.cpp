@@ -105,7 +105,7 @@ template<template<class > class DistT, typename PointT, typename FeatureT>
 
     std::sort (files.begin (), files.end (), sortFiles);
 
-    typename boost::shared_ptr<pcl::rec_3d_framework::Source<PointT> > model_source_ = local.getDataSource ();
+    typename std::shared_ptr<pcl::rec_3d_framework::Source<PointT> > model_source_ = local.getDataSource ();
     typedef typename pcl::PointCloud<PointT>::ConstPtr ConstPointInTPtr;
     typedef pcl::rec_3d_framework::Model<PointT> ModelT;
 
@@ -139,8 +139,8 @@ template<template<class > class DistT, typename PointT, typename FeatureT>
         vis.addText (scene_name.str (), 1, 30, 24, 1, 0, 0, "scene_text");
 
         //visualize results
-        boost::shared_ptr < std::vector<ModelT> > models = local.getModels ();
-        boost::shared_ptr < std::vector<Eigen::Matrix4f, Eigen::aligned_allocator<Eigen::Matrix4f> > > transforms = local.getTransforms ();
+        std::shared_ptr < std::vector<ModelT> > models = local.getModels ();
+        std::shared_ptr < std::vector<Eigen::Matrix4f, Eigen::aligned_allocator<Eigen::Matrix4f> > > transforms = local.getTransforms ();
 
         for (size_t j = 0; j < models->size (); j++)
         {
@@ -222,8 +222,8 @@ template<template<class > class DistT, typename PointT, typename FeatureT>
         vis.addText (scene_name.str (), 1, 30, 24, 1, 0, 0, "scene_text");
 
         //visualize results
-        boost::shared_ptr < std::vector<ModelT> > models = local.getModels ();
-        boost::shared_ptr < std::vector<Eigen::Matrix4f, Eigen::aligned_allocator<Eigen::Matrix4f> > > transforms = local.getTransforms ();
+        std::shared_ptr < std::vector<ModelT> > models = local.getModels ();
+        std::shared_ptr < std::vector<Eigen::Matrix4f, Eigen::aligned_allocator<Eigen::Matrix4f> > > transforms = local.getTransforms ();
 
         for (size_t j = 0; j < models->size (); j++)
         {
@@ -374,7 +374,7 @@ main (int argc, char ** argv)
   }
 
   //configure mesh source
-  boost::shared_ptr<pcl::rec_3d_framework::MeshSource<pcl::PointXYZ> > mesh_source (new pcl::rec_3d_framework::MeshSource<pcl::PointXYZ>);
+  std::shared_ptr<pcl::rec_3d_framework::MeshSource<pcl::PointXYZ> > mesh_source (new pcl::rec_3d_framework::MeshSource<pcl::PointXYZ>);
   mesh_source->setPath (path);
   mesh_source->setResolution (250);
   mesh_source->setTesselationLevel (1);
@@ -383,11 +383,11 @@ main (int argc, char ** argv)
   mesh_source->setModelScale (0.001f);
   mesh_source->generate (training_dir);
 
-  boost::shared_ptr<pcl::rec_3d_framework::Source<pcl::PointXYZ> > cast_source;
-  cast_source = boost::static_pointer_cast<pcl::rec_3d_framework::MeshSource<pcl::PointXYZ> > (mesh_source);
+  std::shared_ptr<pcl::rec_3d_framework::Source<pcl::PointXYZ> > cast_source;
+  cast_source = std::static_pointer_cast<pcl::rec_3d_framework::MeshSource<pcl::PointXYZ> > (mesh_source);
 
   //configure normal estimator
-  boost::shared_ptr<pcl::rec_3d_framework::PreProcessorAndNormalEstimator<pcl::PointXYZ, pcl::Normal> > normal_estimator;
+  std::shared_ptr<pcl::rec_3d_framework::PreProcessorAndNormalEstimator<pcl::PointXYZ, pcl::Normal> > normal_estimator;
   normal_estimator.reset (new pcl::rec_3d_framework::PreProcessorAndNormalEstimator<pcl::PointXYZ, pcl::Normal>);
   normal_estimator->setCMR (false);
   normal_estimator->setDoVoxelGrid (true);
@@ -395,7 +395,7 @@ main (int argc, char ** argv)
   normal_estimator->setValuesForCMRFalse (0.003f, 0.012f);
 
   //configure keypoint extractor
-  boost::shared_ptr<pcl::rec_3d_framework::UniformSamplingExtractor<pcl::PointXYZ> >
+  std::shared_ptr<pcl::rec_3d_framework::UniformSamplingExtractor<pcl::PointXYZ> >
                                                                                      uniform_keypoint_extractor (
                                                                                                                  new pcl::rec_3d_framework::UniformSamplingExtractor<
                                                                                                                      pcl::PointXYZ>);
@@ -403,20 +403,20 @@ main (int argc, char ** argv)
   uniform_keypoint_extractor->setSamplingDensity (0.005f);
   uniform_keypoint_extractor->setFilterPlanar (true);
 
-  boost::shared_ptr<pcl::rec_3d_framework::KeypointExtractor<pcl::PointXYZ> > keypoint_extractor;
-  keypoint_extractor = boost::static_pointer_cast<pcl::rec_3d_framework::KeypointExtractor<pcl::PointXYZ> > (uniform_keypoint_extractor);
+  std::shared_ptr<pcl::rec_3d_framework::KeypointExtractor<pcl::PointXYZ> > keypoint_extractor;
+  keypoint_extractor = std::static_pointer_cast<pcl::rec_3d_framework::KeypointExtractor<pcl::PointXYZ> > (uniform_keypoint_extractor);
 
   //configure cg algorithm (geometric consistency grouping)
-  boost::shared_ptr<pcl::CorrespondenceGrouping<pcl::PointXYZ, pcl::PointXYZ> > cast_cg_alg;
-  boost::shared_ptr<pcl::GeometricConsistencyGrouping<pcl::PointXYZ, pcl::PointXYZ> > gcg_alg (
+  std::shared_ptr<pcl::CorrespondenceGrouping<pcl::PointXYZ, pcl::PointXYZ> > cast_cg_alg;
+  std::shared_ptr<pcl::GeometricConsistencyGrouping<pcl::PointXYZ, pcl::PointXYZ> > gcg_alg (
                                                                                                new pcl::GeometricConsistencyGrouping<pcl::PointXYZ,
                                                                                                    pcl::PointXYZ>);
   gcg_alg->setGCThreshold (CG_SIZE_);
   gcg_alg->setGCSize (CG_THRESHOLD_);
-  cast_cg_alg = boost::static_pointer_cast<pcl::CorrespondenceGrouping<pcl::PointXYZ, pcl::PointXYZ> > (gcg_alg);
+  cast_cg_alg = std::static_pointer_cast<pcl::CorrespondenceGrouping<pcl::PointXYZ, pcl::PointXYZ> > (gcg_alg);
 
   //configure hypothesis verificator
-  boost::shared_ptr<pcl::PapazovHV<pcl::PointXYZ, pcl::PointXYZ> > papazov (new pcl::PapazovHV<pcl::PointXYZ, pcl::PointXYZ>);
+  std::shared_ptr<pcl::PapazovHV<pcl::PointXYZ, pcl::PointXYZ> > papazov (new pcl::PapazovHV<pcl::PointXYZ, pcl::PointXYZ>);
   papazov->setResolution (0.005f);
   papazov->setInlierThreshold (0.005f);
   papazov->setSupportThreshold (0.08f);
@@ -424,7 +424,7 @@ main (int argc, char ** argv)
   papazov->setConflictThreshold (0.02f);
   papazov->setOcclusionThreshold (0.01f);
 
-  boost::shared_ptr<pcl::GlobalHypothesesVerification<pcl::PointXYZ, pcl::PointXYZ> > go (
+  std::shared_ptr<pcl::GlobalHypothesesVerification<pcl::PointXYZ, pcl::PointXYZ> > go (
                                                                                           new pcl::GlobalHypothesesVerification<pcl::PointXYZ,
                                                                                               pcl::PointXYZ>);
   go->setResolution (0.005f);
@@ -436,34 +436,34 @@ main (int argc, char ** argv)
   go->setDetectClutter (detect_clutter);
   go->setOcclusionThreshold (0.01f);
 
-  boost::shared_ptr<pcl::GreedyVerification<pcl::PointXYZ, pcl::PointXYZ> > greedy (new pcl::GreedyVerification<pcl::PointXYZ, pcl::PointXYZ> (3.f));
+  std::shared_ptr<pcl::GreedyVerification<pcl::PointXYZ, pcl::PointXYZ> > greedy (new pcl::GreedyVerification<pcl::PointXYZ, pcl::PointXYZ> (3.f));
   greedy->setResolution (0.005f);
   greedy->setInlierThreshold (0.005f);
   greedy->setOcclusionThreshold (0.01f);
 
-  boost::shared_ptr<pcl::HypothesisVerification<pcl::PointXYZ, pcl::PointXYZ> > cast_hv_alg;
+  std::shared_ptr<pcl::HypothesisVerification<pcl::PointXYZ, pcl::PointXYZ> > cast_hv_alg;
 
   switch (hv_method)
   {
     case 1:
-      cast_hv_alg = boost::static_pointer_cast<pcl::HypothesisVerification<pcl::PointXYZ, pcl::PointXYZ> > (greedy);
+      cast_hv_alg = std::static_pointer_cast<pcl::HypothesisVerification<pcl::PointXYZ, pcl::PointXYZ> > (greedy);
       break;
     case 2:
-      cast_hv_alg = boost::static_pointer_cast<pcl::HypothesisVerification<pcl::PointXYZ, pcl::PointXYZ> > (papazov);
+      cast_hv_alg = std::static_pointer_cast<pcl::HypothesisVerification<pcl::PointXYZ, pcl::PointXYZ> > (papazov);
       break;
     default:
-      cast_hv_alg = boost::static_pointer_cast<pcl::HypothesisVerification<pcl::PointXYZ, pcl::PointXYZ> > (go);
+      cast_hv_alg = std::static_pointer_cast<pcl::HypothesisVerification<pcl::PointXYZ, pcl::PointXYZ> > (go);
   }
 
   if (desc_name.compare ("shot") == 0)
   {
-    boost::shared_ptr<pcl::rec_3d_framework::SHOTLocalEstimation<pcl::PointXYZ, pcl::Histogram<352> > > estimator;
+    std::shared_ptr<pcl::rec_3d_framework::SHOTLocalEstimation<pcl::PointXYZ, pcl::Histogram<352> > > estimator;
     estimator.reset (new pcl::rec_3d_framework::SHOTLocalEstimation<pcl::PointXYZ, pcl::Histogram<352> >);
     estimator->setNormalEstimator (normal_estimator);
     estimator->addKeypointExtractor (keypoint_extractor);
     estimator->setSupportRadius (0.04f);
 
-    boost::shared_ptr<pcl::rec_3d_framework::LocalEstimator<pcl::PointXYZ, pcl::Histogram<352> > > cast_estimator;
+    std::shared_ptr<pcl::rec_3d_framework::LocalEstimator<pcl::PointXYZ, pcl::Histogram<352> > > cast_estimator;
     cast_estimator = boost::dynamic_pointer_cast<pcl::rec_3d_framework::LocalEstimator<pcl::PointXYZ, pcl::Histogram<352> > > (estimator);
 
     pcl::rec_3d_framework::LocalRecognitionPipeline<flann::L1, pcl::PointXYZ, pcl::Histogram<352> > local;
@@ -488,14 +488,14 @@ main (int argc, char ** argv)
   if (desc_name.compare ("shot_omp") == 0)
   {
     desc_name = std::string ("shot");
-    boost::shared_ptr<pcl::rec_3d_framework::SHOTLocalEstimationOMP<pcl::PointXYZ, pcl::Histogram<352> > > estimator;
+    std::shared_ptr<pcl::rec_3d_framework::SHOTLocalEstimationOMP<pcl::PointXYZ, pcl::Histogram<352> > > estimator;
     estimator.reset (new pcl::rec_3d_framework::SHOTLocalEstimationOMP<pcl::PointXYZ, pcl::Histogram<352> >);
     estimator->setNormalEstimator (normal_estimator);
     estimator->addKeypointExtractor (keypoint_extractor);
     //estimator->setSupportRadius (0.04f);
     estimator->setSupportRadius (desc_radius);
 
-    boost::shared_ptr<pcl::rec_3d_framework::LocalEstimator<pcl::PointXYZ, pcl::Histogram<352> > > cast_estimator;
+    std::shared_ptr<pcl::rec_3d_framework::LocalEstimator<pcl::PointXYZ, pcl::Histogram<352> > > cast_estimator;
     cast_estimator = boost::dynamic_pointer_cast<pcl::rec_3d_framework::LocalEstimator<pcl::PointXYZ, pcl::Histogram<352> > > (estimator);
 
     pcl::rec_3d_framework::LocalRecognitionPipeline<flann::L1, pcl::PointXYZ, pcl::Histogram<352> > local;
@@ -521,13 +521,13 @@ main (int argc, char ** argv)
 
   if (desc_name.compare ("fpfh") == 0)
   {
-    boost::shared_ptr<pcl::rec_3d_framework::FPFHLocalEstimation<pcl::PointXYZ, pcl::FPFHSignature33> > estimator;
+    std::shared_ptr<pcl::rec_3d_framework::FPFHLocalEstimation<pcl::PointXYZ, pcl::FPFHSignature33> > estimator;
     estimator.reset (new pcl::rec_3d_framework::FPFHLocalEstimation<pcl::PointXYZ, pcl::FPFHSignature33>);
     estimator->setNormalEstimator (normal_estimator);
     estimator->addKeypointExtractor (keypoint_extractor);
     estimator->setSupportRadius (0.04f);
 
-    boost::shared_ptr<pcl::rec_3d_framework::LocalEstimator<pcl::PointXYZ, pcl::FPFHSignature33> > cast_estimator;
+    std::shared_ptr<pcl::rec_3d_framework::LocalEstimator<pcl::PointXYZ, pcl::FPFHSignature33> > cast_estimator;
     cast_estimator = boost::dynamic_pointer_cast<pcl::rec_3d_framework::LocalEstimator<pcl::PointXYZ, pcl::FPFHSignature33> > (estimator);
 
     pcl::rec_3d_framework::LocalRecognitionPipeline<flann::L1, pcl::PointXYZ, pcl::FPFHSignature33> local;

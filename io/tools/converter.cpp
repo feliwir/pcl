@@ -51,7 +51,7 @@
 #include <pcl/io/obj_io.h>
 #include <pcl/io/vtk_lib_io.h>
 
-#include <boost/make_shared.hpp>
+
 
 #define ASCII 0
 #define BINARY 1
@@ -169,7 +169,7 @@ saveMesh (pcl::PolygonMesh& input,
   {
     if (!input.polygons.empty ())
       PCL_WARN ("PCD file format does not support meshes! Only points be saved.\n");
-    pcl::PCLPointCloud2::Ptr cloud = boost::make_shared<pcl::PCLPointCloud2> (input.cloud);
+    pcl::PCLPointCloud2::Ptr cloud = std::make_shared<pcl::PCLPointCloud2> (input.cloud);
     if (!savePointCloud (cloud, output_file, output_type))
       return (false);
   }

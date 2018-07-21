@@ -65,8 +65,8 @@ namespace pcl
     {
       public:
 
-        typedef boost::shared_ptr<WorldModel<PointT> > Ptr;
-        typedef boost::shared_ptr<const WorldModel<PointT> > ConstPtr;
+        typedef std::shared_ptr<WorldModel<PointT> > Ptr;
+        typedef std::shared_ptr<const WorldModel<PointT> > ConstPtr;
 
         typedef pcl::PointCloud<PointT> PointCloud;
         typedef typename PointCloud::Ptr PointCloudPtr;

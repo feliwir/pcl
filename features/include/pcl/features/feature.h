@@ -44,9 +44,8 @@
 #if defined __GNUC__
 #  pragma GCC system_header 
 #endif
-
-#include <boost/function.hpp>
-#include <boost/bind.hpp>
+ 
+#include <functional>
 // PCL includes
 #include <pcl/pcl_base.h>
 #include <pcl/search/search.h>
@@ -110,8 +109,8 @@ namespace pcl
 
       typedef PCLBase<PointInT> BaseClass;
 
-      typedef boost::shared_ptr< Feature<PointInT, PointOutT> > Ptr;
-      typedef boost::shared_ptr< const Feature<PointInT, PointOutT> > ConstPtr;
+      typedef std::shared_ptr< Feature<PointInT, PointOutT> > Ptr;
+      typedef std::shared_ptr< const Feature<PointInT, PointOutT> > ConstPtr;
 
       typedef typename pcl::search::Search<PointInT> KdTree;
       typedef typename pcl::search::Search<PointInT>::Ptr KdTreePtr;
@@ -122,8 +121,8 @@ namespace pcl
 
       typedef pcl::PointCloud<PointOutT> PointCloudOut;
 
-      typedef boost::function<int (size_t, double, std::vector<int> &, std::vector<float> &)> SearchMethod;
-      typedef boost::function<int (const PointCloudIn &cloud, size_t index, double, std::vector<int> &, std::vector<float> &)> SearchMethodSurface;
+      typedef std::function<int (size_t, double, std::vector<int> &, std::vector<float> &)> SearchMethod;
+      typedef std::function<int (const PointCloudIn &cloud, size_t index, double, std::vector<int> &, std::vector<float> &)> SearchMethodSurface;
 
     public:
       /** \brief Empty constructor. */
@@ -319,8 +318,8 @@ namespace pcl
       typedef typename PointCloudN::Ptr PointCloudNPtr;
       typedef typename PointCloudN::ConstPtr PointCloudNConstPtr;
 
-      typedef boost::shared_ptr< FeatureFromNormals<PointInT, PointNT, PointOutT> > Ptr;
-      typedef boost::shared_ptr< const FeatureFromNormals<PointInT, PointNT, PointOutT> > ConstPtr;
+      typedef std::shared_ptr< FeatureFromNormals<PointInT, PointNT, PointOutT> > Ptr;
+      typedef std::shared_ptr< const FeatureFromNormals<PointInT, PointNT, PointOutT> > ConstPtr;
 
       // Members derived from the base class
       using Feature<PointInT, PointOutT>::input_;
@@ -378,8 +377,8 @@ namespace pcl
     typedef typename Feature<PointInT, PointOutT>::PointCloudOut PointCloudOut;
 
     public:
-      typedef boost::shared_ptr< FeatureFromLabels<PointInT, PointLT, PointOutT> > Ptr;
-      typedef boost::shared_ptr< const FeatureFromLabels<PointInT, PointLT, PointOutT> > ConstPtr;
+      typedef std::shared_ptr< FeatureFromLabels<PointInT, PointLT, PointOutT> > Ptr;
+      typedef std::shared_ptr< const FeatureFromLabels<PointInT, PointLT, PointOutT> > ConstPtr;
 
       // Members derived from the base class
       using Feature<PointInT, PointOutT>::input_;

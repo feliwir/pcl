@@ -55,8 +55,8 @@ namespace pcl
       typedef typename pcl::PointCloud<RGB>::ConstPtr RgbCloudConstPtr;
 
     public:
-      typedef boost::shared_ptr<PointCloudColorHandlerRGBHack<PointT> > Ptr;
-      typedef boost::shared_ptr<const PointCloudColorHandlerRGBHack<PointT> > ConstPtr;
+      typedef std::shared_ptr<PointCloudColorHandlerRGBHack<PointT> > Ptr;
+      typedef std::shared_ptr<const PointCloudColorHandlerRGBHack<PointT> > ConstPtr;
       
       PointCloudColorHandlerRGBHack (const PointCloudConstPtr& cloud, const RgbCloudConstPtr& colors) : 
           PointCloudColorHandler<PointT> (cloud), rgb_ (colors)

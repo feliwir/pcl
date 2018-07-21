@@ -5,7 +5,7 @@
 
 namespace openni_wrapper
 {
-ImageRGB24::ImageRGB24 (boost::shared_ptr<xn::ImageMetaData> image_meta_data) throw ()
+ImageRGB24::ImageRGB24 (std::shared_ptr<xn::ImageMetaData> image_meta_data) throw ()
 : Image (image_meta_data)
 {
 }

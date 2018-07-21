@@ -47,7 +47,7 @@ pcl::registration::CorrespondenceRejectorFeatures::setSourceFeature (
 {
   if (features_map_.count (key) == 0)
     features_map_[key].reset (new FeatureContainer<FeatureT>);
-  boost::static_pointer_cast<FeatureContainer<FeatureT> > (features_map_[key])->setSourceFeature (source_feature);
+  std::static_pointer_cast<FeatureContainer<FeatureT> > (features_map_[key])->setSourceFeature (source_feature);
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////
@@ -55,9 +55,9 @@ template <typename FeatureT> inline typename pcl::PointCloud<FeatureT>::ConstPtr
 pcl::registration::CorrespondenceRejectorFeatures::getSourceFeature (const std::string &key)
 {
   if (features_map_.count (key) == 0)
-    return (boost::shared_ptr<pcl::PointCloud<const FeatureT> > ());
+    return (std::shared_ptr<pcl::PointCloud<const FeatureT> > ());
   else
-    return (boost::static_pointer_cast<FeatureContainer<FeatureT> > (features_map_[key])->getSourceFeature ());
+    return (std::static_pointer_cast<FeatureContainer<FeatureT> > (features_map_[key])->getSourceFeature ());
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////
@@ -67,7 +67,7 @@ pcl::registration::CorrespondenceRejectorFeatures::setTargetFeature (
 {
   if (features_map_.count (key) == 0)
     features_map_[key].reset (new FeatureContainer<FeatureT>);
-  boost::static_pointer_cast<FeatureContainer<FeatureT> > (features_map_[key])->setTargetFeature (target_feature);
+  std::static_pointer_cast<FeatureContainer<FeatureT> > (features_map_[key])->setTargetFeature (target_feature);
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////
@@ -75,9 +75,9 @@ template <typename FeatureT> inline typename pcl::PointCloud<FeatureT>::ConstPtr
 pcl::registration::CorrespondenceRejectorFeatures::getTargetFeature (const std::string &key)
 {
   if (features_map_.count (key) == 0)
-    return (boost::shared_ptr<const pcl::PointCloud<FeatureT> > ());
+    return (std::shared_ptr<const pcl::PointCloud<FeatureT> > ());
   else
-    return (boost::static_pointer_cast<FeatureContainer<FeatureT> > (features_map_[key])->getTargetFeature ());
+    return (std::static_pointer_cast<FeatureContainer<FeatureT> > (features_map_[key])->getTargetFeature ());
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////
@@ -87,7 +87,7 @@ pcl::registration::CorrespondenceRejectorFeatures::setDistanceThreshold (
 {
   if (features_map_.count (key) == 0)
     features_map_[key].reset (new FeatureContainer<FeatureT>);
-  boost::static_pointer_cast<FeatureContainer<FeatureT> > (features_map_[key])->setDistanceThreshold (thresh);
+  std::static_pointer_cast<FeatureContainer<FeatureT> > (features_map_[key])->setDistanceThreshold (thresh);
 }
 
 
@@ -100,7 +100,7 @@ pcl::registration::CorrespondenceRejectorFeatures::setFeatureRepresentation (
 {
   if (features_map_.count (key) == 0)
     features_map_[key].reset (new FeatureContainer<FeatureT>);
-  boost::static_pointer_cast<FeatureContainer<FeatureT> > (features_map_[key])->setFeatureRepresentation (fr);
+  std::static_pointer_cast<FeatureContainer<FeatureT> > (features_map_[key])->setFeatureRepresentation (fr);
 }
 
 

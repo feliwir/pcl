@@ -44,11 +44,10 @@
 #  pragma GCC system_header 
 #endif
 
-#include <boost/bind.hpp>
-#include <boost/function.hpp>
+#include <functional>
 #include <boost/random.hpp>
 #include <boost/unordered_map.hpp>
 #include <boost/dynamic_bitset/dynamic_bitset.hpp>
-#include <boost/shared_ptr.hpp>
+#include <memory>
 
 #endif    // PCL_SURFACE_BOOST_H_

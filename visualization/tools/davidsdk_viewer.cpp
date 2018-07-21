@@ -47,7 +47,7 @@ typedef pcl::visualization::CloudViewer CloudViewer;
 typedef pcl::PointCloud<pcl::PointXYZ> PointCloudXYZ;
 
 /** @brief CloudViewer pointer */
-boost::shared_ptr<CloudViewer> viewer_ptr;
+std::shared_ptr<CloudViewer> viewer_ptr;
 
 /** @brief PCL DavidSDK object pointer */
 pcl::DavidSDKGrabber::Ptr davidsdk_ptr;
@@ -91,14 +91,14 @@ main (int argc,
   //davidsdk_ptr->setFileFormatToPLY();
   std::cout << "Using " << davidsdk_ptr->getFileFormat () << " file format" << std::endl;
 
-  boost::function<void
-  (const PointCloudXYZ::Ptr&)> f = boost::bind (&grabberCallback, _1);
+  std::function<void
+  (const PointCloudXYZ::Ptr&)> f = std::bind (&grabberCallback, std::placeholders::_1);
   davidsdk_ptr->registerCallback (f);
   davidsdk_ptr->start ();
 
   while (!viewer_ptr->wasStopped ())
   {
-    boost::this_thread::sleep (boost::posix_time::seconds (20));
+    std::this_thread::sleep_for (std::chrono::seconds (20));
     std::cout << "FPS: " << davidsdk_ptr->getFramesPerSecond () << std::endl;
   }
 

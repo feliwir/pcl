@@ -166,7 +166,7 @@ namespace pcl
       }
     
       // Inherited from FileGrabber
-      const boost::shared_ptr< const pcl::PointCloud<PointT> >
+      const std::shared_ptr< const pcl::PointCloud<PointT> >
       operator[] (size_t idx) const;
 
       // Inherited from FileGrabber
@@ -177,13 +177,13 @@ namespace pcl
       virtual void 
       publish (const pcl::PCLPointCloud2& blob, const Eigen::Vector4f& origin, const Eigen::Quaternionf& orientation, const std::string& file_name) const;
       
-      boost::signals2::signal<void (const boost::shared_ptr<const pcl::PointCloud<PointT> >&)>* signal_;
+      boost::signals2::signal<void (const std::shared_ptr<const pcl::PointCloud<PointT> >&)>* signal_;
       boost::signals2::signal<void (const std::string&)>* file_name_signal_;
 
 #ifdef HAVE_OPENNI
-      boost::signals2::signal<void (const boost::shared_ptr<openni_wrapper::DepthImage>&)>*     depth_image_signal_;
-      boost::signals2::signal<void (const boost::shared_ptr<openni_wrapper::Image>&)>*     image_signal_;
-      boost::signals2::signal<void (const boost::shared_ptr<openni_wrapper::Image>&, const boost::shared_ptr<openni_wrapper::DepthImage>&, float constant)>*     image_depth_image_signal_;
+      boost::signals2::signal<void (const std::shared_ptr<openni_wrapper::DepthImage>&)>*     depth_image_signal_;
+      boost::signals2::signal<void (const std::shared_ptr<openni_wrapper::Image>&)>*     image_signal_;
+      boost::signals2::signal<void (const std::shared_ptr<openni_wrapper::Image>&, const std::shared_ptr<openni_wrapper::DepthImage>&, float constant)>*     image_depth_image_signal_;
 #endif
   };
 
@@ -192,12 +192,12 @@ namespace pcl
   PCDGrabber<PointT>::PCDGrabber (const std::string& pcd_path, float frames_per_second, bool repeat)
   : PCDGrabberBase (pcd_path, frames_per_second, repeat)
   {
-    signal_ = createSignal<void (const boost::shared_ptr<const pcl::PointCloud<PointT> >&)>();
+    signal_ = createSignal<void (const std::shared_ptr<const pcl::PointCloud<PointT> >&)>();
     file_name_signal_ = createSignal<void (const std::string&)>();
 #ifdef HAVE_OPENNI
-    depth_image_signal_ = createSignal <void (const boost::shared_ptr<openni_wrapper::DepthImage>&)> ();
-    image_signal_ = createSignal <void (const boost::shared_ptr<openni_wrapper::Image>&)> ();
-    image_depth_image_signal_ = createSignal <void (const boost::shared_ptr<openni_wrapper::Image>&, const boost::shared_ptr<openni_wrapper::DepthImage>&, float constant)> ();
+    depth_image_signal_ = createSignal <void (const std::shared_ptr<openni_wrapper::DepthImage>&)> ();
+    image_signal_ = createSignal <void (const std::shared_ptr<openni_wrapper::Image>&)> ();
+    image_depth_image_signal_ = createSignal <void (const std::shared_ptr<openni_wrapper::Image>&, const std::shared_ptr<openni_wrapper::DepthImage>&, float constant)> ();
 #endif
   }
 
@@ -206,17 +206,17 @@ namespace pcl
   PCDGrabber<PointT>::PCDGrabber (const std::vector<std::string>& pcd_files, float frames_per_second, bool repeat)
     : PCDGrabberBase (pcd_files, frames_per_second, repeat), signal_ ()
   {
-    signal_ = createSignal<void (const boost::shared_ptr<const pcl::PointCloud<PointT> >&)>();
+    signal_ = createSignal<void (const std::shared_ptr<const pcl::PointCloud<PointT> >&)>();
     file_name_signal_ = createSignal<void (const std::string&)>();
 #ifdef HAVE_OPENNI
-    depth_image_signal_ = createSignal <void (const boost::shared_ptr<openni_wrapper::DepthImage>&)> ();
-    image_signal_ = createSignal <void (const boost::shared_ptr<openni_wrapper::Image>&)> ();
-    image_depth_image_signal_ = createSignal <void (const boost::shared_ptr<openni_wrapper::Image>&, const boost::shared_ptr<openni_wrapper::DepthImage>&, float constant)> ();
+    depth_image_signal_ = createSignal <void (const std::shared_ptr<openni_wrapper::DepthImage>&)> ();
+    image_signal_ = createSignal <void (const std::shared_ptr<openni_wrapper::Image>&)> ();
+    image_depth_image_signal_ = createSignal <void (const std::shared_ptr<openni_wrapper::Image>&, const std::shared_ptr<openni_wrapper::DepthImage>&, float constant)> ();
 #endif
   }
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  template<typename PointT> const boost::shared_ptr< const pcl::PointCloud<PointT> >
+  template<typename PointT> const std::shared_ptr< const pcl::PointCloud<PointT> >
   PCDGrabber<PointT>::operator[] (size_t idx) const
   {
     pcl::PCLPointCloud2 blob;
@@ -255,7 +255,7 @@ namespace pcl
     if (!cloud->isOrganized ())
       return;
 
-    boost::shared_ptr<xn::DepthMetaData> depth_meta_data (new xn::DepthMetaData);
+    std::shared_ptr<xn::DepthMetaData> depth_meta_data (new xn::DepthMetaData);
     depth_meta_data->AllocateData (cloud->width, cloud->height);
     XnDepthPixel* depth_map = depth_meta_data->WritableData ();
     uint32_t k = 0;
@@ -266,7 +266,7 @@ namespace pcl
         ++k;
       }
 
-    boost::shared_ptr<openni_wrapper::DepthImage> depth_image (new openni_wrapper::DepthImage (depth_meta_data, 0.075f, 525, 0, 0));
+    std::shared_ptr<openni_wrapper::DepthImage> depth_image (new openni_wrapper::DepthImage (depth_meta_data, 0.075f, 525, 0, 0));
     if (depth_image_signal_->num_slots() > 0)
       depth_image_signal_->operator()(depth_image);
 
@@ -279,7 +279,7 @@ namespace pcl
     {
       rgba_index = fields[rgba_index].offset;
 
-      boost::shared_ptr<xn::ImageMetaData> image_meta_data (new xn::ImageMetaData);
+      std::shared_ptr<xn::ImageMetaData> image_meta_data (new xn::ImageMetaData);
       image_meta_data->AllocateData (cloud->width, cloud->height, XN_PIXEL_FORMAT_RGB24);
       XnRGB24Pixel* image_map = image_meta_data->WritableRGB24Data ();
       k = 0;
@@ -297,7 +297,7 @@ namespace pcl
         }
       }
 
-      boost::shared_ptr<openni_wrapper::Image> image (new openni_wrapper::ImageRGB24 (image_meta_data));
+      std::shared_ptr<openni_wrapper::Image> image (new openni_wrapper::ImageRGB24 (image_meta_data));
       if (image_signal_->num_slots() > 0)
         image_signal_->operator()(image);
       

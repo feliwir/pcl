@@ -62,8 +62,8 @@ namespace pcl
       class PCL_EXPORTS AbstractAgastDetector
       {
         public:
-          typedef boost::shared_ptr<AbstractAgastDetector> Ptr;
-          typedef boost::shared_ptr<const AbstractAgastDetector> ConstPtr;
+          typedef std::shared_ptr<AbstractAgastDetector> Ptr;
+          typedef std::shared_ptr<const AbstractAgastDetector> ConstPtr;
 
           /** \brief Constructor. 
             * \param[in] width the width of the image to process
@@ -264,8 +264,8 @@ namespace pcl
       class PCL_EXPORTS AgastDetector7_12s : public AbstractAgastDetector
       {
         public:
-          typedef boost::shared_ptr<AgastDetector7_12s> Ptr;
-          typedef boost::shared_ptr<const AgastDetector7_12s> ConstPtr;
+          typedef std::shared_ptr<AgastDetector7_12s> Ptr;
+          typedef std::shared_ptr<const AgastDetector7_12s> ConstPtr;
 
           /** \brief Constructor. 
             * \param[in] width the width of the image to process
@@ -346,8 +346,8 @@ namespace pcl
       class PCL_EXPORTS AgastDetector5_8 : public AbstractAgastDetector
       {
         public:
-          typedef boost::shared_ptr<AgastDetector5_8> Ptr;
-          typedef boost::shared_ptr<const AgastDetector5_8> ConstPtr;
+          typedef std::shared_ptr<AgastDetector5_8> Ptr;
+          typedef std::shared_ptr<const AgastDetector5_8> ConstPtr;
 
           /** \brief Constructor. 
             * \param[in] width the width of the image to process
@@ -424,8 +424,8 @@ namespace pcl
       class PCL_EXPORTS OastDetector9_16 : public AbstractAgastDetector
       {
         public:
-          typedef boost::shared_ptr<OastDetector9_16> Ptr;
-          typedef boost::shared_ptr<const OastDetector9_16> ConstPtr;
+          typedef std::shared_ptr<OastDetector9_16> Ptr;
+          typedef std::shared_ptr<const OastDetector9_16> ConstPtr;
 
           /** \brief Constructor. 
             * \param[in] width the width of the image to process

@@ -6,7 +6,7 @@
 #include <pcl/filters/approximate_voxel_grid.h>
 
 #include <pcl/visualization/pcl_visualizer.h>
-#include <boost/thread/thread.hpp>
+#include <thread>
 
 int
 main (int argc, char** argv)
@@ -76,7 +76,7 @@ main (int argc, char** argv)
   pcl::io::savePCDFileASCII ("room_scan2_transformed.pcd", *output_cloud);
 
   // Initializing point cloud visualizer
-  boost::shared_ptr<pcl::visualization::PCLVisualizer>
+  std::shared_ptr<pcl::visualization::PCLVisualizer>
   viewer_final (new pcl::visualization::PCLVisualizer ("3D Viewer"));
   viewer_final->setBackgroundColor (0, 0, 0);
 
@@ -102,7 +102,7 @@ main (int argc, char** argv)
   while (!viewer_final->wasStopped ())
   {
     viewer_final->spinOnce (100);
-    boost::this_thread::sleep (boost::posix_time::microseconds (100000));
+    std::this_thread::sleep_for (std::chrono::microseconds (100000));
   }
 
   return (0);

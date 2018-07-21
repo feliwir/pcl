@@ -38,7 +38,7 @@
 
 
 #include <boost/filesystem.hpp>
-#include <boost/thread/thread.hpp>
+#include <thread>
 
 #include <fstream>
 #include <iostream>

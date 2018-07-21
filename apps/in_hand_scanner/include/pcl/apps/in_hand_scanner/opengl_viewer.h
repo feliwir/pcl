@@ -339,8 +339,8 @@ namespace pcl
         typedef pcl::ihs::CloudIHSConstPtr CloudIHSConstPtr;
 
         typedef pcl::ihs::detail::FaceVertexMesh                      FaceVertexMesh;
-        typedef boost::shared_ptr <      FaceVertexMesh>              FaceVertexMeshPtr;
-        typedef boost::shared_ptr <const FaceVertexMesh>              FaceVertexMeshConstPtr;
+        typedef std::shared_ptr <      FaceVertexMesh>              FaceVertexMeshPtr;
+        typedef std::shared_ptr <const FaceVertexMesh>              FaceVertexMeshConstPtr;
         typedef boost::unordered_map <std::string, FaceVertexMeshPtr> FaceVertexMeshMap;
 
         /** \brief Check if the mesh with the given id is added.
@@ -392,10 +392,10 @@ namespace pcl
         ////////////////////////////////////////////////////////////////////////
 
         /** \brief Synchronization. */
-        boost::mutex mutex_vis_;
+        std::mutex mutex_vis_;
 
         /** \brief Visualization timer. */
-        boost::shared_ptr <QTimer> timer_vis_;
+        std::shared_ptr <QTimer> timer_vis_;
 
         /** \brief Colormap. */
         Colormap colormap_;

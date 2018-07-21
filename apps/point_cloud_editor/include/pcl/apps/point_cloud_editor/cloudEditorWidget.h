@@ -42,7 +42,7 @@
 #define CLOUD_EDITOR_WIDGET_H_
 
 #include <QGLWidget>
-#include <boost/function.hpp>
+#include 
 #include <pcl/apps/point_cloud_editor/localTypes.h>
 #include <pcl/apps/point_cloud_editor/common.h>
 #include <pcl/apps/point_cloud_editor/commandQueue.h>
@@ -252,7 +252,7 @@ class CloudEditorWidget : public QGLWidget
         return lhs.compare(rhs) < 0;
       }
     };
-    typedef boost::function<void (CloudEditorWidget*, const std::string&)>
+    typedef std::function<void (CloudEditorWidget*, const std::string&)>
       FileLoadFunc;
     typedef std::map<std::string, FileLoadFunc, ExtCompare> FileLoadMap;
     /// a map of file type extensions to loader functions.
@@ -269,7 +269,7 @@ class CloudEditorWidget : public QGLWidget
 
     /// The transformation tool being used. Either a cloud transform tool or
     /// a selection transform tool is activated at a time.
-    boost::shared_ptr<ToolInterface> tool_ptr_;
+    std::shared_ptr<ToolInterface> tool_ptr_;
 
     /// a pointer to the selection object
     SelectionPtr selection_ptr_;
@@ -302,7 +302,7 @@ class CloudEditorWidget : public QGLWidget
     /// A flag indicates whether the cloud is initially colored or not.
     bool is_colored_;
 
-    typedef boost::function<void (CloudEditorWidget*)> KeyMapFunc;
+    typedef std::function<void (CloudEditorWidget*)> KeyMapFunc;
     /// map between pressed key and the corresponding functor
     std::map<int, KeyMapFunc> key_map_;
 

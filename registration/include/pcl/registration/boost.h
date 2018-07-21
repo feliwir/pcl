@@ -50,9 +50,7 @@
 #include <boost/property_map/property_map.hpp>
 
 #include <boost/unordered_map.hpp>
-#include <boost/noncopyable.hpp>
-#include <boost/make_shared.hpp>
-#include <boost/function.hpp>
-#include <boost/bind.hpp>
+#include <boost/noncopyable.hpp> 
+#include <functional>
 
 #endif    // PCL_REGISTRATION_BOOST_H_

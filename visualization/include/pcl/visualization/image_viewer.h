@@ -118,7 +118,7 @@ namespace pcl
     class PCL_EXPORTS ImageViewer
     {
       public:
-        typedef boost::shared_ptr<ImageViewer> Ptr;
+        typedef std::shared_ptr<ImageViewer> Ptr;
 
         /** \brief Constructor.
           * \param[in] window_title the title of the window
@@ -481,7 +481,7 @@ namespace pcl
         registerKeyboardCallback (void (*callback) (const pcl::visualization::KeyboardEvent&, void*), 
                                   void* cookie = NULL)
         {
-          return (registerKeyboardCallback (boost::bind (callback, _1, cookie)));
+          return (registerKeyboardCallback (std::bind (callback, std::placeholders::_1, cookie)));
         }
         
         /** \brief Register a callback function for keyboard events
@@ -494,17 +494,17 @@ namespace pcl
         registerKeyboardCallback (void (T::*callback) (const pcl::visualization::KeyboardEvent&, void*), 
                                   T& instance, void* cookie = NULL)
         {
-          return (registerKeyboardCallback (boost::bind (callback,  boost::ref (instance), _1, cookie)));
+          return (registerKeyboardCallback (std::bind (callback,  std::ref (instance), std::placeholders::_1, cookie)));
         }
         
-        /** \brief Register a callback boost::function for keyboard events
+        /** \brief Register a callback std::function for keyboard events
           * \param[in] cb the boost function that will be registered as a callback for a keyboard event
           * \return a connection object that allows to disconnect the callback function.
           */
         boost::signals2::connection 
-        registerKeyboardCallback (boost::function<void (const pcl::visualization::KeyboardEvent&)> cb);
+        registerKeyboardCallback (std::function<void (const pcl::visualization::KeyboardEvent&)> cb);
 
-        /** \brief Register a callback boost::function for mouse events
+        /** \brief Register a callback std::function for mouse events
           * \param[in] callback  the function that will be registered as a callback for a mouse event
           * \param[in] cookie    user data that is passed to the callback
           * \return a connection object that allows to disconnect the callback function.
@@ -513,7 +513,7 @@ namespace pcl
         registerMouseCallback (void (*callback) (const pcl::visualization::MouseEvent&, void*), 
                                void* cookie = NULL)
         {
-          return (registerMouseCallback (boost::bind (callback, _1, cookie)));
+          return (registerMouseCallback (std::bind (callback, std::placeholders::_1, cookie)));
         }
         
         /** \brief Register a callback function for mouse events
@@ -526,7 +526,7 @@ namespace pcl
         registerMouseCallback (void (T::*callback) (const pcl::visualization::MouseEvent&, void*), 
                                T& instance, void* cookie = NULL)
         {
-          return (registerMouseCallback (boost::bind (callback, boost::ref (instance), _1, cookie)));
+          return (registerMouseCallback (std::bind (callback, std::ref (instance), std::placeholders::_1, cookie)));
         }
 
         /** \brief Register a callback function for mouse events
@@ -534,7 +534,7 @@ namespace pcl
           * \return a connection object that allows to disconnect the callback function.
           */        
         boost::signals2::connection 
-        registerMouseCallback (boost::function<void (const pcl::visualization::MouseEvent&)> cb);
+        registerMouseCallback (std::function<void (const pcl::visualization::MouseEvent&)> cb);
         
         /** \brief Set the position in screen coordinates.
           * \param[in] x where to move the window to (X)

@@ -80,8 +80,8 @@ namespace pcl
 
       // public typedefs
       typedef pcl::PointCloud<PointT> PointCloud;
-      typedef boost::shared_ptr<PointCloud> PointCloudPtr;
-      typedef boost::shared_ptr<const PointCloud> PointCloudConstPtr;
+      typedef std::shared_ptr<PointCloud> PointCloudPtr;
+      typedef std::shared_ptr<const PointCloud> PointCloudConstPtr;
 
 
       /** \brief Provide a pointer to the input data set.

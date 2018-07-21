@@ -80,8 +80,8 @@ namespace pcl
     typedef typename SampleConsensusModel<PointT>::Ptr SampleConsensusModelPtr;
     public:
 
-      typedef boost::shared_ptr< ProjectInliers<PointT> > Ptr;
-      typedef boost::shared_ptr< const ProjectInliers<PointT> > ConstPtr;
+      typedef std::shared_ptr< ProjectInliers<PointT> > Ptr;
+      typedef std::shared_ptr< const ProjectInliers<PointT> > ConstPtr;
 
 
       /** \brief Empty constructor. */

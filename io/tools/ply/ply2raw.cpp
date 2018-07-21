@@ -105,15 +105,15 @@ class ply_to_raw_converter
     void
     error_callback (const std::string& filename, std::size_t line_number, const std::string& message);
 
-    boost::tuple<boost::function<void ()>, boost::function<void ()> > 
+    boost::tuple<std::function<void ()>, std::function<void ()> > 
     element_definition_callback (const std::string& element_name, std::size_t count);
 
-    template <typename ScalarType> boost::function<void (ScalarType)> 
+    template <typename ScalarType> std::function<void (ScalarType)> 
     scalar_property_definition_callback (const std::string& element_name, const std::string& property_name);
 
-    template <typename SizeType, typename ScalarType>  boost::tuple<boost::function<void (SizeType)>, 
-                                                                       boost::function<void (ScalarType)>, 
-                                                                       boost::function<void ()> > 
+    template <typename SizeType, typename ScalarType>  boost::tuple<std::function<void (SizeType)>, 
+                                                                       std::function<void (ScalarType)>, 
+                                                                       std::function<void ()> > 
     list_property_definition_callback (const std::string& element_name, const std::string& property_name);
 
     void
@@ -170,38 +170,38 @@ ply_to_raw_converter::error_callback (const std::string& filename, std::size_t l
   std::cerr << filename << ":" << line_number << ": " << "error: " << message << std::endl;
 }
 
-boost::tuple<boost::function<void ()>, boost::function<void ()> > 
+boost::tuple<std::function<void ()>, std::function<void ()> > 
 ply_to_raw_converter::element_definition_callback (const std::string& element_name, std::size_t)
 {
   if (element_name == "vertex") {
-    return boost::tuple<boost::function<void ()>, boost::function<void ()> > (
-      boost::bind (&ply_to_raw_converter::vertex_begin, this),
-      boost::bind (&ply_to_raw_converter::vertex_end, this)
+    return boost::tuple<std::function<void ()>, std::function<void ()> > (
+      std::bind (&ply_to_raw_converter::vertex_begin, this),
+      std::bind (&ply_to_raw_converter::vertex_end, this)
     );
   }
   else if (element_name == "face") {
-    return boost::tuple<boost::function<void ()>, boost::function<void ()> > (
-      boost::bind (&ply_to_raw_converter::face_begin, this),
-      boost::bind (&ply_to_raw_converter::face_end, this)
+    return boost::tuple<std::function<void ()>, std::function<void ()> > (
+      std::bind (&ply_to_raw_converter::face_begin, this),
+      std::bind (&ply_to_raw_converter::face_end, this)
     );
   }
   else {
-    return boost::tuple<boost::function<void ()>, boost::function<void ()> > (0, 0);
+    return boost::tuple<std::function<void ()>, std::function<void ()> > (0, 0);
   }
 }
 
-template <> boost::function<void (pcl::io::ply::float32)> 
+template <> std::function<void (pcl::io::ply::float32)> 
 ply_to_raw_converter::scalar_property_definition_callback (const std::string& element_name, const std::string& property_name)
 {
   if (element_name == "vertex") {
     if (property_name == "x") {
-      return boost::bind (&ply_to_raw_converter::vertex_x, this, _1);
+      return std::bind (&ply_to_raw_converter::vertex_x, this, std::placeholders::_1);
     }
     else if (property_name == "y") {
-      return boost::bind (&ply_to_raw_converter::vertex_y, this, _1);
+      return std::bind (&ply_to_raw_converter::vertex_y, this, std::placeholders::_1);
     }
     else if (property_name == "z") {
-      return boost::bind (&ply_to_raw_converter::vertex_z, this, _1);
+      return std::bind (&ply_to_raw_converter::vertex_z, this, std::placeholders::_1);
     }
     else {
       return 0;
@@ -212,25 +212,25 @@ ply_to_raw_converter::scalar_property_definition_callback (const std::string& el
   }
 }
 
-template <> boost::tuple<boost::function<void (pcl::io::ply::uint8)>, 
-                            boost::function<void (pcl::io::ply::int32)>, 
-                            boost::function<void ()> > 
+template <> boost::tuple<std::function<void (pcl::io::ply::uint8)>, 
+                            std::function<void (pcl::io::ply::int32)>, 
+                            std::function<void ()> > 
 ply_to_raw_converter::list_property_definition_callback (const std::string& element_name, const std::string& property_name)
 {
   if ((element_name == "face") && (property_name == "vertex_indices")) 
   {
-    return boost::tuple<boost::function<void (pcl::io::ply::uint8)>, 
-      boost::function<void (pcl::io::ply::int32)>, 
-      boost::function<void ()> > (
-        boost::bind (&ply_to_raw_converter::face_vertex_indices_begin, this, _1),
-      boost::bind (&ply_to_raw_converter::face_vertex_indices_element, this, _1),
-      boost::bind (&ply_to_raw_converter::face_vertex_indices_end, this)
+    return boost::tuple<std::function<void (pcl::io::ply::uint8)>, 
+      std::function<void (pcl::io::ply::int32)>, 
+      std::function<void ()> > (
+        std::bind (&ply_to_raw_converter::face_vertex_indices_begin, this, std::placeholders::_1),
+      std::bind (&ply_to_raw_converter::face_vertex_indices_element, this, std::placeholders::_1),
+      std::bind (&ply_to_raw_converter::face_vertex_indices_end, this)
     );
   }
   else {
-    return boost::tuple<boost::function<void (pcl::io::ply::uint8)>, 
-      boost::function<void (pcl::io::ply::int32)>, 
-      boost::function<void ()> > (0, 0, 0);
+    return boost::tuple<std::function<void (pcl::io::ply::uint8)>, 
+      std::function<void (pcl::io::ply::int32)>, 
+      std::function<void ()> > (0, 0, 0);
   }
 }
 
@@ -305,18 +305,18 @@ ply_to_raw_converter::convert (std::istream&, const std::string& istream_filenam
 {
   pcl::io::ply::ply_parser ply_parser;
 
-  ply_parser.info_callback (boost::bind (&ply_to_raw_converter::info_callback, this, boost::ref (istream_filename), _1, _2));
-  ply_parser.warning_callback (boost::bind (&ply_to_raw_converter::warning_callback, this, boost::ref (istream_filename), _1, _2));
-  ply_parser.error_callback (boost::bind (&ply_to_raw_converter::error_callback, this, boost::ref (istream_filename), _1, _2)); 
+  ply_parser.info_callback (std::bind (&ply_to_raw_converter::info_callback, this, std::ref (istream_filename), std::placeholders::_1, std::placeholders::_2));
+  ply_parser.warning_callback (std::bind (&ply_to_raw_converter::warning_callback, this, std::ref (istream_filename), std::placeholders::_1, std::placeholders::_2));
+  ply_parser.error_callback (std::bind (&ply_to_raw_converter::error_callback, this, std::ref (istream_filename), std::placeholders::_1, std::placeholders::_2)); 
 
-  ply_parser.element_definition_callback (boost::bind (&ply_to_raw_converter::element_definition_callback, this, _1, _2));
+  ply_parser.element_definition_callback (std::bind (&ply_to_raw_converter::element_definition_callback, this, std::placeholders::_1, std::placeholders::_2));
 
   pcl::io::ply::ply_parser::scalar_property_definition_callbacks_type scalar_property_definition_callbacks;
-  pcl::io::ply::ply_parser::at<pcl::io::ply::float32> (scalar_property_definition_callbacks) = boost::bind (&ply_to_raw_converter::scalar_property_definition_callback<pcl::io::ply::float32>, this, _1, _2);
+  pcl::io::ply::ply_parser::at<pcl::io::ply::float32> (scalar_property_definition_callbacks) = std::bind (&ply_to_raw_converter::scalar_property_definition_callback<pcl::io::ply::float32>, this, std::placeholders::_1, std::placeholders::_2);
   ply_parser.scalar_property_definition_callbacks (scalar_property_definition_callbacks);
 
   pcl::io::ply::ply_parser::list_property_definition_callbacks_type list_property_definition_callbacks;
-  pcl::io::ply::ply_parser::at<pcl::io::ply::uint8, pcl::io::ply::int32> (list_property_definition_callbacks) = boost::bind (&ply_to_raw_converter::list_property_definition_callback<pcl::io::ply::uint8, pcl::io::ply::int32>, this, _1, _2);
+  pcl::io::ply::ply_parser::at<pcl::io::ply::uint8, pcl::io::ply::int32> (list_property_definition_callbacks) = std::bind (&ply_to_raw_converter::list_property_definition_callback<pcl::io::ply::uint8, pcl::io::ply::int32>, this, std::placeholders::_1, std::placeholders::_2);
   ply_parser.list_property_definition_callbacks (list_property_definition_callbacks);
 
   ostream_ = &ostream;

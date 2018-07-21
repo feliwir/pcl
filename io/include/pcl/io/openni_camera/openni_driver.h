@@ -96,7 +96,7 @@ namespace openni_wrapper
      * @param[in] stream whether the device should be created as a streaming or trigger-based device.
      * @return the shared_ptr to the newly created virtual device.
      */
-    boost::shared_ptr<OpenNIDevice> createVirtualDevice (const std::string& path, bool repeat, bool stream) const;
+    std::shared_ptr<OpenNIDevice> createVirtualDevice (const std::string& path, bool repeat, bool stream) const;
 
     /**
      * @author Suat Gedikli
@@ -104,7 +104,7 @@ namespace openni_wrapper
      * @param[in] index index of the device to be retrieved.
      * @return shared_ptr to the device, null if no matching device found.
      */
-    boost::shared_ptr<OpenNIDevice> getDeviceByIndex (unsigned index) const;
+    std::shared_ptr<OpenNIDevice> getDeviceByIndex (unsigned index) const;
 
     /**
      * @author Suat Gedikli
@@ -112,7 +112,7 @@ namespace openni_wrapper
      * @param[in] serial_number the serial number of the device to be retrieved.
      * @return shared_ptr to the device, null if no matching device found.
      */
-    boost::shared_ptr<OpenNIDevice> getDeviceBySerialNumber (const std::string& serial_number) const;
+    std::shared_ptr<OpenNIDevice> getDeviceBySerialNumber (const std::string& serial_number) const;
     
 #ifndef _WIN32
     /**
@@ -122,7 +122,7 @@ namespace openni_wrapper
      * @param[in] address the USB address
      * @return shared_ptr to the device, null if no matching device found.
      */
-    boost::shared_ptr<OpenNIDevice> getDeviceByAddress (unsigned char bus, unsigned char address) const;
+    std::shared_ptr<OpenNIDevice> getDeviceByAddress (unsigned char bus, unsigned char address) const;
 #endif
 
     /**
@@ -212,14 +212,14 @@ namespace openni_wrapper
       DeviceContext (const xn::NodeInfo & device_node);
       DeviceContext (const DeviceContext&);
       xn::NodeInfo device_node;
-      boost::shared_ptr<xn::NodeInfo> image_node;
-      boost::shared_ptr<xn::NodeInfo> depth_node;
-      boost::shared_ptr<xn::NodeInfo> ir_node;
-      boost::weak_ptr<OpenNIDevice> device;
+      std::shared_ptr<xn::NodeInfo> image_node;
+      std::shared_ptr<xn::NodeInfo> depth_node;
+      std::shared_ptr<xn::NodeInfo> ir_node;
+      std::weak_ptr<OpenNIDevice> device;
     } ;
 
     OpenNIDriver ();
-    boost::shared_ptr<OpenNIDevice> getDevice (unsigned index) const;
+    std::shared_ptr<OpenNIDevice> getDevice (unsigned index) const;
 
 #ifndef _WIN32
     // workaround to get additional device nformation like serial number, vendor and product name, until Primesense fix this

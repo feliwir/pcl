@@ -79,8 +79,8 @@ namespace pcl
 
     public:
 
-      typedef boost::shared_ptr< RadiusOutlierRemoval<PointT> > Ptr;
-      typedef boost::shared_ptr< const RadiusOutlierRemoval<PointT> > ConstPtr;
+      typedef std::shared_ptr< RadiusOutlierRemoval<PointT> > Ptr;
+      typedef std::shared_ptr< const RadiusOutlierRemoval<PointT> > ConstPtr;
   
 
       /** \brief Constructor.

@@ -119,7 +119,7 @@ compute (const pcl::PCLPointCloud2::ConstPtr &input, std::vector<pcl::PCLPointCl
   {
     pcl::ExtractIndices<pcl::PCLPointCloud2> extract;
     extract.setInputCloud (input);
-    extract.setIndices (boost::make_shared<const pcl::PointIndices> (*it));
+    extract.setIndices (std::make_shared<const pcl::PointIndices> (*it));
     pcl::PCLPointCloud2::Ptr out (new pcl::PCLPointCloud2);
     extract.filter (*out);
     output.push_back (out);

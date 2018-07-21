@@ -36,8 +36,8 @@ namespace pcl
     class PCL_EXPORTS RangeLikelihood
     {
       public:
-        typedef boost::shared_ptr<RangeLikelihood> Ptr;
-        typedef boost::shared_ptr<const RangeLikelihood> ConstPtr;
+        typedef std::shared_ptr<RangeLikelihood> Ptr;
+        typedef std::shared_ptr<const RangeLikelihood> ConstPtr;
 
       public:
         /**

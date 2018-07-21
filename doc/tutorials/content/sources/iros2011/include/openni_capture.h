@@ -28,7 +28,7 @@ protected:
   int frame_counter_;
   PointCloudPtr most_recent_frame_;
   bool use_trigger_, trigger_;
-  boost::mutex mutex_;
+  std::mutex mutex_;
 };
 
 #endif

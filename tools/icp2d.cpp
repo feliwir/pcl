@@ -97,11 +97,11 @@ main (int argc, char **argv)
 
     pcl::IterativeClosestPointNonLinear<PointType, PointType> icp;
 
-    boost::shared_ptr<pcl::registration::WarpPointRigid3D<PointType, PointType> > warp_fcn 
+    std::shared_ptr<pcl::registration::WarpPointRigid3D<PointType, PointType> > warp_fcn 
       (new pcl::registration::WarpPointRigid3D<PointType, PointType>);
 
     // Create a TransformationEstimationLM object, and set the warp to it
-    boost::shared_ptr<pcl::registration::TransformationEstimationLM<PointType, PointType> > te (new pcl::registration::TransformationEstimationLM<PointType, PointType>);
+    std::shared_ptr<pcl::registration::TransformationEstimationLM<PointType, PointType> > te (new pcl::registration::TransformationEstimationLM<PointType, PointType>);
     te->setWarpFunction (warp_fcn);
 
     // Pass the TransformationEstimation objec to the ICP algorithm

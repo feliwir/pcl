@@ -46,7 +46,7 @@
 
 //////////////////////////////////////////////////////////////////////////////////////////////
 template <typename PointInT, typename PointNT, typename PointOutT> Eigen::MatrixXf
-pcl::computeRSD (boost::shared_ptr<const pcl::PointCloud<PointInT> > &surface, boost::shared_ptr<const pcl::PointCloud<PointNT> > &normals,
+pcl::computeRSD (std::shared_ptr<const pcl::PointCloud<PointInT> > &surface, std::shared_ptr<const pcl::PointCloud<PointNT> > &normals,
 		 const std::vector<int> &indices, double max_dist,
 		 int nr_subdiv, double plane_radius, PointOutT &radii, bool compute_histogram)
 {
@@ -147,7 +147,7 @@ pcl::computeRSD (boost::shared_ptr<const pcl::PointCloud<PointInT> > &surface, b
 
 //////////////////////////////////////////////////////////////////////////////////////////////
 template <typename PointNT, typename PointOutT> Eigen::MatrixXf
-pcl::computeRSD (boost::shared_ptr<const pcl::PointCloud<PointNT> > &normals,
+pcl::computeRSD (std::shared_ptr<const pcl::PointCloud<PointNT> > &normals,
 		 const std::vector<int> &indices, const std::vector<float> &sqr_dists, double max_dist,
 		 int nr_subdiv, double plane_radius, PointOutT &radii, bool compute_histogram)
 {

@@ -280,7 +280,7 @@ namespace pcl
         flushWritebuff (const bool force_cache_dealloc);
     
         /** \brief Name of the storage file on disk (i.e., the PCD file) */
-        boost::shared_ptr<std::string> disk_storage_filename_;
+        std::shared_ptr<std::string> disk_storage_filename_;
 
         //--- possibly deprecated parameter variables --//
 
@@ -294,7 +294,7 @@ namespace pcl
 
         static const uint64_t WRITE_BUFF_MAX_;
 
-        static boost::mutex rng_mutex_;
+        static std::mutex rng_mutex_;
         static boost::mt19937 rand_gen_;
         static boost::uuids::basic_random_generator<boost::mt19937> uuid_gen_;
 

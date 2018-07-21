@@ -55,15 +55,15 @@ class PeopleTrackingApp
     {
       pcl::Grabber* interface = new pcl::OpenNIGrabber();
 
-      boost::function<void (const pcl::PointCloud<pcl::PointXYZRGB>::ConstPtr&)> f =
-        boost::bind (&PeopleTrackingApp::cloud_cb_, this, _1);
+      std::function<void (const pcl::PointCloud<pcl::PointXYZRGB>::ConstPtr&)> f =
+        std::bind (&PeopleTrackingApp::cloud_cb_, this, std::placeholders::_1);
 
       interface->registerCallback (f);
       interface->start ();
 
       while (!viewer.wasStopped())
       {
-        boost::this_thread::sleep (boost::posix_time::seconds (1));
+        std::this_thread::sleep_for (std::chrono::seconds (1));
       }
       interface->stop ();
     }

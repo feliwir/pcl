@@ -60,8 +60,8 @@ namespace pcl
     {
       public:
         /** \cond */
-        typedef boost::shared_ptr<TransformationEstimation3Point<PointSource, PointTarget, Scalar> > Ptr;
-        typedef boost::shared_ptr<const TransformationEstimation3Point<PointSource, PointTarget, Scalar> > ConstPtr;        
+        typedef std::shared_ptr<TransformationEstimation3Point<PointSource, PointTarget, Scalar> > Ptr;
+        typedef std::shared_ptr<const TransformationEstimation3Point<PointSource, PointTarget, Scalar> > ConstPtr;        
         typedef typename TransformationEstimation<PointSource, PointTarget, Scalar>::Matrix4 Matrix4;
         /** \endcond */
 

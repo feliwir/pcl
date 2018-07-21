@@ -76,8 +76,8 @@ class SimpleOpenNIViewer
     }
 
     void
-    image_callback (const boost::shared_ptr<openni_wrapper::Image> &image,
-                    const boost::shared_ptr<openni_wrapper::DepthImage> &depth_image, float)
+    image_callback (const std::shared_ptr<openni_wrapper::Image> &image,
+                    const std::shared_ptr<openni_wrapper::DepthImage> &depth_image, float)
     {
 
       vector<uint16_t> raw_shift_data;
@@ -132,16 +132,16 @@ class SimpleOpenNIViewer
       grabber_->getDevice ()->setDepthOutputFormat (static_cast<openni_wrapper::OpenNIDevice::DepthMode> (depthformat));
 
       // define image callback
-      boost::function<void
-      (const boost::shared_ptr<openni_wrapper::Image>&, const boost::shared_ptr<openni_wrapper::DepthImage>&, float)> image_cb =
-          boost::bind (&SimpleOpenNIViewer::image_callback, this, _1, _2, _3);
+      std::function<void
+      (const std::shared_ptr<openni_wrapper::Image>&, const std::shared_ptr<openni_wrapper::DepthImage>&, float)> image_cb =
+          std::bind (&SimpleOpenNIViewer::image_callback, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3);
       boost::signals2::connection image_connection = grabber_->registerCallback (image_cb);
 
       // start grabber thread
       grabber_->start ();
       while (true)
       {
-        boost::this_thread::sleep (boost::posix_time::seconds (1));
+        std::this_thread::sleep_for (std::chrono::seconds (1));
       }
       grabber_->stop ();
 

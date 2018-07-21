@@ -43,7 +43,7 @@
 
 #include <pcl/common/time.h>
 #include <pcl/common/io.h>
-#include <boost/thread.hpp>
+#include <thread>
 #include <pcl/PolygonMesh.h>
 #include <pcl/io/grabber.h>
 
@@ -67,8 +67,8 @@ namespace pcl
   {
     public:
       /** @cond */
-      typedef boost::shared_ptr<DavidSDKGrabber> Ptr;
-      typedef boost::shared_ptr<const DavidSDKGrabber> ConstPtr;
+      typedef std::shared_ptr<DavidSDKGrabber> Ptr;
+      typedef std::shared_ptr<const DavidSDKGrabber> ConstPtr;
 
       // Define callback signature typedefs
       typedef void
@@ -78,15 +78,15 @@ namespace pcl
       (sig_cb_davidsdk_mesh) (const pcl::PolygonMesh::Ptr &);
 
       typedef void
-      (sig_cb_davidsdk_image) (const boost::shared_ptr<pcl::PCLImage> &);
+      (sig_cb_davidsdk_image) (const std::shared_ptr<pcl::PCLImage> &);
 
       typedef void
       (sig_cb_davidsdk_point_cloud_image) (const pcl::PointCloud<pcl::PointXYZ>::Ptr &,
-                                           const boost::shared_ptr<pcl::PCLImage> &);
+                                           const std::shared_ptr<pcl::PCLImage> &);
 
       typedef void
       (sig_cb_davidsdk_mesh_image) (const pcl::PolygonMesh::Ptr &,
-                                    const boost::shared_ptr<pcl::PCLImage> &);
+                                    const std::shared_ptr<pcl::PCLImage> &);
       /** @endcond */
 
       /** @brief Constructor */
@@ -219,7 +219,7 @@ namespace pcl
 
     protected:
       /** @brief Grabber thread */
-      boost::thread grabber_thread_;
+      std::thread grabber_thread_;
 
       /** @brief Boost point cloud signal */
       boost::signals2::signal<sig_cb_davidsdk_point_cloud>* point_cloud_signal_;
@@ -258,7 +258,7 @@ namespace pcl
       pcl::EventFrequency frequency_;
 
       /** @brief Mutual exclusion for FPS computation */
-      mutable boost::mutex fps_mutex_;
+      mutable std::mutex fps_mutex_;
 
       /** @brief Continuously asks for images and or point clouds/meshes data from the device and publishes them if available. */
       void
